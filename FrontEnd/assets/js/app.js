@@ -35,7 +35,8 @@ const __CONF_ROUTES = {
     "CATEGORIES": `${__CONF_SERVLET_URL}/categories`
 };
 
-/* 🔨 [§ Collection from API Builder] */
+/* 🔨 [§ Collection from API] */
+/* [§ Builder] */
 async function collectionFromApiBuilder(req) {
     async function request() {
         try {
@@ -49,6 +50,11 @@ async function collectionFromApiBuilder(req) {
 
     const collection = await request();
     return collection;
+}
+
+/* [§ Errors States Manager] */
+function failedToGetFromApi(collection) {
+    return !collection;
 }
 
 /* 📐 [§ DOM getters] */
@@ -76,7 +82,7 @@ function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
 }
 
 function getWorksCollectionToDispose(worksCollection) {
-    if (!worksCollection) {
+    if (failedToGetFromApi(worksCollection)) {
         return worksCollection;
     }
 
@@ -150,7 +156,7 @@ function drawGalleryFigures(worksCollection) {
     const rootNode = galleryComponentRootNodeGetter();
     rootNode.innerHTML = '';
 
-    if (!worksCollection) {
+    if (failedToGetFromApi(worksCollection)) {
         drawErrorBox(rootNode, `${__CONF_ERRORS.GALLERY_FIGURES_UNAVAILABLE}: ${__CONF_ERRORS.FAILED_TO_CONNECT_TO_THE_API}`);
         rootNode.classList.add(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
         return false;
@@ -189,7 +195,7 @@ function drawGalleryFilters(filtersCollection) {
     const rootNode = filtersComponentRootNodeGetter();
     rootNode.innerHTML = '';
 
-    if (!filtersCollection) {
+    if (failedToGetFromApi(filtersCollection)) {
         drawErrorBox(rootNode, `${__CONF_ERRORS.FILTERS_BUTTON_UNAVAILABLE}: ${__CONF_ERRORS.FAILED_TO_CONNECT_TO_THE_API}`);
         rootNode.classList.add(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
         return false;
