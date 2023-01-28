@@ -13,12 +13,6 @@ const __CONF_ERRORS = {
     "FAILED_TO_CONNECT_TO_THE_API": 'failed to connect to the API!'
 };
 
-const __CONF_SELECTORS = {
-    "GALLERY_COMPONENT": '#gallery-component',
-    "FILTERS_COMPONENT": '#filter-by-category-component',
-    "FILTERS_BUTTON_COMPONENT": '.filter-by-category-component>.btn'
-};
-
 const __CONF_DYN_CLASSES = {
     "FILTERS_BUTTON_COMPONENT_IS_ACTIVE": 'is-active',
     "FILTERS_BUTTON_COMPONENT_BY_DEFAULT": 'by-default',
@@ -27,6 +21,12 @@ const __CONF_DYN_CLASSES = {
     "BOX": 'is-box',
     "ERROR_BOX": 'error-box',
     "FILTERS_BUTTON_CATEGORY_PREFIX": 'category-'
+};
+
+const __CONF_SELECTORS = {
+    "GALLERY_COMPONENT": '#gallery-component',
+    "FILTERS_COMPONENT": '#filter-by-category-component',
+    "FILTERS_BUTTON_COMPONENT": '.filter-by-category-component>.btn'
 };
 
 const __CONF_SERVLET_URL = 'http://localhost:5678/api';
@@ -52,17 +52,12 @@ async function collectionFromApiBuilder(req) {
     return collection;
 }
 
-/* [§ Errors States Manager] */
-function failedToGetFromApi(collection) {
-    return !collection;
-}
-
 /* 📐 [§ DOM getters] */
 function getGalleryFiltersButtons() {
     return document.querySelectorAll(__CONF_SELECTORS.FILTERS_BUTTON_COMPONENT);
 }
 
-function getActiveBtn() {
+function activeBtnGetter() {
     const activeBtnSelector = `.filter-by-category-component>.btn.${__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE}`;
 
     return document.querySelector(activeBtnSelector);
@@ -74,6 +69,18 @@ function galleryComponentRootNodeGetter() {
 
 function filtersComponentRootNodeGetter() {
     return document.querySelector(__CONF_SELECTORS.FILTERS_COMPONENT);
+}
+
+/* 📐 [§ Errors States Manager] */
+function failedToLoadElement(itemSelector) {
+    const failedToLoadItemSelector = `${itemSelector}.${__CONF_DYN_CLASSES.FAILED_TO_FETCH}`;
+    const failedToLoadElements = document.querySelector(failedToLoadItemSelector);
+
+    return failedToLoadElements !== null;
+}
+
+function failedToGetFromApi(collection) {
+    return !collection;
 }
 
 /* 📐 [§ DOM mutations functions] */
@@ -94,7 +101,7 @@ function getWorksCollectionToDispose(worksCollection) {
         return id;
     }
 
-    const activeBtn = getActiveBtn();
+    const activeBtn = activeBtnGetter();
     const mutateCollection = activeBtn ? !activeBtn.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_BY_DEFAULT) : false;
 
     if (mutateCollection) {
@@ -216,7 +223,11 @@ function drawGalleryFilters(filtersCollection) {
 /* 🔄 [§ Update] */
 /* [§ Update => Active Filter Button] */
 function updateActiveFilterBtn(element) {
-    if (element.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE)) return false;
+    if (element.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE)) {
+        if (!failedToLoadElement(__CONF_SELECTORS.GALLERY_COMPONENT)) {
+            return false;
+        }
+    }
     const activeClass = __CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE;
     const buttons = getGalleryFiltersButtons();
 
