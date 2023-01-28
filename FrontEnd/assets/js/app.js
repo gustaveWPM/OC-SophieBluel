@@ -222,11 +222,19 @@ function drawGalleryFilters(filtersCollection) {
 
 /* 🔄 [§ Update] */
 /* [§ Update => Active Filter Button] */
+
 function updateActiveFilterBtn(element) {
-    if (element.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE)) {
-        if (!failedToLoadElement(__CONF_SELECTORS.GALLERY_COMPONENT)) {
-            return false;
+    function skipUpdateActiveFilterBtn(element) {
+        if (element.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE)) {
+            if (!failedToLoadElement(__CONF_SELECTORS.GALLERY_COMPONENT)) {
+                return true;
+            }
         }
+        return false;
+    }
+
+    if (skipUpdateActiveFilterBtn(element)) {
+        return false;
     }
     const activeClass = __CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE;
     const buttons = getGalleryFiltersButtons();
