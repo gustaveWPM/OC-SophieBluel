@@ -290,6 +290,14 @@ footer nav ul {
 }
 
 /** Filters **/
+:root {
+	--portfolio-chart-buttons-bg-color: white;
+	--portfolio-chart-buttons-bg-color-hover: rgb(231, 231, 231);
+	--portfolio-chart-buttons-bg-is-active-color-hover: #184e44;
+	--portfolio-chart-buttons-font-color: #1D6154;
+	--portfolio-chart-error-box-bg-color: #611d1d;
+}
+
 .filter-by-category-component {
 	display: flex;
 	justify-content: center;
@@ -298,16 +306,12 @@ footer nav ul {
 }
 
 .btn {
-	--bg-color: white;
-	--bg-color-hover: rgb(231, 231, 231);
-	--bg-is-active-color-hover: #184e44;
-	--font-color: #1D6154;
-	border: 1px solid var(--font-color);
+	border: 1px solid var(--portfolio-chart-buttons-font-color);
 	font-family: 'Syne';
 	font-size: 1.15em;
 	font-weight: 700;
-	color: var(--font-color);
-	background-color: var(--bg-color);
+	color: var(--portfolio-chart-buttons-font-color);
+	background-color: var(--portfolio-chart-buttons-bg-color);
 	text-align: center;
 	border-radius: 60px;
 	padding: 8px 1%;
@@ -316,15 +320,40 @@ footer nav ul {
 
 .btn:hover {
 	cursor: pointer;
-	background-color: var(--bg-color-hover);
+	background-color: var(--portfolio-chart-buttons-bg-color-hover);
 }
 
 .btn.is-active:hover {
 	cursor: pointer;
-	background-color: var(--bg-is-active-color-hover);
+	background-color: var(--portfolio-chart-buttons-bg-is-active-color-hover);
 }
 
 .btn.is-active {
-	color: var(--bg-color);
-	background-color: var(--font-color);
+	color: var(--portfolio-chart-buttons-bg-color);
+	background-color: var(--portfolio-chart-buttons-font-color);
+}
+
+/** Boxes **/
+
+.prevent-select {
+	user-select: none;
+}
+
+.is-box {
+	background-color: var(--portfolio-chart-buttons-font-color);
+	color: var(--portfolio-chart-buttons-bg-color);
+	font-weight: 500;
+	padding: 15px;
+	border-radius: 15px;
+	max-width: 45vw;
+}
+
+.is-box.error-box {
+	background-color: var(--portfolio-chart-error-box-bg-color);
+	color: var(--portfolio-chart-buttons-bg-color);
+}
+
+.gallery.failed-to-fetch {
+	display: flex;
+	justify-content: center;
 }

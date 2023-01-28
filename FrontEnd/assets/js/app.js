@@ -7,6 +7,12 @@
 */
 
 /* ⚙️ [§ Configuration] */
+const __CONF_ERRORS = {
+    "FILTERS_BUTTON_UNAVAILABLE": 'Filters buttons unavailable',
+    "GALLERY_FIGURES_UNAVAILABLE": 'Gallery figures unavailable',
+    "FAILED_TO_CONNECT_TO_THE_API": 'failed to connect to the API!'
+};
+
 const __CONF_SELECTORS = {
     "GALLERY_COMPONENT": '#gallery-component',
     "FILTERS_COMPONENT": '#filter-by-category-component',
@@ -16,6 +22,10 @@ const __CONF_SELECTORS = {
 const __CONF_DYN_CLASSES = {
     "FILTERS_BUTTON_COMPONENT_IS_ACTIVE": 'is-active',
     "FILTERS_BUTTON_COMPONENT_BY_DEFAULT": 'by-default',
+    "FAILED_TO_FETCH": 'failed-to-fetch',
+    "PREVENT_SELECT": 'prevent-select',
+    "BOX": 'is-box',
+    "ERROR_BOX": 'error-box',
     "FILTERS_BUTTON_CATEGORY_PREFIX": 'category-'
 };
 
@@ -28,10 +38,13 @@ const __CONF_ROUTES = {
 /* 🔨 [§ Collection from API Builder] */
 async function collectionFromApiBuilder(req) {
     async function request() {
-        const response = await fetch(req);
-        const collection = await response.json();
-
-        return collection;
+        try {
+            const response = await fetch(req);
+            const collection = await response.json();
+            return collection;
+        } catch {
+            return false;
+        }
     }
 
     const collection = await request();
@@ -82,6 +95,24 @@ function getWorksCollectionToDispose(worksCollection) {
 }
 
 /* 🎨 [§ Drawers] */
+/* [§ Drawers => Error box] */
+function drawErrorBox(node, errorMessage) {
+    function generateErrorBox(msg) {
+        const errorBox = document.createElement('div');
+        const errorBoxTxt = document.createTextNode(msg);
+
+        errorBox.classList.add(__CONF_DYN_CLASSES.PREVENT_SELECT);
+        errorBox.classList.add(__CONF_DYN_CLASSES.BOX);
+        errorBox.classList.add(__CONF_DYN_CLASSES.ERROR_BOX);
+        errorBox.appendChild(errorBoxTxt);
+
+        return errorBox;
+    }
+
+    const errorBox = generateErrorBox(errorMessage);
+    node.appendChild(errorBox);
+}
+
 /* [§ Drawers => Gallery] */
 function doDrawGalleryFigures(node, element) {
     function generateImg(alt, url) {
@@ -115,9 +146,16 @@ function drawGalleryFigures(worksCollection) {
     const rootNode = galleryComponentRootNodeGetter();
     rootNode.innerHTML = '';
 
+    if (!worksCollection) {
+        drawErrorBox(rootNode, `${__CONF_ERRORS.GALLERY_FIGURES_UNAVAILABLE}: ${__CONF_ERRORS.FAILED_TO_CONNECT_TO_THE_API}`);
+        rootNode.classList.add(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
+        return false;
+    }
+    rootNode.classList.remove(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
     worksCollection.forEach(element => {
         doDrawGalleryFigures(rootNode, element);
     });
+    return true;
 }
 
 /* [§ Drawers => Gallery Filters] */
@@ -125,8 +163,10 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
     function generateButton(element, opts) {
         const button = document.createElement('button');
         const buttonTxt = document.createTextNode(element.name);
+        const elementIsFromApi = element.id >= 0;
+
         button.classList.add('btn');
-        if (element.id >= 0) {
+        if (elementIsFromApi) {
             button.classList.add(`${__CONF_DYN_CLASSES.FILTERS_BUTTON_CATEGORY_PREFIX}${element.id}`);
         }
         if (opts && opts.classList) {
@@ -145,6 +185,12 @@ function drawGalleryFilters(filtersCollection) {
     const rootNode = filtersComponentRootNodeGetter();
     rootNode.innerHTML = '';
 
+    if (!filtersCollection) {
+        drawErrorBox(rootNode, `${__CONF_ERRORS.FILTERS_BUTTON_UNAVAILABLE}: ${__CONF_ERRORS.FAILED_TO_CONNECT_TO_THE_API}`);
+        rootNode.classList.add(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
+        return false;
+    }
+    rootNode.classList.remove(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
     doDrawGalleryFilters(rootNode, {
         "id": -1,
         "name": 'Tous'
@@ -154,6 +200,7 @@ function drawGalleryFilters(filtersCollection) {
     filtersCollection.forEach(element => {
         doDrawGalleryFilters(rootNode, element);
     });
+    return true;
 }
 
 /* 🔄 [§ Update] */
