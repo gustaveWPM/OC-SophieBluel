@@ -89,8 +89,8 @@ function updateGallery(worksCollection) {
     function extractCategoryId(string) {
         const prefix = __CONF_DYN_CLASSES.FILTERS_BUTTON_CATEGORY_PREFIX;
         const startIndex = string.indexOf(prefix) + prefix.length;
-        const substring = string.substring(startIndex, string.length);
-        const id = substring.substring(0, substring.indexOf(' '));
+        const substringFromStartIndex = string.substring(startIndex, string.length);
+        const id = substringFromStartIndex.substring(0, substringFromStartIndex.indexOf(' '));
         return id;
     }
 
@@ -121,6 +121,7 @@ function getGalleryFiltersButtons() {
 }
 
 function updateActiveFilterBtn(element) {
+    if (element.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE)) return false;
     const activeClass = __CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE;
     const buttons = getGalleryFiltersButtons();
 
@@ -128,6 +129,7 @@ function updateActiveFilterBtn(element) {
         element.classList.remove(activeClass)
     })
     element.classList.add(activeClass);
+    return true;
 }
 
 function doDrawGalleryFilters(node, element, opts = undefined) {
@@ -178,8 +180,9 @@ function generateEvents() {
 
     buttons.forEach(function (element) {
         element.addEventListener("click", () => {
-            updateActiveFilterBtn(element);
-            triggerGalleryFiguresDynamicRenderer();
+            if (updateActiveFilterBtn(element)) {
+                triggerGalleryFiguresDynamicRenderer();
+            }
         });
     })
 }
