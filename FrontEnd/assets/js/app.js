@@ -157,6 +157,7 @@ function drawGalleryFilters(filtersCollection) {
 }
 
 /* 🔄 [§ Update] */
+/* [§ Update => Active Filter Button] */
 function updateActiveFilterBtn(element) {
     if (element.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE)) return false;
     const activeClass = __CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE;
@@ -169,7 +170,8 @@ function updateActiveFilterBtn(element) {
     return true;
 }
 
-function updateGallery(worksCollection) {
+/* [§ Update => Gallery Figures] */
+function updateGalleryFigures(worksCollection) {
     const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection);
 
     drawGalleryFigures(worksCollectionToDispose);
@@ -179,7 +181,7 @@ function updateGallery(worksCollection) {
 /* [§ Render Triggers => Gallery Figures] */
 async function triggerGalleryFiguresDynamicRenderer() {
     const worksCollection = await collectionFromApiBuilder(__CONF_ROUTES.WORKS);
-    updateGallery(worksCollection);
+    updateGalleryFigures(worksCollection);
 }
 
 /* [§ Render Triggers => Gallery Filters] */
