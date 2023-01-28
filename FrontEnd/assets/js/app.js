@@ -86,13 +86,21 @@ function getGalleryWorksCollectionSorted(worksCollection, id) {
 
 // § C. iii. Gallery Update
 function updateGallery(worksCollection) {
+    function extractCategoryId(string) {
+        const prefix = __CONF_DYN_CLASSES.FILTERS_BUTTON_CATEGORY_PREFIX;
+        const startIndex = string.indexOf(prefix) + prefix.length;
+        const substring = string.substring(startIndex, string.length);
+        const id = substring.substring(0, substring.indexOf(' '));
+        return id;
+    }
+
     const activeBtnSelector = `.filter-by-category-component>.btn.${__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE}`;
     const activeBtn = document.querySelector(activeBtnSelector);
     const mutateCollection = activeBtn ? !activeBtn.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_BY_DEFAULT) : false;
     let worksCollectionToDispose = worksCollection;
 
     if (mutateCollection) {
-        const id = activeBtn.classList.value.match(/\d+/)[0];
+        const id = extractCategoryId(activeBtn.classList.value);
         worksCollectionToDispose = getGalleryWorksCollectionSorted(worksCollection, id);
     }
 
