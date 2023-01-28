@@ -76,6 +76,10 @@ function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
 }
 
 function getWorksCollectionToDispose(worksCollection) {
+    if (!worksCollection) {
+        return worksCollection;
+    }
+
     function extractCategoryId(string) {
         const prefix = __CONF_DYN_CLASSES.FILTERS_BUTTON_CATEGORY_PREFIX;
         const startIndex = string.indexOf(prefix) + prefix.length;
