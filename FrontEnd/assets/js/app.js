@@ -332,7 +332,7 @@ async function updateGalleryFigures(worksCollection = null, naive = true) {
     const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection);
 
     drawGalleryFigures(worksCollectionToDispose);
-    return true;
+    return worksCollectionToDispose;
 }
 
 /* 📐 [§ Events Generator] */
