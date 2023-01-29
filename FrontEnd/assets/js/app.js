@@ -64,6 +64,29 @@ __GLOBALS["VOCAB"] = {
     [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Still failed to load the gallery. Please, try again.'
 }
 
+Object.freeze(__GLOBALS);
+
+/* [§ Getters] */
+function getSelector(key) {
+    return __GLOBALS.SELECTORS[key];
+}
+
+function getRoute(key) {
+    return __GLOBALS.API.ROUTES[key];
+}
+
+function getDynamicClass(key) {
+    return __GLOBALS.DYN_CLASSES[key];
+}
+
+function getDynamicId(key) {
+    return __GLOBALS.DYN_IDS[key];
+}
+
+function getVocab(key) {
+    return __GLOBALS.VOCAB[key];
+}
+
 /*** 🔨 [§ Collection from API] */
 /* [§ Builder] */
 async function collectionFromApiBuilder(req) {
@@ -84,8 +107,8 @@ async function collectionFromApiBuilder(req) {
 /* [§ Fetch Data] */
 async function fetchGalleryData(flag = 'all') {
     let worksCollection, categoriesCollection;
-    const worksRoute = __GLOBALS.API.ROUTES.WORKS;
-    const categoriesRoute = __GLOBALS.API.ROUTES.CATEGORIES;
+    const worksRoute = getRoute("WORKS");
+    const categoriesRoute = getRoute("CATEGORIES");
 
     switch (flag) {
         case 'all':
@@ -113,26 +136,26 @@ function domGetterManyElements(selector) {
 }
 
 function galleryFiltersButtonsGetter() {
-    return domGetterManyElements(__GLOBALS.SELECTORS.FILTERS_BUTTONS_COMPONENT);
+    return domGetterManyElements(getSelector("FILTERS_BUTTONS_COMPONENT"));
 }
 
 function activeBtnGetter() {
-    const activeBtnSelector = `${__GLOBALS.SELECTORS.FILTERS_BUTTONS_COMPONENT}.${__GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_COMPONENT_IS_ACTIVE}`;
+    const activeBtnSelector = `${getSelector("FILTERS_BUTTONS_COMPONENT")}.${getDynamicClass("FILTERS_BUTTONS_COMPONENT_IS_ACTIVE")}`;
 
     return domGetterSingleElement(activeBtnSelector);
 }
 
 function galleryComponentRootNodeGetter() {
-    return domGetterSingleElement(__GLOBALS.SELECTORS.GALLERY_COMPONENT);
+    return domGetterSingleElement(getSelector("GALLERY_COMPONENT"));
 }
 
 function filtersComponentRootNodeGetter() {
-    return domGetterSingleElement(__GLOBALS.SELECTORS.FILTERS_COMPONENT);
+    return domGetterSingleElement(getSelector("FILTERS_COMPONENT"));
 }
 
 /*** 📐 [§ Errors States Manager] */
 function failedToLoadElement(itemSelector) {
-    const failedToLoadItemSelector = `${itemSelector}.${__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH}`;
+    const failedToLoadItemSelector = `${itemSelector}.${getDynamicClass("FAILED_TO_FETCH")}`;
     const failedToLoadElements = document.querySelector(failedToLoadItemSelector);
 
     return failedToLoadElements !== null;
@@ -153,7 +176,7 @@ function getWorksCollectionToDispose(worksCollection) {
     }
 
     function extractCategoryId(string) {
-        const prefix = __GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_CATEGORY_PREFIX;
+        const prefix = getDynamicClass("FILTERS_BUTTONS_CATEGORY_PREFIX");
         const startIndex = string.indexOf(prefix) + prefix.length;
         const substringFromStartIndex = string.substring(startIndex, string.length);
         const id = substringFromStartIndex.substring(0, substringFromStartIndex.indexOf(' '));
@@ -161,7 +184,7 @@ function getWorksCollectionToDispose(worksCollection) {
     }
 
     const activeBtn = activeBtnGetter();
-    const mutateCollection = activeBtn ? !activeBtn.classList.contains(__GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_COMPONENT_BY_DEFAULT) : false;
+    const mutateCollection = activeBtn ? !activeBtn.classList.contains(getDynamicClass("FILTERS_BUTTONS_COMPONENT_BY_DEFAULT")) : false;
 
     if (mutateCollection) {
         const id = extractCategoryId(activeBtn.classList.value);
@@ -174,17 +197,17 @@ function getWorksCollectionToDispose(worksCollection) {
 /* [§ Drawers -> Error box] */
 function drawToast(id, flag) {
     function generateErrorToast(id) {
-        if (domGetterSingleElement(__GLOBALS.SELECTORS[id]) !== null) {
+        if (domGetterSingleElement(getSelector(id)) !== null) {
             return null;
         }
         const toast = document.createElement('div');
-        const msg = __GLOBALS.VOCAB[id] ?? __GLOBALS.VOCAB.UNKNOWN_ERROR;
+        const msg = getVocab(id) ?? getVocab("UNKNOWN_ERROR");
         const toastTxt = document.createTextNode(msg);
 
         toast.id = id;
-        toast.classList.add(__GLOBALS.DYN_CLASSES.PREVENT_SELECT);
-        toast.classList.add(__GLOBALS.DYN_CLASSES.TOAST);
-        toast.classList.add(__GLOBALS.DYN_CLASSES.ERROR_BOX);
+        toast.classList.add(getDynamicClass("PREVENT_SELECT"));
+        toast.classList.add(getDynamicClass("TOAST"));
+        toast.classList.add(getDynamicClass("ERROR_BOX"));
         toast.appendChild(toastTxt);
 
         return toast;
@@ -199,10 +222,10 @@ function drawToast(id, flag) {
     }
 
     function createToastThread(toast) {
-        const rootNode = domGetterSingleElement(__GLOBALS.SELECTORS[__GLOBALS.DYN_CLASSES.TOASTS_COMPONENT]);
+        const rootNode = domGetterSingleElement(getSelector(getDynamicClass("TOASTS_COMPONENT")));
         rootNode.appendChild(toast);
-        setTimeout(() => toast.classList.add(__GLOBALS.DYN_CLASSES.SHOW_TOAST), 250);
-        setTimeout(() => toast.classList.remove(__GLOBALS.DYN_CLASSES.SHOW_TOAST), 4500);
+        setTimeout(() => toast.classList.add(getDynamicClass("SHOW_TOAST")), 250);
+        setTimeout(() => toast.classList.remove(getDynamicClass("SHOW_TOAST")), 4500);
         setTimeout(() => toast.remove(), 6500);
     }
 
@@ -217,9 +240,9 @@ function drawErrorBox(node, errorMessage) {
         const errorBox = document.createElement('div');
         const errorBoxTxt = document.createTextNode(msg);
 
-        errorBox.classList.add(__GLOBALS.DYN_CLASSES.PREVENT_SELECT);
-        errorBox.classList.add(__GLOBALS.DYN_CLASSES.BOX);
-        errorBox.classList.add(__GLOBALS.DYN_CLASSES.ERROR_BOX);
+        errorBox.classList.add(getDynamicClass("PREVENT_SELECT"));
+        errorBox.classList.add(getDynamicClass("BOX"));
+        errorBox.classList.add(getDynamicClass("ERROR_BOX"));
         errorBox.appendChild(errorBoxTxt);
 
         return errorBox;
@@ -263,11 +286,11 @@ function drawGalleryFigures(worksCollection) {
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(worksCollection)) {
-        drawErrorBox(rootNode, `${__GLOBALS.VOCAB.GALLERY_FIGURES_UNAVAILABLE}: ${__GLOBALS.VOCAB.FAILED_TO_CONNECT_TO_THE_API}`);
-        rootNode.classList.add(__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH);
+        drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")}: ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
+        rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
     }
-    rootNode.classList.remove(__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH);
+    rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
     worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element));
     return true;
 }
@@ -281,7 +304,7 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
 
         button.classList.add('btn');
         if (elementIsFromApi) {
-            button.classList.add(`${__GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_CATEGORY_PREFIX}${element.id}`);
+            button.classList.add(`${getDynamicClass("FILTERS_BUTTONS_CATEGORY_PREFIX")}${element.id}`);
         }
         if (opts && opts.classList) {
             button.classList.add(...opts.classList);
@@ -300,11 +323,11 @@ function drawGalleryFilters(filtersCollection) {
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(filtersCollection)) {
-        drawErrorBox(rootNode, `${__GLOBALS.VOCAB.FILTERS_BUTTONS_UNAVAILABLE}: ${__GLOBALS.VOCAB.FAILED_TO_CONNECT_TO_THE_API}`);
-        rootNode.classList.add(__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH);
+        drawErrorBox(rootNode, `${getVocab("FILTERS_BUTTONS_UNAVAILABLE")}: ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
+        rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
     }
-    rootNode.classList.remove(__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH);
+    rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
     doDrawGalleryFilters(rootNode, {
         "id": -1,
         "name": 'Tous'
@@ -318,7 +341,7 @@ function drawGalleryFilters(filtersCollection) {
 /*** 🔄 [§ Update] */
 /* [§ Update -> Active Filter Button] */
 function updateActiveFilterBtn(element) {
-    const activeClass = __GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_COMPONENT_IS_ACTIVE;
+    const activeClass = getDynamicClass("FILTERS_BUTTONS_COMPONENT_IS_ACTIVE");
     const skipUpdate = element.classList.contains(activeClass);
 
     if (skipUpdate) {
@@ -337,10 +360,10 @@ async function updateGalleryFigures(worksCollection = null, naive = true) {
         worksCollection = await fetchGalleryData('figures');
     }
     if (failedToGetFromApi(worksCollection) && !naive) {
-        if (failedToLoadElement(__GLOBALS.SELECTORS.GALLERY_COMPONENT)) {
-            drawToast(__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST, 'error');
+        if (failedToLoadElement(getSelector("GALLERY_COMPONENT"))) {
+            drawToast(getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), 'error');
         } else {
-            drawToast(__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST, 'error');
+            drawToast(getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST"), 'error');
         }
         return false;
     }
@@ -368,9 +391,9 @@ async function generateEvents() {
 
 /*** 💥 [§ Crash] */
 function makeCrash(rootNode) {
-    const errorBoxes = domGetterManyElements(__GLOBALS.SELECTORS.ERROR_BOXES);
+    const errorBoxes = domGetterManyElements(getSelector("ERROR_BOXES"));
     errorBoxes.forEach(element => element.remove());
-    drawErrorBox(rootNode, __GLOBALS.VOCAB.CRASH);
+    drawErrorBox(rootNode, getVocab("CRASH"));
 }
 
 /*** 🚀 [§ Entry point] */
@@ -378,7 +401,7 @@ async function run() {
     const [worksCollection, filtersCollection] = await fetchGalleryData();
     await updateGalleryFigures(worksCollection);
     drawGalleryFilters(filtersCollection);
-    if (failedToLoadElement(__GLOBALS.SELECTORS.FILTERS_COMPONENT)) {
+    if (failedToLoadElement(getSelector("FILTERS_COMPONENT"))) {
         const crashErrorBoxRootNode = filtersComponentRootNodeGetter();
         makeCrash(crashErrorBoxRootNode);
     } else {
