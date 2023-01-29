@@ -27,6 +27,7 @@ const __CONF_VOCAB = {
     "GALLERY_FIGURES_UNAVAILABLE": 'Gallery figures unavailable',
     "FAILED_TO_CONNECT_TO_THE_API": 'failed to connect to the API!',
     "UNKNOWN_ERROR": 'Unknown error',
+    "CRASH": '⚠️ Application has crashed. Please, refresh this page.',
     [__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Failed to connect to the API: the gallery has been left untouched.',
     [__CONF_DYN_CLASSES_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Still failed to load the gallery. Please, try again.'
 };
@@ -150,7 +151,7 @@ function getWorksCollectionToDispose(worksCollection) {
 }
 
 /* 🎨 [§ Drawers] */
-/* [§ Drawers => Error box] */
+/* [§ Drawers -> Error box] */
 function drawToast(id, flag) {
     function generateErrorToast(id) {
         if (domGetterSingleElement(__CONF_SELECTORS[id]) !== null) {
@@ -180,9 +181,9 @@ function drawToast(id, flag) {
     function createToastThread(toast) {
         const rootNode = domGetterSingleElement(__CONF_SELECTORS[__CONF_DYN_CLASSES_IDS.TOASTS_COMPONENT]);
         rootNode.appendChild(toast);
-        setTimeout(() => {toast.classList.add(__CONF_DYN_CLASSES_IDS.SHOW_TOAST);}, 250);
-        setTimeout(() => {toast.classList.remove(__CONF_DYN_CLASSES_IDS.SHOW_TOAST);}, 4500);
-        setTimeout(() => {toast.remove();}, 6500);
+        setTimeout(() => toast.classList.add(__CONF_DYN_CLASSES_IDS.SHOW_TOAST), 250);
+        setTimeout(() => toast.classList.remove(__CONF_DYN_CLASSES_IDS.SHOW_TOAST), 4500);
+        setTimeout(() => toast.remove(), 6500);
     }
 
     const toast = matchFlag(flag, id);
@@ -208,7 +209,7 @@ function drawErrorBox(node, errorMessage) {
     node.appendChild(errorBox);
 }
 
-/* [§ Drawers => Gallery] */
+/* [§ Drawers -> Gallery] */
 function doDrawGalleryFigures(node, element) {
     function generateImg(alt, url) {
         const img = document.createElement('img');
@@ -247,13 +248,11 @@ function drawGalleryFigures(worksCollection) {
         return false;
     }
     rootNode.classList.remove(__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH);
-    worksCollection.forEach(element => {
-        doDrawGalleryFigures(rootNode, element);
-    });
+    worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element));
     return true;
 }
 
-/* [§ Drawers => Gallery Filters] */
+/* [§ Drawers -> Gallery Filters] */
 function doDrawGalleryFilters(node, element, opts = undefined) {
     function generateButton(element, opts) {
         const button = document.createElement('button');
@@ -292,14 +291,12 @@ function drawGalleryFilters(filtersCollection) {
     }, {
         classList: ['by-default', 'is-active']
     });
-    filtersCollection.forEach(element => {
-        doDrawGalleryFilters(rootNode, element);
-    });
+    filtersCollection.forEach(element => doDrawGalleryFilters(rootNode, element));
     return true;
 }
 
 /* 🔄 [§ Update] */
-/* [§ Update => Active Filter Button] */
+/* [§ Update -> Active Filter Button] */
 function updateActiveFilterBtn(element) {
     const skipUpdate = element.classList.contains(__CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_IS_ACTIVE);
 
@@ -310,14 +307,12 @@ function updateActiveFilterBtn(element) {
     const activeClass = __CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_IS_ACTIVE;
     const buttons = galleryFiltersButtonsGetter();
 
-    buttons.forEach(element => {
-        element.classList.remove(activeClass)
-    })
+    buttons.forEach(element => element.classList.remove(activeClass));
     element.classList.add(activeClass);
     return true;
 }
 
-/* [§ Update => Gallery Figures] */
+/* [§ Update -> Gallery Figures] */
 async function updateGalleryFigures(worksCollection = null, naive = true) {
     if (worksCollection === null) {
         worksCollection = await fetchGalleryData('figures');
@@ -352,11 +347,22 @@ async function generateEvents() {
     generateFiltersButtonsEvents();
 }
 
+/* 💥 [§ Crash] */
+function makeCrash(rootNode) {
+    const errorBoxes = domGetterManyElements(`.${__CONF_DYN_CLASSES_IDS.ERROR_BOX}`);
+    errorBoxes.forEach(element => element.remove());
+    drawErrorBox(rootNode, __CONF_VOCAB.CRASH);
+}
+
 /* 🚀 [§ Entry point] */
 async function run() {
     const [worksCollection, filtersCollection] = await fetchGalleryData();
     await updateGalleryFigures(worksCollection);
     drawGalleryFilters(filtersCollection);
+    if (failedToLoadElement(__CONF_SELECTORS.FILTERS_COMPONENT)) {
+        const crashErrorBoxRootNode = filtersComponentRootNodeGetter();
+        makeCrash(crashErrorBoxRootNode);
+    }
     generateEvents();
 }
 
