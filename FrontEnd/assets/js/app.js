@@ -7,26 +7,36 @@
 */
 
 /* ⚙️ [§ Configuration] */
-const __CONF_ERRORS = {
-    "FILTERS_BUTTON_UNAVAILABLE": 'Filters buttons unavailable',
-    "GALLERY_FIGURES_UNAVAILABLE": 'Gallery figures unavailable',
-    "FAILED_TO_CONNECT_TO_THE_API": 'failed to connect to the API!'
-};
-
-const __CONF_DYN_CLASSES = {
+const __CONF_DYN_CLASSES_IDS = {
     "FILTERS_BUTTON_COMPONENT_IS_ACTIVE": 'is-active',
     "FILTERS_BUTTON_COMPONENT_BY_DEFAULT": 'by-default',
     "FAILED_TO_FETCH": 'failed-to-fetch',
     "PREVENT_SELECT": 'prevent-select',
+    "TOAST": 'is-toast',
+    "SHOW_TOAST": 'show',
     "BOX": 'is-box',
     "ERROR_BOX": 'error-box',
-    "FILTERS_BUTTON_CATEGORY_PREFIX": 'category-'
+    "FILTERS_BUTTON_CATEGORY_PREFIX": 'category-',
+    "DIDNT_UPDATE_GALLERY_FIGURES_TOAST": 'didnt-update-gallery-figures-toast',
+    "STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'still-failed-to-load-gallery-figures-toast',
+    "TOASTS_COMPONENT": "toasts-component"
+};
+
+const __CONF_VOCAB = {
+    "FILTERS_BUTTON_UNAVAILABLE": 'Filters buttons unavailable',
+    "GALLERY_FIGURES_UNAVAILABLE": 'Gallery figures unavailable',
+    "FAILED_TO_CONNECT_TO_THE_API": 'failed to connect to the API!',
+    "UNKNOWN_ERROR": 'Unknown error',
+    [__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Failed to connect to the API: the gallery has been left untouched.',
+    [__CONF_DYN_CLASSES_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Still failed to load the gallery. Please, try again.'
 };
 
 const __CONF_SELECTORS = {
     "GALLERY_COMPONENT": '#gallery-component',
     "FILTERS_COMPONENT": '#filter-by-category-component',
-    "FILTERS_BUTTON_COMPONENT": '.filter-by-category-component>.btn'
+    "FILTERS_BUTTON_COMPONENT": '.filter-by-category-component>.btn',
+    [__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: `#${__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST}`,
+    [__CONF_DYN_CLASSES_IDS.TOASTS_COMPONENT]: `#${__CONF_DYN_CLASSES_IDS.TOASTS_COMPONENT}`
 };
 
 const __CONF_SERVLET_URL = 'http://localhost:5678/api';
@@ -52,28 +62,55 @@ async function collectionFromApiBuilder(req) {
     return collection;
 }
 
+/* [§ Fetch Data] */
+async function fetchGalleryData(flag = 'all') {
+    let worksCollection, categoriesCollection;
+    switch (flag) {
+        case 'all':
+            worksCollection = await collectionFromApiBuilder(__CONF_ROUTES.WORKS);
+            categoriesCollection = await collectionFromApiBuilder(__CONF_ROUTES.CATEGORIES);
+            return [worksCollection, categoriesCollection];
+        case 'figures':
+            worksCollection = await collectionFromApiBuilder(__CONF_ROUTES.WORKS);
+            return worksCollection;
+        case 'buttons':
+            categoriesCollection = await collectionFromApiBuilder(__CONF_ROUTES.CATEGORIES);
+            return categoriesCollection;
+        default:
+            return null;
+    }
+}
+
 /* 📐 [§ DOM getters] */
+function domGetterSingleElement(selector) {
+    return document.querySelector(selector);
+}
+
+function domGetterManyElements(selector) {
+    return document.querySelectorAll(selector);
+}
+
 function galleryFiltersButtonsGetter() {
-    return document.querySelectorAll(__CONF_SELECTORS.FILTERS_BUTTON_COMPONENT);
+    return domGetterManyElements(__CONF_SELECTORS.FILTERS_BUTTON_COMPONENT);
 }
 
 function activeBtnGetter() {
-    const activeBtnSelector = `.filter-by-category-component>.btn.${__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE}`;
+    const activeBtnSelector = `${__CONF_SELECTORS.FILTERS_BUTTON_COMPONENT}.${__CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_IS_ACTIVE}`;
 
-    return document.querySelector(activeBtnSelector);
+    return domGetterSingleElement(activeBtnSelector);
 }
 
 function galleryComponentRootNodeGetter() {
-    return document.querySelector(__CONF_SELECTORS.GALLERY_COMPONENT);
+    return domGetterSingleElement(__CONF_SELECTORS.GALLERY_COMPONENT);
 }
 
 function filtersComponentRootNodeGetter() {
-    return document.querySelector(__CONF_SELECTORS.FILTERS_COMPONENT);
+    return domGetterSingleElement(__CONF_SELECTORS.FILTERS_COMPONENT);
 }
 
 /* 📐 [§ Errors States Manager] */
 function failedToLoadElement(itemSelector) {
-    const failedToLoadItemSelector = `${itemSelector}.${__CONF_DYN_CLASSES.FAILED_TO_FETCH}`;
+    const failedToLoadItemSelector = `${itemSelector}.${__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH}`;
     const failedToLoadElements = document.querySelector(failedToLoadItemSelector);
 
     return failedToLoadElements !== null;
@@ -94,7 +131,7 @@ function getWorksCollectionToDispose(worksCollection) {
     }
 
     function extractCategoryId(string) {
-        const prefix = __CONF_DYN_CLASSES.FILTERS_BUTTON_CATEGORY_PREFIX;
+        const prefix = __CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_CATEGORY_PREFIX;
         const startIndex = string.indexOf(prefix) + prefix.length;
         const substringFromStartIndex = string.substring(startIndex, string.length);
         const id = substringFromStartIndex.substring(0, substringFromStartIndex.indexOf(' '));
@@ -102,7 +139,7 @@ function getWorksCollectionToDispose(worksCollection) {
     }
 
     const activeBtn = activeBtnGetter();
-    const mutateCollection = activeBtn ? !activeBtn.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_BY_DEFAULT) : false;
+    const mutateCollection = activeBtn ? !activeBtn.classList.contains(__CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_BY_DEFAULT) : false;
 
     if (mutateCollection) {
         const id = extractCategoryId(activeBtn.classList.value);
@@ -113,14 +150,54 @@ function getWorksCollectionToDispose(worksCollection) {
 
 /* 🎨 [§ Drawers] */
 /* [§ Drawers => Error box] */
+function drawToast(id, flag) {
+    function generateErrorToast(id) {
+        if (domGetterSingleElement(__CONF_SELECTORS[id]) !== null) {
+            return null;
+        }
+        const toast = document.createElement('div');
+        const msg = __CONF_VOCAB[id] ?? __CONF_VOCAB.UNKNOWN_ERROR;
+        const toastTxt = document.createTextNode(msg);
+
+        toast.id = id;
+        toast.classList.add(__CONF_DYN_CLASSES_IDS.PREVENT_SELECT);
+        toast.classList.add(__CONF_DYN_CLASSES_IDS.TOAST);
+        toast.classList.add(__CONF_DYN_CLASSES_IDS.ERROR_BOX);
+        toast.appendChild(toastTxt);
+
+        return toast;
+    }
+
+    function matchFlag(flag) {
+        switch (flag) {
+            case 'error':
+                return generateErrorToast(id);
+        }
+        return null;
+    }
+
+    function createToastThread(toast) {
+        const rootNode = domGetterSingleElement(__CONF_SELECTORS[__CONF_DYN_CLASSES_IDS.TOASTS_COMPONENT]);
+        rootNode.appendChild(toast);
+        setTimeout(() => {toast.classList.add(__CONF_DYN_CLASSES_IDS.SHOW_TOAST);}, 250);
+        setTimeout(() => {toast.classList.remove(__CONF_DYN_CLASSES_IDS.SHOW_TOAST);}, 4500);
+        setTimeout(() => {toast.remove();}, 6500);
+    }
+
+    const toast = matchFlag(flag);
+    if (toast !== null) {
+        createToastThread(toast);
+    }
+}
+
 function drawErrorBox(node, errorMessage) {
     function generateErrorBox(msg) {
         const errorBox = document.createElement('div');
         const errorBoxTxt = document.createTextNode(msg);
 
-        errorBox.classList.add(__CONF_DYN_CLASSES.PREVENT_SELECT);
-        errorBox.classList.add(__CONF_DYN_CLASSES.BOX);
-        errorBox.classList.add(__CONF_DYN_CLASSES.ERROR_BOX);
+        errorBox.classList.add(__CONF_DYN_CLASSES_IDS.PREVENT_SELECT);
+        errorBox.classList.add(__CONF_DYN_CLASSES_IDS.BOX);
+        errorBox.classList.add(__CONF_DYN_CLASSES_IDS.ERROR_BOX);
         errorBox.appendChild(errorBoxTxt);
 
         return errorBox;
@@ -164,11 +241,11 @@ function drawGalleryFigures(worksCollection) {
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(worksCollection)) {
-        drawErrorBox(rootNode, `${__CONF_ERRORS.GALLERY_FIGURES_UNAVAILABLE}: ${__CONF_ERRORS.FAILED_TO_CONNECT_TO_THE_API}`);
-        rootNode.classList.add(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
+        drawErrorBox(rootNode, `${__CONF_VOCAB.GALLERY_FIGURES_UNAVAILABLE}: ${__CONF_VOCAB.FAILED_TO_CONNECT_TO_THE_API}`);
+        rootNode.classList.add(__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH);
         return false;
     }
-    rootNode.classList.remove(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
+    rootNode.classList.remove(__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH);
     worksCollection.forEach(element => {
         doDrawGalleryFigures(rootNode, element);
     });
@@ -184,7 +261,7 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
 
         button.classList.add('btn');
         if (elementIsFromApi) {
-            button.classList.add(`${__CONF_DYN_CLASSES.FILTERS_BUTTON_CATEGORY_PREFIX}${element.id}`);
+            button.classList.add(`${__CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_CATEGORY_PREFIX}${element.id}`);
         }
         if (opts && opts.classList) {
             button.classList.add(...opts.classList);
@@ -203,11 +280,11 @@ function drawGalleryFilters(filtersCollection) {
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(filtersCollection)) {
-        drawErrorBox(rootNode, `${__CONF_ERRORS.FILTERS_BUTTON_UNAVAILABLE}: ${__CONF_ERRORS.FAILED_TO_CONNECT_TO_THE_API}`);
-        rootNode.classList.add(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
+        drawErrorBox(rootNode, `${__CONF_VOCAB.FILTERS_BUTTON_UNAVAILABLE}: ${__CONF_VOCAB.FAILED_TO_CONNECT_TO_THE_API}`);
+        rootNode.classList.add(__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH);
         return false;
     }
-    rootNode.classList.remove(__CONF_DYN_CLASSES.FAILED_TO_FETCH);
+    rootNode.classList.remove(__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH);
     doDrawGalleryFilters(rootNode, {
         "id": -1,
         "name": 'Tous'
@@ -222,46 +299,51 @@ function drawGalleryFilters(filtersCollection) {
 
 /* 🔄 [§ Update] */
 /* [§ Update => Active Filter Button] */
-
 function updateActiveFilterBtn(element) {
-    const activeClass = __CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE;
+    const skipUpdate = element.classList.contains(__CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_IS_ACTIVE);
+
+    if (skipUpdate) {
+        return false;
+    }
+
+    const activeClass = __CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_IS_ACTIVE;
     const buttons = galleryFiltersButtonsGetter();
 
     buttons.forEach(element => {
         element.classList.remove(activeClass)
     })
     element.classList.add(activeClass);
+    return true;
 }
 
 /* [§ Update => Gallery Figures] */
-function updateGalleryFigures(worksCollection) {
+async function updateGalleryFigures(worksCollection = null, naive = true) {
+    if (worksCollection === null) {
+        worksCollection = await fetchGalleryData('figures');
+    }
+    if (failedToGetFromApi(worksCollection) && !naive) {
+        if (failedToLoadElement(__CONF_SELECTORS.GALLERY_COMPONENT)) {
+            drawToast(__CONF_DYN_CLASSES_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST, 'error');
+        } else {
+            drawToast(__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST, 'error');
+        }
+        return false;
+    }
     const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection);
 
     drawGalleryFigures(worksCollectionToDispose);
-}
-
-/* 📐 [§ Render Triggers] */
-/* [§ Render Triggers => Gallery Figures] */
-async function triggerGalleryFiguresDynamicRenderer() {
-    const worksCollection = await collectionFromApiBuilder(__CONF_ROUTES.WORKS);
-    updateGalleryFigures(worksCollection);
-}
-
-/* [§ Render Triggers => Gallery Filters] */
-async function triggerGalleryFiltersDynamicRenderer() {
-    const categoriesCollection = await collectionFromApiBuilder(__CONF_ROUTES.CATEGORIES);
-    drawGalleryFilters(categoriesCollection);
+    return true;
 }
 
 /* 📐 [§ Events Generator] */
-function generateEvents() {
-    function generateFiltersButtonsEvents() {
+async function generateEvents() {
+    async function generateFiltersButtonsEvents() {
         const buttons = galleryFiltersButtonsGetter();
 
         buttons.forEach(function (element) {
             element.addEventListener("click", () => {
-                updateActiveFilterBtn(element);
-                triggerGalleryFiguresDynamicRenderer();
+                const activeFilterBtnHasBeenUpdated = updateActiveFilterBtn(element);
+                updateGalleryFigures(null, activeFilterBtnHasBeenUpdated);
             });
         });
     }
@@ -271,8 +353,9 @@ function generateEvents() {
 
 /* 🚀 [§ Entry point] */
 async function run() {
-    await triggerGalleryFiguresDynamicRenderer();
-    await triggerGalleryFiltersDynamicRenderer();
+    const [worksCollection, filtersCollection] = await fetchGalleryData();
+    await updateGalleryFigures(worksCollection);
+    drawGalleryFilters(filtersCollection);
     generateEvents();
 }
 

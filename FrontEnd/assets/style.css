@@ -357,3 +357,41 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 }
+
+/* Toasts */
+.toasts-component>.is-toast:nth-child(1) { --nth-child: 1; }
+.toasts-component>.is-toast:nth-child(2) { --nth-child: 2; }
+.toasts-component>.is-toast:nth-child(3) { --nth-child: 3; }
+.toasts-component>.is-toast:nth-child(4) { --nth-child: 4; }
+.toasts-component>.is-toast:nth-child(5) { --nth-child: 5; }
+
+.is-toast {
+	--_default-min-width: 250px;
+	--_margin-left: calc(var(--_default-min-width) / 2 * -1);
+	--_delta: 30px;
+	opacity: 0;
+	font-weight: 500;
+	min-width: var(--_default-min-width);
+	margin-left: var(--_margin-left);
+	background-color: #333;
+	color: #fff;
+	text-align: center;
+	border-radius: 2px;
+	padding: 16px;
+	position: fixed;
+	z-index: 1;
+	left: 50%;
+	bottom: 0;
+	transition: bottom 2s, opacity 2s;
+}
+
+.is-toast.show {
+	opacity: 1;
+	bottom: calc(var(--_delta) * var(--nth-child));
+	transition: bottom 2s, opacity 2s;
+}
+
+.is-toast.error-box {
+	background-color: var(--portfolio-chart-error-box-bg-color);
+	color: var(--portfolio-chart-buttons-bg-color);
+}
