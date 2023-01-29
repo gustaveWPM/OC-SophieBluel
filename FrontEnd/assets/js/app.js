@@ -126,7 +126,7 @@ async function collectionFromApiBuilder(req) {
 
 /* [§ Fetch Data] */
 async function fetchGalleryData(flag = 'all') {
-    let worksCollection, categoriesCollection;
+    let [worksCollection, categoriesCollection] = [false, false];
     const worksRoute = getRoute("WORKS");
     const categoriesRoute = getRoute("CATEGORIES");
 
