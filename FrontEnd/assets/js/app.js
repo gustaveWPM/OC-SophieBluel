@@ -246,7 +246,7 @@ function drawToast(id, flag) {
         rootNode.appendChild(toast);
         setTimeout(() => toast.classList.add(getDynamicClass("SHOW_TOAST")), 250);
         setTimeout(() => toast.classList.remove(getDynamicClass("SHOW_TOAST")), 4500);
-        setTimeout(() => toast.remove(), 6500);
+        setTimeout(() => toast.remove(), 8500);
     }
 
     const toast = matchFlag(flag, id);

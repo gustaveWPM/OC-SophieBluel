@@ -296,6 +296,8 @@ footer nav ul {
 	--portfolio-chart-buttons-bg-is-active-color-hover: #184e44;
 	--portfolio-chart-buttons-font-color: #1D6154;
 	--portfolio-chart-error-box-bg-color: #611d1d;
+	--portfolio-default-toast-bg-color: #333;
+	--portfolio-default-toast-font-color: white;
 }
 
 .filter-by-category-component {
@@ -369,12 +371,14 @@ footer nav ul {
 	--_default-min-width: 250px;
 	--_margin-left: calc(var(--_default-min-width) / 2 * -1);
 	--_delta: 50px;
+	--_fadein-duration: 1s;
+	--_fadeout-duration: 3s;
 	opacity: 0;
 	font-weight: 500;
 	min-width: var(--_default-min-width);
 	margin-left: var(--_margin-left);
-	background-color: #333;
-	color: #fff;
+	background-color: var(--portfolio-default-toast-bg-color);
+	color: var(--portfolio-default-toast-font-color);
 	text-align: center;
 	border-radius: 2px;
 	padding: 16px;
@@ -382,12 +386,13 @@ footer nav ul {
 	z-index: 1;
 	left: 50%;
 	bottom: 0;
-	transition: bottom 2s, opacity 2s;
+	transition: bottom 2s, opacity var(--_fadeout-duration);
 }
 
 .is-toast.show {
 	opacity: 1;
 	bottom: calc(var(--_delta) * var(--nth-child));
+	transition: bottom 2s, opacity var(--_fadein-duration);
 }
 
 .is-toast.error-box {
