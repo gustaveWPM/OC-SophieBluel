@@ -176,9 +176,9 @@ function filtersComponentRootNodeGetter() {
 /*** 📐 [§ Errors States Manager] */
 function failedToLoadElement(itemSelector) {
     const failedToLoadItemSelector = `${itemSelector}.${getDynamicClass("FAILED_TO_FETCH")}`;
-    const failedToLoadElements = document.querySelector(failedToLoadItemSelector);
+    const failedToLoadElement = document.querySelector(failedToLoadItemSelector);
 
-    return failedToLoadElements !== null;
+    return failedToLoadElement !== null;
 }
 
 function failedToGetFromApi(collection) {
