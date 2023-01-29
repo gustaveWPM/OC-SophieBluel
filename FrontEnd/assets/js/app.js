@@ -168,7 +168,7 @@ function drawToast(id, flag) {
         return toast;
     }
 
-    function matchFlag(flag) {
+    function matchFlag(flag, id) {
         switch (flag) {
             case 'error':
                 return generateErrorToast(id);
@@ -184,7 +184,7 @@ function drawToast(id, flag) {
         setTimeout(() => {toast.remove();}, 6500);
     }
 
-    const toast = matchFlag(flag);
+    const toast = matchFlag(flag, id);
     if (toast !== null) {
         createToastThread(toast);
     }
