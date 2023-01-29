@@ -53,7 +53,7 @@ async function collectionFromApiBuilder(req) {
 }
 
 /* 📐 [§ DOM getters] */
-function getGalleryFiltersButtons() {
+function galleryFiltersButtonsGetter() {
     return document.querySelectorAll(__CONF_SELECTORS.FILTERS_BUTTON_COMPONENT);
 }
 
@@ -224,26 +224,13 @@ function drawGalleryFilters(filtersCollection) {
 /* [§ Update => Active Filter Button] */
 
 function updateActiveFilterBtn(element) {
-    function skipUpdateActiveFilterBtn(element) {
-        if (element.classList.contains(__CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE)) {
-            if (!failedToLoadElement(__CONF_SELECTORS.GALLERY_COMPONENT)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    if (skipUpdateActiveFilterBtn(element)) {
-        return false;
-    }
     const activeClass = __CONF_DYN_CLASSES.FILTERS_BUTTON_COMPONENT_IS_ACTIVE;
-    const buttons = getGalleryFiltersButtons();
+    const buttons = galleryFiltersButtonsGetter();
 
     buttons.forEach(element => {
         element.classList.remove(activeClass)
     })
     element.classList.add(activeClass);
-    return true;
 }
 
 /* [§ Update => Gallery Figures] */
@@ -269,13 +256,12 @@ async function triggerGalleryFiltersDynamicRenderer() {
 /* 📐 [§ Events Generator] */
 function generateEvents() {
     function generateFiltersButtonsEvents() {
-        const buttons = getGalleryFiltersButtons();
+        const buttons = galleryFiltersButtonsGetter();
 
         buttons.forEach(function (element) {
             element.addEventListener("click", () => {
-                if (updateActiveFilterBtn(element)) {
-                    triggerGalleryFiguresDynamicRenderer();
-                }
+                updateActiveFilterBtn(element);
+                triggerGalleryFiguresDynamicRenderer();
             });
         });
     }
