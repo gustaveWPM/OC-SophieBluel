@@ -363,12 +363,12 @@ footer nav ul {
 .toasts-component>.is-toast:nth-child(2) { --nth-child: 2; }
 .toasts-component>.is-toast:nth-child(3) { --nth-child: 3; }
 .toasts-component>.is-toast:nth-child(4) { --nth-child: 4; }
-.toasts-component>.is-toast:nth-child(5) { --nth-child: 5; }
+.toasts-component>.is-toast:nth-child(n + 5) { --nth-child: 5; }
 
 .is-toast {
 	--_default-min-width: 250px;
 	--_margin-left: calc(var(--_default-min-width) / 2 * -1);
-	--_delta: 30px;
+	--_delta: 50px;
 	opacity: 0;
 	font-weight: 500;
 	min-width: var(--_default-min-width);
@@ -388,7 +388,6 @@ footer nav ul {
 .is-toast.show {
 	opacity: 1;
 	bottom: calc(var(--_delta) * var(--nth-child));
-	transition: bottom 2s, opacity 2s;
 }
 
 .is-toast.error-box {
