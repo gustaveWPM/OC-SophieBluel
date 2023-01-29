@@ -6,49 +6,65 @@
 #=================================================
 */
 
-/* ⚙️ [§ Configuration] */
-const __CONF_DYN_CLASSES_IDS = {
-    "FILTERS_BUTTON_COMPONENT_IS_ACTIVE": 'is-active',
-    "FILTERS_BUTTON_COMPONENT_BY_DEFAULT": 'by-default',
-    "FAILED_TO_FETCH": 'failed-to-fetch',
-    "PREVENT_SELECT": 'prevent-select',
-    "TOAST": 'is-toast',
-    "SHOW_TOAST": 'show',
-    "BOX": 'is-box',
-    "ERROR_BOX": 'error-box',
-    "FILTERS_BUTTON_CATEGORY_PREFIX": 'category-',
-    "DIDNT_UPDATE_GALLERY_FIGURES_TOAST": 'didnt-update-gallery-figures-toast',
-    "STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'still-failed-to-load-gallery-figures-toast',
-    "TOASTS_COMPONENT": "toasts-component"
-};
+/*** 🌕 [§ Globals] */
+/* [§ Dynamic classes, id, and API Servlet URL] */
+let __GLOBALS = {
+    "DYN_CLASSES": {
+        "FILTERS_BUTTONS_COMPONENT_IS_ACTIVE": 'is-active',
+        "FILTERS_BUTTONS_COMPONENT_BY_DEFAULT": 'by-default',
+        "FAILED_TO_FETCH": 'failed-to-fetch',
+        "PREVENT_SELECT": 'prevent-select',
+        "TOAST": 'is-toast',
+        "SHOW_TOAST": 'show',
+        "BOX": 'is-box',
+        "ERROR_BOX": 'error-box',
+        "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-',
+        "TOASTS_COMPONENT": "toasts-component"
+    },
 
-const __CONF_VOCAB = {
-    "FILTERS_BUTTON_UNAVAILABLE": 'Filters buttons unavailable',
+    "DYN_IDS": {
+        "DIDNT_UPDATE_GALLERY_FIGURES_TOAST": 'didnt-update-gallery-figures-toast',
+        "STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'still-failed-to-load-gallery-figures-toast'
+    },
+
+    "API": {
+        SERVLET_URL: 'http://localhost:5678/api'
+    }
+}
+
+/* [§ API Routes] */
+Object.assign(__GLOBALS["API"],
+    {
+        "ROUTES": {
+            "WORKS": `${__GLOBALS.API.SERVLET_URL}/works`,
+            "CATEGORIES": `${__GLOBALS.API.SERVLET_URL}/categories`
+        }
+    }
+);
+
+/* [§ Selectors] */
+__GLOBALS["SELECTORS"] = {
+    "GALLERY_COMPONENT": '#gallery-component',
+    "FILTERS_COMPONENT": '#filter-by-category-component',
+    "FILTERS_BUTTONS_COMPONENT": '.filter-by-category-component>.btn',
+    "ERROR_BOXES": `.${__GLOBALS.DYN_CLASSES.ERROR_BOX}`,
+    [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: `#${__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST}`,
+    [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: `#${__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST}`,
+    [__GLOBALS.DYN_CLASSES.TOASTS_COMPONENT]: `#${__GLOBALS.DYN_CLASSES.TOASTS_COMPONENT}`
+}
+
+/* [§ Vocab] */
+__GLOBALS["VOCAB"] = {
+    "FILTERS_BUTTONS_UNAVAILABLE": 'Filters buttons unavailable',
     "GALLERY_FIGURES_UNAVAILABLE": 'Gallery figures unavailable',
     "FAILED_TO_CONNECT_TO_THE_API": 'failed to connect to the API!',
     "UNKNOWN_ERROR": 'Unknown error',
     "CRASH": '⚠️ Application has crashed. Please, refresh this page.',
-    [__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Failed to connect to the API: the gallery has been left untouched.',
-    [__CONF_DYN_CLASSES_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Still failed to load the gallery. Please, try again.'
-};
+    [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Failed to connect to the API: the gallery has been left untouched.',
+    [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Still failed to load the gallery. Please, try again.'
+}
 
-const __CONF_SELECTORS = {
-    "GALLERY_COMPONENT": '#gallery-component',
-    "FILTERS_COMPONENT": '#filter-by-category-component',
-    "FILTERS_BUTTON_COMPONENT": '.filter-by-category-component>.btn',
-    "ERROR_BOXES": `.${__CONF_DYN_CLASSES_IDS.ERROR_BOX}`,
-    [__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: `#${__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST}`,
-    [__CONF_DYN_CLASSES_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: `#${__CONF_DYN_CLASSES_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST}`,
-    [__CONF_DYN_CLASSES_IDS.TOASTS_COMPONENT]: `#${__CONF_DYN_CLASSES_IDS.TOASTS_COMPONENT}`
-};
-
-const __CONF_SERVLET_URL = 'http://localhost:5678/api';
-const __CONF_ROUTES = {
-    "WORKS": `${__CONF_SERVLET_URL}/works`,
-    "CATEGORIES": `${__CONF_SERVLET_URL}/categories`
-};
-
-/* 🔨 [§ Collection from API] */
+/*** 🔨 [§ Collection from API] */
 /* [§ Builder] */
 async function collectionFromApiBuilder(req) {
     async function request() {
@@ -68,23 +84,26 @@ async function collectionFromApiBuilder(req) {
 /* [§ Fetch Data] */
 async function fetchGalleryData(flag = 'all') {
     let worksCollection, categoriesCollection;
+    const worksRoute = __GLOBALS.API.ROUTES.WORKS;
+    const categoriesRoute = __GLOBALS.API.ROUTES.CATEGORIES;
+
     switch (flag) {
         case 'all':
-            worksCollection = await collectionFromApiBuilder(__CONF_ROUTES.WORKS);
-            categoriesCollection = await collectionFromApiBuilder(__CONF_ROUTES.CATEGORIES);
+            worksCollection = await collectionFromApiBuilder(worksRoute);
+            categoriesCollection = await collectionFromApiBuilder(categoriesRoute);
             return [worksCollection, categoriesCollection];
         case 'figures':
-            worksCollection = await collectionFromApiBuilder(__CONF_ROUTES.WORKS);
+            worksCollection = await collectionFromApiBuilder(worksRoute);
             return worksCollection;
         case 'buttons':
-            categoriesCollection = await collectionFromApiBuilder(__CONF_ROUTES.CATEGORIES);
+            categoriesCollection = await collectionFromApiBuilder(categoriesRoute);
             return categoriesCollection;
         default:
             return null;
     }
 }
 
-/* 📐 [§ DOM getters] */
+/*** 📐 [§ DOM getters] */
 function domGetterSingleElement(selector) {
     return document.querySelector(selector);
 }
@@ -94,26 +113,26 @@ function domGetterManyElements(selector) {
 }
 
 function galleryFiltersButtonsGetter() {
-    return domGetterManyElements(__CONF_SELECTORS.FILTERS_BUTTON_COMPONENT);
+    return domGetterManyElements(__GLOBALS.SELECTORS.FILTERS_BUTTONS_COMPONENT);
 }
 
 function activeBtnGetter() {
-    const activeBtnSelector = `${__CONF_SELECTORS.FILTERS_BUTTON_COMPONENT}.${__CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_IS_ACTIVE}`;
+    const activeBtnSelector = `${__GLOBALS.SELECTORS.FILTERS_BUTTONS_COMPONENT}.${__GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_COMPONENT_IS_ACTIVE}`;
 
     return domGetterSingleElement(activeBtnSelector);
 }
 
 function galleryComponentRootNodeGetter() {
-    return domGetterSingleElement(__CONF_SELECTORS.GALLERY_COMPONENT);
+    return domGetterSingleElement(__GLOBALS.SELECTORS.GALLERY_COMPONENT);
 }
 
 function filtersComponentRootNodeGetter() {
-    return domGetterSingleElement(__CONF_SELECTORS.FILTERS_COMPONENT);
+    return domGetterSingleElement(__GLOBALS.SELECTORS.FILTERS_COMPONENT);
 }
 
-/* 📐 [§ Errors States Manager] */
+/*** 📐 [§ Errors States Manager] */
 function failedToLoadElement(itemSelector) {
-    const failedToLoadItemSelector = `${itemSelector}.${__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH}`;
+    const failedToLoadItemSelector = `${itemSelector}.${__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH}`;
     const failedToLoadElements = document.querySelector(failedToLoadItemSelector);
 
     return failedToLoadElements !== null;
@@ -123,7 +142,7 @@ function failedToGetFromApi(collection) {
     return !collection;
 }
 
-/* 📐 [§ DOM mutations functions] */
+/*** 📐 [§ DOM mutations functions] */
 function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
     return new Set(worksCollection.filter(item => item.categoryId == id));
 }
@@ -134,7 +153,7 @@ function getWorksCollectionToDispose(worksCollection) {
     }
 
     function extractCategoryId(string) {
-        const prefix = __CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_CATEGORY_PREFIX;
+        const prefix = __GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_CATEGORY_PREFIX;
         const startIndex = string.indexOf(prefix) + prefix.length;
         const substringFromStartIndex = string.substring(startIndex, string.length);
         const id = substringFromStartIndex.substring(0, substringFromStartIndex.indexOf(' '));
@@ -142,7 +161,7 @@ function getWorksCollectionToDispose(worksCollection) {
     }
 
     const activeBtn = activeBtnGetter();
-    const mutateCollection = activeBtn ? !activeBtn.classList.contains(__CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_BY_DEFAULT) : false;
+    const mutateCollection = activeBtn ? !activeBtn.classList.contains(__GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_COMPONENT_BY_DEFAULT) : false;
 
     if (mutateCollection) {
         const id = extractCategoryId(activeBtn.classList.value);
@@ -151,21 +170,21 @@ function getWorksCollectionToDispose(worksCollection) {
     return worksCollection;
 }
 
-/* 🎨 [§ Drawers] */
+/*** 🎨 [§ Drawers] */
 /* [§ Drawers -> Error box] */
 function drawToast(id, flag) {
     function generateErrorToast(id) {
-        if (domGetterSingleElement(__CONF_SELECTORS[id]) !== null) {
+        if (domGetterSingleElement(__GLOBALS.SELECTORS[id]) !== null) {
             return null;
         }
         const toast = document.createElement('div');
-        const msg = __CONF_VOCAB[id] ?? __CONF_VOCAB.UNKNOWN_ERROR;
+        const msg = __GLOBALS.VOCAB[id] ?? __GLOBALS.VOCAB.UNKNOWN_ERROR;
         const toastTxt = document.createTextNode(msg);
 
         toast.id = id;
-        toast.classList.add(__CONF_DYN_CLASSES_IDS.PREVENT_SELECT);
-        toast.classList.add(__CONF_DYN_CLASSES_IDS.TOAST);
-        toast.classList.add(__CONF_DYN_CLASSES_IDS.ERROR_BOX);
+        toast.classList.add(__GLOBALS.DYN_CLASSES.PREVENT_SELECT);
+        toast.classList.add(__GLOBALS.DYN_CLASSES.TOAST);
+        toast.classList.add(__GLOBALS.DYN_CLASSES.ERROR_BOX);
         toast.appendChild(toastTxt);
 
         return toast;
@@ -180,10 +199,10 @@ function drawToast(id, flag) {
     }
 
     function createToastThread(toast) {
-        const rootNode = domGetterSingleElement(__CONF_SELECTORS[__CONF_DYN_CLASSES_IDS.TOASTS_COMPONENT]);
+        const rootNode = domGetterSingleElement(__GLOBALS.SELECTORS[__GLOBALS.DYN_CLASSES.TOASTS_COMPONENT]);
         rootNode.appendChild(toast);
-        setTimeout(() => toast.classList.add(__CONF_DYN_CLASSES_IDS.SHOW_TOAST), 250);
-        setTimeout(() => toast.classList.remove(__CONF_DYN_CLASSES_IDS.SHOW_TOAST), 4500);
+        setTimeout(() => toast.classList.add(__GLOBALS.DYN_CLASSES.SHOW_TOAST), 250);
+        setTimeout(() => toast.classList.remove(__GLOBALS.DYN_CLASSES.SHOW_TOAST), 4500);
         setTimeout(() => toast.remove(), 6500);
     }
 
@@ -198,9 +217,9 @@ function drawErrorBox(node, errorMessage) {
         const errorBox = document.createElement('div');
         const errorBoxTxt = document.createTextNode(msg);
 
-        errorBox.classList.add(__CONF_DYN_CLASSES_IDS.PREVENT_SELECT);
-        errorBox.classList.add(__CONF_DYN_CLASSES_IDS.BOX);
-        errorBox.classList.add(__CONF_DYN_CLASSES_IDS.ERROR_BOX);
+        errorBox.classList.add(__GLOBALS.DYN_CLASSES.PREVENT_SELECT);
+        errorBox.classList.add(__GLOBALS.DYN_CLASSES.BOX);
+        errorBox.classList.add(__GLOBALS.DYN_CLASSES.ERROR_BOX);
         errorBox.appendChild(errorBoxTxt);
 
         return errorBox;
@@ -244,11 +263,11 @@ function drawGalleryFigures(worksCollection) {
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(worksCollection)) {
-        drawErrorBox(rootNode, `${__CONF_VOCAB.GALLERY_FIGURES_UNAVAILABLE}: ${__CONF_VOCAB.FAILED_TO_CONNECT_TO_THE_API}`);
-        rootNode.classList.add(__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH);
+        drawErrorBox(rootNode, `${__GLOBALS.VOCAB.GALLERY_FIGURES_UNAVAILABLE}: ${__GLOBALS.VOCAB.FAILED_TO_CONNECT_TO_THE_API}`);
+        rootNode.classList.add(__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH);
         return false;
     }
-    rootNode.classList.remove(__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH);
+    rootNode.classList.remove(__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH);
     worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element));
     return true;
 }
@@ -262,7 +281,7 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
 
         button.classList.add('btn');
         if (elementIsFromApi) {
-            button.classList.add(`${__CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_CATEGORY_PREFIX}${element.id}`);
+            button.classList.add(`${__GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_CATEGORY_PREFIX}${element.id}`);
         }
         if (opts && opts.classList) {
             button.classList.add(...opts.classList);
@@ -281,11 +300,11 @@ function drawGalleryFilters(filtersCollection) {
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(filtersCollection)) {
-        drawErrorBox(rootNode, `${__CONF_VOCAB.FILTERS_BUTTON_UNAVAILABLE}: ${__CONF_VOCAB.FAILED_TO_CONNECT_TO_THE_API}`);
-        rootNode.classList.add(__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH);
+        drawErrorBox(rootNode, `${__GLOBALS.VOCAB.FILTERS_BUTTONS_UNAVAILABLE}: ${__GLOBALS.VOCAB.FAILED_TO_CONNECT_TO_THE_API}`);
+        rootNode.classList.add(__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH);
         return false;
     }
-    rootNode.classList.remove(__CONF_DYN_CLASSES_IDS.FAILED_TO_FETCH);
+    rootNode.classList.remove(__GLOBALS.DYN_CLASSES.FAILED_TO_FETCH);
     doDrawGalleryFilters(rootNode, {
         "id": -1,
         "name": 'Tous'
@@ -296,18 +315,17 @@ function drawGalleryFilters(filtersCollection) {
     return true;
 }
 
-/* 🔄 [§ Update] */
+/*** 🔄 [§ Update] */
 /* [§ Update -> Active Filter Button] */
 function updateActiveFilterBtn(element) {
-    const skipUpdate = element.classList.contains(__CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_IS_ACTIVE);
+    const activeClass = __GLOBALS.DYN_CLASSES.FILTERS_BUTTONS_COMPONENT_IS_ACTIVE;
+    const skipUpdate = element.classList.contains(activeClass);
 
     if (skipUpdate) {
         return false;
     }
 
-    const activeClass = __CONF_DYN_CLASSES_IDS.FILTERS_BUTTON_COMPONENT_IS_ACTIVE;
     const buttons = galleryFiltersButtonsGetter();
-
     buttons.forEach(element => element.classList.remove(activeClass));
     element.classList.add(activeClass);
     return true;
@@ -319,10 +337,10 @@ async function updateGalleryFigures(worksCollection = null, naive = true) {
         worksCollection = await fetchGalleryData('figures');
     }
     if (failedToGetFromApi(worksCollection) && !naive) {
-        if (failedToLoadElement(__CONF_SELECTORS.GALLERY_COMPONENT)) {
-            drawToast(__CONF_DYN_CLASSES_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST, 'error');
+        if (failedToLoadElement(__GLOBALS.SELECTORS.GALLERY_COMPONENT)) {
+            drawToast(__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST, 'error');
         } else {
-            drawToast(__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST, 'error');
+            drawToast(__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST, 'error');
         }
         return false;
     }
@@ -332,7 +350,7 @@ async function updateGalleryFigures(worksCollection = null, naive = true) {
     return worksCollectionToDispose;
 }
 
-/* 📐 [§ Events Generator] */
+/*** 📐 [§ Events Generator] */
 async function generateEvents() {
     async function generateFiltersButtonsEvents() {
         const buttons = galleryFiltersButtonsGetter();
@@ -348,19 +366,19 @@ async function generateEvents() {
     generateFiltersButtonsEvents();
 }
 
-/* 💥 [§ Crash] */
+/*** 💥 [§ Crash] */
 function makeCrash(rootNode) {
-    const errorBoxes = domGetterManyElements(__CONF_SELECTORS.ERROR_BOXES);
+    const errorBoxes = domGetterManyElements(__GLOBALS.SELECTORS.ERROR_BOXES);
     errorBoxes.forEach(element => element.remove());
-    drawErrorBox(rootNode, __CONF_VOCAB.CRASH);
+    drawErrorBox(rootNode, __GLOBALS.VOCAB.CRASH);
 }
 
-/* 🚀 [§ Entry point] */
+/*** 🚀 [§ Entry point] */
 async function run() {
     const [worksCollection, filtersCollection] = await fetchGalleryData();
     await updateGalleryFigures(worksCollection);
     drawGalleryFilters(filtersCollection);
-    if (failedToLoadElement(__CONF_SELECTORS.FILTERS_COMPONENT)) {
+    if (failedToLoadElement(__GLOBALS.SELECTORS.FILTERS_COMPONENT)) {
         const crashErrorBoxRootNode = filtersComponentRootNodeGetter();
         makeCrash(crashErrorBoxRootNode);
     } else {
