@@ -68,23 +68,43 @@ Object.freeze(__GLOBALS);
 
 /* [§ Getters] */
 function getSelector(key) {
-    return __GLOBALS.SELECTORS[key];
+    const value = __GLOBALS.SELECTORS[key];
+    if (value === undefined) {
+        console.error(`No configured selector found with this key: ${key}`)
+    }
+    return value;
 }
 
 function getRoute(key) {
-    return __GLOBALS.API.ROUTES[key];
+    const value = __GLOBALS.API.ROUTES[key];
+    if (value === undefined) {
+        console.error(`No configured route found with this key: ${key}`)
+    }
+    return value;
 }
 
 function getDynamicClass(key) {
-    return __GLOBALS.DYN_CLASSES[key];
+    const value = __GLOBALS.DYN_CLASSES[key];
+    if (value === undefined) {
+        console.error(`No configured dynamic class found with this key: ${key}`)
+    }
+    return value;
 }
 
 function getDynamicId(key) {
-    return __GLOBALS.DYN_IDS[key];
+    const value = __GLOBALS.DYN_IDS[key];
+    if (value === undefined) {
+        console.error(`No configured dynamic id found with this key: ${key}`)
+    }
+    return value;
 }
 
 function getVocab(key) {
-    return __GLOBALS.VOCAB[key];
+    const value = __GLOBALS.VOCAB[key];
+    if (value === undefined) {
+        console.error(`No configured vocab found with this key: ${key}`)
+    }
+    return value;
 }
 
 /*** 🔨 [§ Collection from API] */
