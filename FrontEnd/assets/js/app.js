@@ -36,6 +36,7 @@ const __CONF_SELECTORS = {
     "GALLERY_COMPONENT": '#gallery-component',
     "FILTERS_COMPONENT": '#filter-by-category-component',
     "FILTERS_BUTTON_COMPONENT": '.filter-by-category-component>.btn',
+    "ERROR_BOXES": `.${__CONF_DYN_CLASSES_IDS.ERROR_BOX}`,
     [__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: `#${__CONF_DYN_CLASSES_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST}`,
     [__CONF_DYN_CLASSES_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: `#${__CONF_DYN_CLASSES_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST}`,
     [__CONF_DYN_CLASSES_IDS.TOASTS_COMPONENT]: `#${__CONF_DYN_CLASSES_IDS.TOASTS_COMPONENT}`
@@ -349,7 +350,7 @@ async function generateEvents() {
 
 /* 💥 [§ Crash] */
 function makeCrash(rootNode) {
-    const errorBoxes = domGetterManyElements(`.${__CONF_DYN_CLASSES_IDS.ERROR_BOX}`);
+    const errorBoxes = domGetterManyElements(__CONF_SELECTORS.ERROR_BOXES);
     errorBoxes.forEach(element => element.remove());
     drawErrorBox(rootNode, __CONF_VOCAB.CRASH);
 }
@@ -362,8 +363,9 @@ async function run() {
     if (failedToLoadElement(__CONF_SELECTORS.FILTERS_COMPONENT)) {
         const crashErrorBoxRootNode = filtersComponentRootNodeGetter();
         makeCrash(crashErrorBoxRootNode);
+    } else {
+        generateEvents();
     }
-    generateEvents();
 }
 
 async function main() {
