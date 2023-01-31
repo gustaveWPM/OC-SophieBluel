@@ -150,6 +150,9 @@ async function fetchCategoriesCollection() {
     const categoriesRoute = getRoute("CATEGORIES");
     const categoriesCollection = await collectionFromApiBuilder(categoriesRoute);
 
+    if (failedToGetFromApi(categoriesCollection)) {
+        return false;
+    }
     return new Set(categoriesCollection);
 }
 
@@ -202,6 +205,9 @@ function failedToGetFromApi(collection) {
 
 /*** 📐 [§ DOM mutations functions] */
 function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
+    if (failedToGetFromApi(worksCollection)) {
+        return false;
+    }
     return new Set(worksCollection.filter(item => item.categoryId == id));
 }
 
