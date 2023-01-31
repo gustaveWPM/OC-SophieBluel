@@ -399,3 +399,20 @@ footer nav ul {
 	background-color: var(--portfolio-chart-error-box-bg-color);
 	color: var(--portfolio-chart-buttons-bg-color);
 }
+
+
+@keyframes galleryFadeIn {
+  0% { opacity: 0; }
+  25% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.gallery>.gallery-figure:nth-child(1) { --nth-child: 1; }
+.gallery>.gallery-figure:nth-child(2) { --nth-child: 2; }
+.gallery>.gallery-figure:nth-child(3) { --nth-child: 3; }
+.gallery>.gallery-figure:nth-child(4) { --nth-child: 4; }
+.gallery>.gallery-figure:nth-child(n + 5) { --nth-child: 5; }
+
+.gallery>.gallery-figure {
+	animation: galleryFadeIn calc(0.7s * var(--nth-child)) ease-in;
+}

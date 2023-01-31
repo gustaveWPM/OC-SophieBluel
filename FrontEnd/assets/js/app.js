@@ -10,6 +10,7 @@
 /* [§ Dynamic classes, id, and API Servlet URL] */
 let __GLOBALS = {
     "DYN_CLASSES": {
+        "GALLERY_FIGURE": 'gallery-figure',
         "FILTERS_BUTTONS_COMPONENT_IS_ACTIVE": 'is-active',
         "FILTERS_BUTTONS_COMPONENT_BY_DEFAULT": 'by-default',
         "FAILED_TO_FETCH": 'failed-to-fetch',
@@ -293,6 +294,7 @@ function doDrawGalleryFigures(node, element) {
     const img = generateImg(title, url);
     const figure = generateFigure(img, title);
 
+    figure.classList.add(getDynamicClass("GALLERY_FIGURE"));
     node.appendChild(figure);
 }
 
