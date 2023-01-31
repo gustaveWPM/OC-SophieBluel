@@ -135,21 +135,29 @@ table {
 }
 
 /** end reset css**/
+:root {
+	--portfolio-chart-buttons-bg-color: white;
+	--portfolio-chart-buttons-bg-color-hover: rgb(231, 231, 231);
+	--portfolio-chart-buttons-bg-is-active-color-hover: #184e44;
+	--portfolio-chart-buttons-font-color: #1D6154;
+	--portfolio-chart-error-box-bg-color: #611d1d;
+	--portfolio-default-toast-bg-color: #333;
+	--portfolio-default-toast-font-color: white;
+	--portfolio-page-margin: 50px;
+}
+
 body {
 	max-width: 1140px;
+	min-height: 100vh;
 	margin: auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
-}
-
-header {
 	display: flex;
-	justify-content: space-between;
-	margin: 50px 0;
+	flex-direction: column;
 }
 
 section {
-	margin: 50px 0;
+	margin: var(--portfolio-page-margin) 0;
 }
 
 h1 {
@@ -159,10 +167,13 @@ h1 {
 	font-size: 22px;
 	font-weight: 800;
 	color: #B1663C;
+	line-height: 1em;
 }
 
 h1>span {
+	text-transform: uppercase;
 	font-family: 'Work Sans';
+	font-weight: 400;
 	font-size: 10px;
 	letter-spacing: 0.1em;
 }
@@ -174,39 +185,32 @@ h2 {
 	color: #1D6154;
 }
 
-nav ul {
-	display: flex;
-	align-items: center;
-	list-style-type: none;
-
-}
-
-nav li {
-	padding: 0 10px;
-	font-size: 1.2em;
-}
-
-li:hover {
-	color: #B1663C;
-}
-
 #introduction {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
 }
 
 #introduction figure {
-	flex: 1;
+	flex-basis: 53%;
+}
+
+figure {
+	margin-inline-end:0;
+	margin-block-end:0;
+	margin-block-start:0;
+	margin-inline-start:0;
 }
 
 #introduction img {
 	display: block;
-	margin: auto;
-	width: 80%;
+	height: auto;
+	width: 474px;
 }
 
 #introduction article {
-	flex: 1
+	flex-basis: 47%;
+	max-width: 405px;
 }
 
 #introduction h2 {
@@ -215,6 +219,11 @@ li:hover {
 
 #introduction p {
 	margin-bottom: 0.5em;
+}
+
+#main {
+	width: 946px;
+	margin: auto;
 }
 
 #portfolio h2 {
@@ -232,47 +241,45 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
 
-#contact {
+.form {
 	width: 50%;
 	margin: auto;
 }
 
-#contact>* {
+.form>* {
 	text-align: center;
-
 }
 
-#contact h2 {
+.form h2 {
 	margin-bottom: 20px;
 }
 
-#contact form {
+.form form {
 	text-align: left;
 	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+.form input {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-#contact label {
+.form label {
 	margin: 2em 0 1em 0;
 }
 
-#contact textarea {
+.form textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"] {
+.form input[type="submit"] {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -283,6 +290,10 @@ input[type="submit"] {
 	border-radius: 60px;
 }
 
+.form input:hover[type="submit"] {
+	cursor: pointer;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
@@ -290,16 +301,6 @@ footer nav ul {
 }
 
 /** Filters **/
-:root {
-	--portfolio-chart-buttons-bg-color: white;
-	--portfolio-chart-buttons-bg-color-hover: rgb(231, 231, 231);
-	--portfolio-chart-buttons-bg-is-active-color-hover: #184e44;
-	--portfolio-chart-buttons-font-color: #1D6154;
-	--portfolio-chart-error-box-bg-color: #611d1d;
-	--portfolio-default-toast-bg-color: #333;
-	--portfolio-default-toast-font-color: white;
-}
-
 .filter-by-category-component {
 	display: flex;
 	justify-content: center;
@@ -317,7 +318,7 @@ footer nav ul {
 	text-align: center;
 	border-radius: 60px;
 	padding: 8px 1%;
-	min-width: 8%;
+	min-width: 100px;
 }
 
 .btn:hover {
@@ -336,7 +337,6 @@ footer nav ul {
 }
 
 /** Boxes **/
-
 .prevent-select {
 	user-select: none;
 }
@@ -415,4 +415,64 @@ footer nav ul {
 
 .gallery>.gallery-figure {
 	animation: galleryFadeIn calc(0.7s * var(--nth-child)) ease-in;
+}
+
+.forgotten-password {
+	color: inherit;
+	font-weight: 500;
+}
+
+.footer {
+	flex: 100%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: flex-end;
+}
+
+.reset-text-decoration {
+	text-decoration: none;
+	color: inherit;
+}
+
+.form input.is-narrow {
+	height: 35px;
+	font-size: 1em;
+}
+
+/** Navbar **/
+.header {
+	--_margin-delta: 22px;
+	display: flex;
+	justify-content: space-between;
+	margin: var(--portfolio-page-margin) auto;
+	min-width: 1150px;
+}
+
+.navbar-menu-elements>* {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+
+a:hover {
+	color: #B1663C;
+}
+
+.navbar-menu {
+	display: flex;
+	align-items: center;
+	height: 42px;
+}
+
+.navbar-menu-elements .navbar-img {
+	position: relative;
+	height: 21px;
+	top: 2px;
+}
+
+.navbar-menu-elements {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+	justify-content: space-between;
+	width: 320px;
 }

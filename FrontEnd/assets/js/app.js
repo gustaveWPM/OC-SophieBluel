@@ -30,6 +30,11 @@ let __GLOBALS = {
 
     "API": {
         SERVLET_URL: 'http://localhost:5678/api'
+    },
+
+    "SIDE_EFFECTS": {
+        "PAGE_LOAD_MS_DELAY": 250,
+        "SCROLL_DOWN_TRIGGER_HASH": '#scroll-down'
     }
 }
 
@@ -102,6 +107,14 @@ function getDynamicId(key) {
 
 function getVocab(key) {
     const value = __GLOBALS.VOCAB[key];
+    if (value === undefined) {
+        console.error(`No configured vocab found with this key: ${key}`)
+    }
+    return value;
+}
+
+function getSideEffectConf(key) {
+    const value = __GLOBALS.SIDE_EFFECTS[key];
     if (value === undefined) {
         console.error(`No configured vocab found with this key: ${key}`)
     }
@@ -413,6 +426,16 @@ function makeCrash(rootNode) {
     drawErrorBox(rootNode, getVocab("CRASH"));
 }
 
+function scrollToFooter() {
+    const pageHeight = document.body.scrollHeight;
+
+    window.scroll({
+        top: pageHeight,
+        left: 0,
+        behavior: 'smooth'
+      });
+}
+
 /*** 🚀 [§ Entry point] */
 async function run() {
     const [worksCollection, filtersCollection] = await fetchGalleryData();
@@ -426,9 +449,20 @@ async function run() {
     }
 }
 
+function sideEffects() {
+    const curHash = window.location.hash;
+    const expectedHash = getSideEffectConf("SCROLL_DOWN_TRIGGER_HASH");
+    const DELAY = getSideEffectConf("PAGE_LOAD_MS_DELAY");
+
+    if (curHash == expectedHash) {
+        setTimeout(() => scrollToFooter(), DELAY);
+    }
+}
+
 async function main() {
     try {
         await run();
+        sideEffects();
     } catch (e) {
         console.log(e);
     }
