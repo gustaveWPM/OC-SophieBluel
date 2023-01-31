@@ -402,9 +402,9 @@ footer nav ul {
 
 
 @keyframes galleryFadeIn {
-  0% { opacity: 0; }
-  25% { opacity: 0; }
-  100% { opacity: 1; }
+	0% { opacity: 0; }
+	25% { opacity: 0; }
+	100% { opacity: 1; }
 }
 
 .gallery>.gallery-figure:nth-child(1) { --nth-child: 1; }
