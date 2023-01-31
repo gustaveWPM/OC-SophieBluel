@@ -137,7 +137,7 @@ async function fetchCategoriesCollection() {
     const categoriesRoute = getRoute("CATEGORIES");
     const categoriesCollection = await collectionFromApiBuilder(categoriesRoute);
 
-    return categoriesCollection;
+    return new Set(categoriesCollection);
 }
 
 async function fetchGalleryData() {
