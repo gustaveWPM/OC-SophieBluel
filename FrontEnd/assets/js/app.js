@@ -34,7 +34,7 @@ let __GLOBALS = {
 
     "SIDE_EFFECTS": {
         "PAGE_LOAD_MS_DELAY": 250,
-        "SCROLL_DOWN_TRIGGER_HASH": '#scroll-down'
+        "SCROLL_DOWN_TRIGGER_HASH": '#contact'
     }
 }
 
@@ -304,7 +304,8 @@ function doDrawGalleryFigures(node, element) {
     }
 
     const [title, url] = [element.title, element.imageUrl];
-    const img = generateImg(title, url);
+    const alt = `Photographie - ${title}`;
+    const img = generateImg(alt, url);
     const figure = generateFigure(img, title);
 
     figure.classList.add(getDynamicClass("GALLERY_FIGURE"));
@@ -427,20 +428,38 @@ function makeCrash(rootNode) {
 }
 
 /*** 💥 [§ Side Effects] */
-function removeHash() {
-    history.pushState("", document.title, window.location.pathname + window.location.search);
+function snapToTop() {
+    window.scrollTo(0, 0);
 }
 
 function scrollToFooter() {
     const pageHeight = document.body.scrollHeight;
-    const DELAY = getSideEffectConf("PAGE_LOAD_MS_DELAY");
 
-    window.scroll({
+    window.scrollTo({
         top: pageHeight,
         left: 0,
         behavior: 'smooth'
     });
-    setTimeout(() => removeHash(), DELAY / 4);
+}
+
+function sideEffectsAfterPageload() {
+    const curHash = window.location.hash;
+    const expectedHash = getSideEffectConf("SCROLL_DOWN_TRIGGER_HASH");
+    const DELAY = getSideEffectConf("PAGE_LOAD_MS_DELAY");
+
+    if (curHash == expectedHash) {
+        setTimeout(() => scrollToFooter(), DELAY);
+    }
+}
+
+function sideEffectsBeforePageload() {
+    const curHash = window.location.hash;
+    const expectedHash = getSideEffectConf("SCROLL_DOWN_TRIGGER_HASH");
+    const DELAY = getSideEffectConf("PAGE_LOAD_MS_DELAY");
+
+    if (curHash == expectedHash) {
+        setTimeout(() => snapToTop(), DELAY / 2);
+    }
 }
 
 /*** 🚀 [§ Entry point] */
@@ -456,20 +475,11 @@ async function run() {
     }
 }
 
-function sideEffects() {
-    const curHash = window.location.hash;
-    const expectedHash = getSideEffectConf("SCROLL_DOWN_TRIGGER_HASH");
-    const DELAY = getSideEffectConf("PAGE_LOAD_MS_DELAY");
-
-    if (curHash == expectedHash) {
-        setTimeout(() => scrollToFooter(), DELAY);
-    }
-}
-
 async function main() {
     try {
+        sideEffectsBeforePageload();
         await run();
-        sideEffects();
+        sideEffectsAfterPageload();
     } catch (e) {
         console.log(e);
     }

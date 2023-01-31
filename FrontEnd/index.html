@@ -15,21 +15,21 @@
 </head>
 
 <body>
-	<header class="header">
+	<header id="header" class="header">
 		<h1 class="prevent-select">Sophie Bluel <span>Architecte d'intérieur</span></h1>
 		<nav class="navbar-menu">
 			<ul class="navbar-menu-elements">
                 <li><a href="./index.html" class="reset-text-decoration">projets</a></li>
-                <li><a href="./index.html#" class="reset-text-decoration" onclick="scrollToFooter()">contact</a></li>
+                <li><a href="./index.html#contact" class="reset-text-decoration" onclick="scrollToFooter()">contact</a></li>
                 <li><a href="./login.html" class="reset-text-decoration">login</a></li>
                 <li><a href="https://instagram.com/"><img src="./assets/icons/instagram.png" alt="Instagram" class="navbar-img"></a></li>
 			</ul>
 		</nav>
 	</header>
-	<main id="main">
-		<section id="introduction">
+	<main id="main" class="main">
+		<section id="introduction" class="introduction">
 			<figure>
-				<img src="./assets/images/sophie-bluel.png" alt="">
+				<img src="./assets/images/sophie-bluel.png" alt="Photo de Sophie Bluel">
 			</figure>
 			<article>
 				<h2>Designer d'espace</h2>
@@ -42,7 +42,7 @@
 					décorateur(trice).</p>
 			</article>
 		</section>
-		<section id="portfolio">
+		<section id="portfolio" class="portfolio">
 			<h2>Mes projets</h2>
 			<nav id="filter-by-category-component" class="filter-by-category-component">
 				<!-- Dynamic Content -->
@@ -51,7 +51,7 @@
 				<!-- Dynamic Content -->
 			</div>
 		</section>
-		<section id="contact" class="form">
+		<section id="contact" class="contact form">
 			<h2>Contact</h2>
 			<p>Vous avez un projet ? Discutons-en !</p>
 			<form action="#" method="post">

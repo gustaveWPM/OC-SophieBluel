@@ -135,6 +135,13 @@ table {
 }
 
 /** end reset css**/
+
+@keyframes galleryFadeIn {
+	0% { opacity: 0; }
+	25% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
 :root {
 	--portfolio-chart-buttons-bg-color: white;
 	--portfolio-chart-buttons-bg-color-hover: rgb(231, 231, 231);
@@ -150,7 +157,7 @@ body {
 	max-width: 1140px;
 	min-height: 100vh;
 	margin: auto;
-	font-family: 'Work Sans';
+	font-family: 'Work Sans', 'Syne', sans-serif;
 	font-size: 14px;
 	display: flex;
 	flex-direction: column;
@@ -171,11 +178,14 @@ h1 {
 }
 
 h1>span {
+	position: relative;
 	text-transform: uppercase;
 	font-family: 'Work Sans';
 	font-weight: 400;
 	font-size: 10px;
 	letter-spacing: 0.1em;
+	transform: scale(0.92, 1);
+	left: -8px;
 }
 
 h2 {
@@ -185,49 +195,43 @@ h2 {
 	color: #1D6154;
 }
 
-#introduction {
+.introduction {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: calc(var(--portfolio-page-margin) * 2.5);
+	margin-top: calc(var(--portfolio-page-margin) * 1.5);
 }
 
-#introduction figure {
+.introduction figure {
 	flex-basis: 53%;
 }
 
-figure {
-	margin-inline-end:0;
-	margin-block-end:0;
-	margin-block-start:0;
-	margin-inline-start:0;
-}
-
-#introduction img {
+.introduction img {
 	display: block;
 	height: auto;
 	width: 474px;
 }
 
-#introduction article {
+.introduction article {
 	flex-basis: 47%;
 	max-width: 405px;
 }
 
-#introduction h2 {
+.introduction h2 {
 	margin-bottom: 1em;
 }
 
-#introduction p {
+.introduction p {
 	margin-bottom: 0.5em;
 }
 
-#main {
+.main {
 	width: 946px;
 	margin: auto;
 }
 
-#portfolio h2 {
+.portfolio h2 {
 	text-align: center;
 	margin-bottom: 1em;
 }
@@ -401,13 +405,6 @@ footer nav ul {
 	color: var(--portfolio-chart-buttons-bg-color);
 }
 
-
-@keyframes galleryFadeIn {
-	0% { opacity: 0; }
-	25% { opacity: 0; }
-	100% { opacity: 1; }
-}
-
 .gallery>.gallery-figure:nth-child(1) { --nth-child: 1; }
 .gallery>.gallery-figure:nth-child(2) { --nth-child: 2; }
 .gallery>.gallery-figure:nth-child(3) { --nth-child: 3; }
@@ -483,4 +480,12 @@ a:hover {
 	list-style-type: none;
 	justify-content: space-between;
 	width: 320px;
+}
+
+.login h1 {
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 30px;
+	color: #1D6154;
+	margin-top: 80px;
 }
