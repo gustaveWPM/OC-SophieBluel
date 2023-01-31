@@ -412,7 +412,7 @@ footer nav ul {
 .gallery>.gallery-figure:nth-child(n + 5) { --nth-child: 5; }
 
 .gallery>.gallery-figure {
-	animation: galleryFadeIn calc(0.7s * var(--nth-child)) ease-in;
+	animation: galleryFadeIn calc(0.4s * var(--nth-child)) ease-in;
 }
 
 .gallery-figure img {
@@ -488,4 +488,12 @@ a:hover {
 	font-size: 30px;
 	color: #1D6154;
 	margin-top: 80px;
+}
+
+body *:not(.header) {
+	animation: galleryFadeIn 0.7s ease-in-out;
+}
+
+.header {
+	animation: galleryFadeIn 0.4s ease-in-out;
 }

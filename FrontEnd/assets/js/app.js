@@ -33,7 +33,6 @@ let __GLOBALS = {
     },
 
     "SIDE_EFFECTS": {
-        "PAGE_LOAD_MS_DELAY": 250,
         "SCROLL_DOWN_TRIGGER_HASH": '#contact'
     }
 }
@@ -448,23 +447,12 @@ function scrollToFooter() {
     });
 }
 
-function sideEffectsAfterPageload() {
+function handleContactHash() {
     const curHash = window.location.hash;
     const expectedHash = getSideEffectConf("SCROLL_DOWN_TRIGGER_HASH");
-    const DELAY = getSideEffectConf("PAGE_LOAD_MS_DELAY");
 
     if (curHash == expectedHash) {
-        setTimeout(() => scrollToFooter(), DELAY);
-    }
-}
-
-function sideEffectsBeforePageload() {
-    const curHash = window.location.hash;
-    const expectedHash = getSideEffectConf("SCROLL_DOWN_TRIGGER_HASH");
-    const DELAY = getSideEffectConf("PAGE_LOAD_MS_DELAY");
-
-    if (curHash == expectedHash) {
-        setTimeout(() => snapToTop(), DELAY / 2);
+        scrollToFooter();
     }
 }
 
@@ -483,9 +471,9 @@ async function run() {
 
 async function main() {
     try {
-        sideEffectsBeforePageload();
+        handleContactHash();
         await run();
-        sideEffectsAfterPageload();
+        handleContactHash();
     } catch (e) {
         console.log(e);
     }
