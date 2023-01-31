@@ -125,25 +125,26 @@ async function collectionFromApiBuilder(req) {
 }
 
 /* [§ Fetch Data] */
-async function fetchGalleryData(flag = 'all') {
-    let [worksCollection, categoriesCollection] = [false, false];
+async function fetchWorksCollection() {
     const worksRoute = getRoute("WORKS");
-    const categoriesRoute = getRoute("CATEGORIES");
+    const worksCollection = await collectionFromApiBuilder(worksRoute);
 
-    switch (flag) {
-        case 'all':
-            worksCollection = await collectionFromApiBuilder(worksRoute);
-            categoriesCollection = await collectionFromApiBuilder(categoriesRoute);
-            return [worksCollection, categoriesCollection];
-        case 'figures':
-            worksCollection = await collectionFromApiBuilder(worksRoute);
-            return worksCollection;
-        case 'buttons':
-            categoriesCollection = await collectionFromApiBuilder(categoriesRoute);
-            return categoriesCollection;
-        default:
-            return null;
-    }
+    return worksCollection;
+}
+
+async function fetchCategoriesCollection() {
+    const categoriesRoute = getRoute("CATEGORIES");
+    const categoriesCollection = await collectionFromApiBuilder(categoriesRoute);
+
+    return categoriesCollection;
+}
+
+async function fetchGalleryData() {
+    const [worksCollection, categoriesCollection] = [
+        await fetchWorksCollection(),
+        await fetchCategoriesCollection()
+    ];
+    return [worksCollection, categoriesCollection];
 }
 
 /*** 📐 [§ DOM getters] */
@@ -214,47 +215,41 @@ function getWorksCollectionToDispose(worksCollection) {
 }
 
 /*** 🎨 [§ Drawers] */
-/* [§ Drawers -> Error box] */
-function drawToast(id, flag) {
-    function generateErrorToast(id) {
-        if (domGetterSingleElement(getSelector(id)) !== null) {
-            return null;
-        }
-        const toast = document.createElement('div');
-        const msg = getVocab(id) ?? getVocab("UNKNOWN_ERROR");
-        const toastTxt = document.createTextNode(msg);
-
-        toast.id = id;
-        toast.classList.add(getDynamicClass("PREVENT_SELECT"));
-        toast.classList.add(getDynamicClass("TOAST"));
-        toast.classList.add(getDynamicClass("ERROR_BOX"));
-        toast.appendChild(toastTxt);
-
-        return toast;
-    }
-
-    function matchFlag(flag, id) {
-        switch (flag) {
-            case 'error':
-                return generateErrorToast(id);
-        }
-        return null;
-    }
-
-    function createToastThread(toast) {
-        const rootNode = domGetterSingleElement(getSelector(getDynamicClass("TOASTS_COMPONENT")));
-        rootNode.appendChild(toast);
-        setTimeout(() => toast.classList.add(getDynamicClass("SHOW_TOAST")), 250);
-        setTimeout(() => toast.classList.remove(getDynamicClass("SHOW_TOAST")), 4500);
-        setTimeout(() => toast.remove(), 8500);
-    }
-
-    const toast = matchFlag(flag, id);
-    if (toast !== null) {
-        createToastThread(toast);
-    }
+/* [§ Drawers -> Toasts] */
+function createToastThread(toast) {
+    const rootNode = domGetterSingleElement(getSelector(getDynamicClass("TOASTS_COMPONENT")));
+    rootNode.appendChild(toast);
+    setTimeout(() => toast.classList.add(getDynamicClass("SHOW_TOAST")), 250);
+    setTimeout(() => toast.classList.remove(getDynamicClass("SHOW_TOAST")), 4500);
+    setTimeout(() => toast.remove(), 8500);
 }
 
+function drawToast(id, msg) {
+    if (domGetterSingleElement(getSelector(id)) !== null) {
+        return null;
+    }
+    const toast = document.createElement('div');
+    const toastTxt = document.createTextNode(msg);
+    toast.id = id;
+    toast.classList.add(getDynamicClass("PREVENT_SELECT"));
+    toast.classList.add(getDynamicClass("TOAST"));
+    toast.appendChild(toastTxt);
+
+    createToastThread(toast);
+    return toast;
+}
+
+function drawErrorToast(id) {
+    const msg = getVocab(id) ?? getVocab("UNKNOWN_ERROR");
+    const toast = drawToast(id, msg);
+
+    if (toast !== null) {
+        toast.classList.add(getDynamicClass("ERROR_BOX"));
+    }
+    return toast;
+}
+
+/* [§ Drawers -> Error boxes] */
 function drawErrorBox(node, errorMessage) {
     function generateErrorBox(msg) {
         const errorBox = document.createElement('div');
@@ -377,13 +372,13 @@ function updateActiveFilterBtn(element) {
 /* [§ Update -> Gallery Figures] */
 async function updateGalleryFigures(worksCollection = null, naive = true) {
     if (worksCollection === null) {
-        worksCollection = await fetchGalleryData('figures');
+        worksCollection = await fetchWorksCollection();
     }
     if (failedToGetFromApi(worksCollection) && !naive) {
         if (failedToLoadElement(getSelector("GALLERY_COMPONENT"))) {
-            drawToast(getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), 'error');
+            drawErrorToast(getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
         } else {
-            drawToast(getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST"), 'error');
+            drawErrorToast(getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST"));
         }
         return false;
     }
