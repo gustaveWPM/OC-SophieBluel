@@ -426,14 +426,21 @@ function makeCrash(rootNode) {
     drawErrorBox(rootNode, getVocab("CRASH"));
 }
 
+/*** 💥 [§ Side Effects] */
+function removeHash() {
+    history.pushState("", document.title, window.location.pathname + window.location.search);
+}
+
 function scrollToFooter() {
     const pageHeight = document.body.scrollHeight;
+    const DELAY = getSideEffectConf("PAGE_LOAD_MS_DELAY");
 
     window.scroll({
         top: pageHeight,
         left: 0,
         behavior: 'smooth'
-      });
+    });
+    setTimeout(() => removeHash(), DELAY / 4);
 }
 
 /*** 🚀 [§ Entry point] */
