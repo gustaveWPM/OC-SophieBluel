@@ -6,14 +6,14 @@
 #=================================================
 */
 
-/*** 📐 [§ DOM getters] */
+/*** 🎣 [§ DOM getters] */
 function loginButtonGetter() {
-    const selector = '#login-form';
+    const selector = getSelector("LOGIN_FORM");
 
     return document.querySelector(selector);
 }
 
-/*** 📐 [§ Process login] */
+/*** 🌐 [§ Process login] */
 async function processLogin(payload) {
     const body = JSON.stringify(payload);
     const loginRoute = getRoute("LOGIN");

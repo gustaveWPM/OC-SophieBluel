@@ -8,7 +8,7 @@
 
 /* [§ Drawers -> Toasts] */
 function drawToast(id, msg, uniq=true) {
-    const rootNode = document.querySelector(getSelector(getDynamicClass("TOASTS_COMPONENT")));
+    const rootNode = document.querySelector(getSelector("TOASTS_COMPONENT"));
     function createToastThread(toast) {
         rootNode.appendChild(toast);
         setTimeout(() => toast.classList.add(getDynamicClass("SHOW_TOAST")), 150);

@@ -85,15 +85,7 @@ async function fetchCategoriesCollection() {
     return categoriesSet;
 }
 
-async function fetchGalleryData() {
-    const [worksCollection, categoriesCollection] = [
-        await fetchWorksCollection(),
-        await fetchCategoriesCollection()
-    ];
-    return [worksCollection, categoriesCollection];
-}
-
-/*** 📐 [§ DOM getters] */
+/*** 🎣 [§ DOM getters] */
 function galleryFiltersButtonsGetter() {
     return document.querySelectorAll(getSelector("FILTERS_BUTTONS_COMPONENT"));
 }
@@ -112,7 +104,7 @@ function filtersComponentRootNodeGetter() {
     return document.querySelector(getSelector("FILTERS_COMPONENT"));
 }
 
-/*** 📐 [§ DOM mutations functions] */
+/*** 🧬 [§ DOM mutations functions] */
 function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
     if (failedToGetFromApi(worksCollection)) {
         return false;
@@ -286,14 +278,7 @@ async function generateEvents() {
     generateFiltersButtonsEvents();
 }
 
-/*** 💥 [§ Crash] */
-function makeCrash(rootNode) {
-    const errorBoxes = document.querySelectorAll(getSelector("ERROR_BOXES"));
-    errorBoxes.forEach(element => element.remove());
-    drawErrorBox(rootNode, getVocab("CRASH"));
-}
-
-/*** 💥 [§ Side Effects] */
+/*** ✨ [§ Side Effects] */
 function snapToTop() {
     window.scrollTo(0, 0);
 }
@@ -325,13 +310,38 @@ function handleContactHash() {
     }
 }
 
-/*** 🚀 [§ Entry point] */
-async function appendDynamicContent() {
-    const [worksCollection, categoriesCollection] = await fetchGalleryData();
-    await updateGalleryFigures(worksCollection);
+/*** ✏️ [§ Dynamic content generation] */
+async function appendDynamicCategories() {
+    const categoriesCollection = await fetchCategoriesCollection();    
     drawGalleryFilters(categoriesCollection);
 }
 
+async function appendDynamicWorks() {
+    const worksCollection = await fetchWorksCollection();
+    await updateGalleryFigures(worksCollection);
+}
+
+async function appendDynamicContent() {
+    await appendDynamicWorks();
+    await appendDynamicCategories();
+}
+
+/*** 💥 [§ Crash] */
+function makeCrash(rootNode) {
+    function drawCrashErrorBox() {
+        const errorBoxes = document.querySelectorAll(getSelector("ERROR_BOXES"));
+        errorBoxes.forEach(element => element.remove());
+        drawErrorBox(rootNode, getVocab("CRASH"));
+    }
+
+    function drawCrashRetryButton() {
+
+    }
+    drawCrashErrorBox();
+    drawCrashRetryButton();
+}
+
+/*** 🚀 [§ Run] */
 async function run() {
     await appendDynamicContent();
     if (failedToLoadElement(getSelector("FILTERS_COMPONENT"))) {
@@ -342,6 +352,7 @@ async function run() {
     }
 }
 
+/*** 🚪 [§ Entry point] */
 async function main() {
     try {
         handleContactHash();
