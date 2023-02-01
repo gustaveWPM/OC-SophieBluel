@@ -143,14 +143,39 @@ table {
 }
 
 :root {
-	--portfolio-chart-buttons-bg-color: white;
-	--portfolio-chart-buttons-bg-color-hover: rgb(231, 231, 231);
-	--portfolio-chart-buttons-bg-is-active-color-hover: #184e44;
-	--portfolio-chart-buttons-font-color: #1D6154;
-	--portfolio-chart-error-box-bg-color: #611d1d;
-	--portfolio-default-toast-bg-color: #333;
-	--portfolio-default-toast-font-color: white;
+	--portfolio-colors-white: #FFF;
+	--portfolio-colors-green: #1D6154;
+	--portfolio-colors-darkgreen: #0E2F28;
+	--portfolio-colors-brown: #B1663C;
+	--portfolio-colors-red: #611d1d;
+	--portfolio-colors-darkgray: #333;
+
+	--portfolio-fw-bold: 700;
+	--portfolio-fw-semibold: 500;
+	--portfolio-fw-regular: 400;
+
 	--portfolio-page-margin: 50px;
+
+	--portfolio-navbar-item-hover-fw: var(--portfolio-fw-bold);
+
+	--portfolio-chart-button-font-color: var(--portfolio-colors-white);
+	--portfolio-chart-button-bg-color: var(--portfolio-colors-green);
+	--portfolio-chart-button-bg-color-hover: var(--portfolio-colors-darkgreen);
+	--portfolio-chart-button-default-font-weight: var(--portfolio-fw-bold);
+
+	--portfolio-chart-active-filter-button-bg-hover: var(--portfolio-colors-green);
+	--portfolio-chart-active-filter-button-bg-color: var(--portfolio-colors-white);
+	--portfolio-chart-inactive-filter-button-bg: var(--portfolio-colors-white);
+	--portfolio-chart-inactive-filter-button-bg-hover: var(--portfolio-colors-green);
+	--portfolio-chart-inactive-filter-button-font-color: var(--portfolio-colors-green);
+
+	--portfolio-chart-error-box-bg-color: var(--portfolio-colors-red);
+	--portfolio-chart-box-bg-color: var(--portfolio-colors-darkgray);
+
+	--portfolio-title-color: var(--portfolio-colors-brown);
+	--portfolio-chart-title-default-font-weight: var(--portfolio-fw-bold);
+
+	--portfolio-chart-subtitle-font-color: var(--portfolio-colors-green);
 }
 
 body {
@@ -158,7 +183,7 @@ body {
 	min-height: 100vh;
 	margin: auto;
 	font-family: 'Work Sans', 'Syne', sans-serif;
-	font-size: 14px;
+	font-size: .874em;
 	display: flex;
 	flex-direction: column;
 }
@@ -171,9 +196,9 @@ h1 {
 	display: flex;
 	flex-direction: column;
 	font-family: 'Syne';
-	font-size: 22px;
+	font-size: 1.58em;
 	font-weight: 800;
-	color: #B1663C;
+	color: var(--portfolio-title-color);
 	line-height: 1em;
 }
 
@@ -181,18 +206,21 @@ h1>span {
 	position: relative;
 	text-transform: uppercase;
 	font-family: 'Work Sans';
-	font-weight: 400;
-	font-size: 10px;
-	letter-spacing: 0.1em;
-	transform: scale(0.92, 1);
-	left: -8px;
+	font-weight: var(--portfolio-fw-regular);
+	font-size: .45em;
+	letter-spacing: .1em;
+	transform: scale(.92, 1);
+	left: -3.5%;
 }
 
 h2 {
+	font-size: 2em;
+}
+
+h2, h3, h4, h5, h6 {
 	font-family: 'Syne';
-	font-weight: 700;
-	font-size: 30px;
-	color: #1D6154;
+	font-weight: var(--portfolio-chart-title-default-font-weight);
+	color: var(--portfolio-chart-inactive-filter-button-font-color);
 }
 
 .introduction {
@@ -210,12 +238,12 @@ h2 {
 .introduction img {
 	display: block;
 	height: auto;
-	width: 474px;
+	width: 94.5%;
 }
 
 .introduction article {
 	flex-basis: 47%;
-	max-width: 405px;
+	max-width: 42.8%;
 }
 
 .introduction h2 {
@@ -223,11 +251,11 @@ h2 {
 }
 
 .introduction p {
-	margin-bottom: 0.5em;
+	margin-bottom: .5em;
 }
 
 .main {
-	width: 946px;
+	width: 83%;
 	margin: auto;
 }
 
@@ -239,13 +267,13 @@ h2 {
 .gallery {
 	width: 100%;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
+	grid-template-columns: repeat(3, 1fr);
+	grid-column-gap: .9rem;
 	grid-row-gap: 20px;
 }
 
-.gallery img {
-	width: 100%;
+.gallery figure {
+	margin: auto;
 }
 
 .form {
@@ -271,37 +299,38 @@ h2 {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
 }
 
 .form label {
-	margin: 3em 0 0.5em 0;
+	margin: 3em 0 .5em 0;
 }
 
 .form textarea {
 	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
 }
 
-.form input[type="submit"], .form .submit-btn {
+.is-btn {
+	--_background-color: var(--portfolio-chart-button-bg-color);
 	font-family: 'Syne';
-	font-weight: 700;
-	color: white;
-	background-color: #1D6154;
+	font-weight: var(--portfolio-chart-button-default-font-weight);
+	color: var(--portfolio-chart-button-font-color);
+	background-color: var(--_background-color);
+	border-color: var(--_background-color);
 	margin: 2em auto;
 	width: 180px;
 	text-align: center;
 	margin-top: 35px;
 	border-radius: 60px;
-}
-
-.form .submit-btn {
 	border: none;
 	padding: 10px;
 }
 
-.form input:hover[type="submit"], .form .submit-btn:hover {
+.is-btn:hover {
+	--_background-color: var(--portfolio-chart-button-bg-color-hover);
 	cursor: pointer;
+	color: var(--portfolio-chart-button-font-color);
 }
 
 footer nav ul {
@@ -318,32 +347,27 @@ footer nav ul {
 	margin: 4em 0;
 }
 
-.btn {
-	border: 1px solid var(--portfolio-chart-buttons-font-color);
-	font-family: 'Syne';
-	font-size: 1.15em;
-	font-weight: 700;
-	color: var(--portfolio-chart-buttons-font-color);
-	background-color: var(--portfolio-chart-buttons-bg-color);
-	text-align: center;
-	border-radius: 60px;
+.filter-btn {
+	border: 1px solid var(--portfolio-chart-inactive-filter-button-font-color);
+	font-size: 1em;
+	margin: 0;
+
+	color: var(--portfolio-chart-inactive-filter-button-font-color);
+	background-color: var(--portfolio-chart-inactive-filter-button-bg);
 	padding: 8px 1%;
 	min-width: 100px;
 }
 
-.btn:hover {
-	cursor: pointer;
-	background-color: var(--portfolio-chart-buttons-bg-color-hover);
+.filter-btn:hover {
+	color: var(--portfolio-chart-button-font-color);
+	background-color: var(--portfolio-chart-button-bg-color-hover);
+	border-color: var(--portfolio-chart-button-bg-color-hover);
 }
 
-.btn.is-active:hover {
-	cursor: pointer;
-	background-color: var(--portfolio-chart-buttons-bg-is-active-color-hover);
-}
-
-.btn.is-active {
-	color: var(--portfolio-chart-buttons-bg-color);
-	background-color: var(--portfolio-chart-buttons-font-color);
+.filter-btn.is-active {
+	background-color: var(--portfolio-chart-active-filter-button-bg-hover);
+	border-color: var(--portfolio-chart-active-filter-button-bg-hover);
+	color: var(--portfolio-chart-active-filter-button-bg-color);
 }
 
 /** Boxes **/
@@ -353,8 +377,8 @@ footer nav ul {
 
 .is-box {
 	background-color: var(--portfolio-chart-buttons-font-color);
-	color: var(--portfolio-chart-buttons-bg-color);
-	font-weight: 500;
+	color: var(--portfolio-chart-button-bg-color);
+	font-weight: var(--portfolio-fw-semibold);
 	padding: 15px;
 	border-radius: 15px;
 	max-width: 45vw;
@@ -362,7 +386,7 @@ footer nav ul {
 
 .is-box.error-box {
 	background-color: var(--portfolio-chart-error-box-bg-color);
-	color: var(--portfolio-chart-buttons-bg-color);
+	color: var(--portfolio-chart-button-bg-color);
 }
 
 .gallery.failed-to-fetch {
@@ -390,16 +414,16 @@ footer nav ul {
 .is-toast {
 	--_default-min-width: 250px;
 	--_delta: 50px;
-	--_fadein-duration: 0.5s;
+	--_fadein-duration: .5s;
 	--_fadeout-duration: 1s;
-	--_movein-duration: 0.7s;
+	--_movein-duration: .7s;
 	--_moveout-duration: 1s;
 	opacity: 0;
 	margin: auto;
-	font-weight: 500;
+	font-weight: var(--portfolio-fw-semibold);
 	min-width: var(--_default-min-width);
-	background-color: var(--portfolio-default-toast-bg-color);
-	color: var(--portfolio-default-toast-font-color);
+	background-color: var(--portfolio-chart-box-bg-color);
+	color: var(--portfolio-chart-button-font-color);
 	text-align: center;
 	border-radius: 2px;
 	padding: 16px;
@@ -417,7 +441,6 @@ footer nav ul {
 
 .is-toast.error-box {
 	background-color: var(--portfolio-chart-error-box-bg-color);
-	color: var(--portfolio-chart-buttons-bg-color);
 }
 
 .gallery>.gallery-figure:nth-child(1) { --nth-child: 1; }
@@ -427,19 +450,19 @@ footer nav ul {
 .gallery>.gallery-figure:nth-child(n + 5) { --nth-child: 5; }
 
 .gallery>.gallery-figure {
-	animation: galleryFadeIn calc(0.4s * var(--nth-child)) ease-in;
+	animation: galleryFadeIn calc(.4s * var(--nth-child)) ease-in;
 }
 
 .gallery-figure img {
 	height: 407px;
 	width: 305px;
 	object-fit: cover;
-	margin-bottom: 0.5em;
+	margin-bottom: .5em;
 }
 
 .forgotten-password {
 	color: inherit;
-	font-weight: 500;
+	font-weight: var(--portfolio-fw-semibold);
 }
 
 .footer {
@@ -474,7 +497,12 @@ footer nav ul {
 }
 
 a:hover {
-	color: #B1663C;
+	color: var(--portfolio-title-color);
+}
+
+.navbar-item:hover {
+	font-weight: var(--portfolio-navbar-item-hover-fw);
+	color: inherit;
 }
 
 .navbar-menu {
@@ -484,9 +512,10 @@ a:hover {
 }
 
 .navbar-menu-elements .navbar-img {
+	--_height: 21px;
 	position: relative;
-	height: 21px;
-	top: 2px;
+	height: var(--_height);
+	top: calc(var(--_height) * .01);
 }
 
 .navbar-menu-elements {
@@ -497,20 +526,16 @@ a:hover {
 	width: 320px;
 }
 
-.login h1 {
-	font-family: 'Syne';
-	font-weight: 700;
-	font-size: 30px;
-	color: #1D6154;
+.login h2 {
 	margin-top: 80px;
 }
 
 body *:not(.header) {
-	animation: galleryFadeIn 0.7s ease-in-out;
+	animation: galleryFadeIn .7s ease-in-out;
 }
 
 .header {
-	animation: galleryFadeIn 0.4s ease-in-out;
+	animation: galleryFadeIn .4s ease-in-out;
 }
 
 #login-error {

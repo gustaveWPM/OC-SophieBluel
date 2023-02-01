@@ -170,7 +170,8 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
         const buttonTxt = document.createTextNode(element.name);
         const elementIsFromApi = element.id >= 0;
 
-        button.classList.add('btn');
+        button.classList.add('is-btn');
+        button.classList.add('filter-btn');
         if (elementIsFromApi) {
             button.classList.add(`${getDynamicClass("FILTERS_BUTTONS_CATEGORY_PREFIX")}${element.id}`);
         }
