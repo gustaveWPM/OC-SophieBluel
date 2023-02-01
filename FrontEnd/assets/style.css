@@ -377,7 +377,7 @@ footer nav ul {
 
 .is-box {
 	background-color: var(--portfolio-chart-buttons-font-color);
-	color: var(--portfolio-chart-button-bg-color);
+	color: var(--portfolio-chart-button-font-color);
 	font-weight: var(--portfolio-fw-semibold);
 	padding: 15px;
 	border-radius: 15px;
@@ -386,7 +386,6 @@ footer nav ul {
 
 .is-box.error-box {
 	background-color: var(--portfolio-chart-error-box-bg-color);
-	color: var(--portfolio-chart-button-bg-color);
 }
 
 .gallery.failed-to-fetch {
