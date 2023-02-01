@@ -29,10 +29,10 @@ async function processLogin(payload) {
             window.localStorage.setItem(getLocalStorageKey("USER_INFOS"), userInfos);
             window.location = getPageUrl("INDEX");
         } else {
-            drawErrorToast(getDynamicId("FAILED_TO_LOGIN"), uniq=false);
+            drawErrorToast(getDynamicId("FAILED_TO_LOGIN_TOAST"), uniq=false);
         }
     } catch {
-        drawErrorToast(getDynamicId("CANT_LOGIN"));
+        drawErrorToast(getDynamicId("CANT_LOGIN_TOAST"));
     }
 }
 
