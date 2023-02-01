@@ -116,22 +116,18 @@ let __GLOBALS = {
 }
 
 /* [§ Servlet URL] */
-Object.assign(__GLOBALS["API"],
-    {
-        "SERVLET_URL": `${__GLOBALS.API.HOST}/api`
-    }
-);
+Object.assign(__GLOBALS["API"], {
+    "SERVLET_URL": `${__GLOBALS.API.HOST}/api`
+});
 
 /* [§ API Routes] */
-Object.assign(__GLOBALS["API"],
-    {
-        "ROUTES": {
-            "WORKS": `${__GLOBALS.API.SERVLET_URL}/works`,
-            "CATEGORIES": `${__GLOBALS.API.SERVLET_URL}/categories`,
-            "LOGIN": `${__GLOBALS.API.SERVLET_URL}/users/login`
-        }
+Object.assign(__GLOBALS["API"], {
+    "ROUTES": {
+        "WORKS": `${__GLOBALS.API.SERVLET_URL}/works`,
+        "CATEGORIES": `${__GLOBALS.API.SERVLET_URL}/categories`,
+        "LOGIN": `${__GLOBALS.API.SERVLET_URL}/users/login`
     }
-);
+});
 
 /* [§ Pages URL] */
 __GLOBALS["PAGES_URLS"] = {
