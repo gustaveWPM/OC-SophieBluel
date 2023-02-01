@@ -68,18 +68,6 @@ function filtersComponentRootNodeGetter() {
     return document.querySelector(getSelector("FILTERS_COMPONENT"));
 }
 
-/*** 📐 [§ Errors States Manager] */
-function failedToLoadElement(itemSelector) {
-    const failedToLoadItemSelector = `${itemSelector}.${getDynamicClass("FAILED_TO_FETCH")}`;
-    const failedToLoadElement = document.querySelector(failedToLoadItemSelector);
-
-    return failedToLoadElement !== null;
-}
-
-function failedToGetFromApi(collection) {
-    return !collection;
-}
-
 /*** 📐 [§ DOM mutations functions] */
 function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
     if (failedToGetFromApi(worksCollection)) {
@@ -282,8 +270,16 @@ function snapToTop() {
 }
 
 function scrollToFooter() {
-    const pageHeight = document.body.scrollHeight;
+    function skipScrollToFooter() {
+        const skipScroll = failedToLoadElement(getSelector("FILTERS_COMPONENT")) || failedToLoadElement(getSelector("GALLERY_COMPONENT"));
+        return skipScroll;
+    }
 
+    const skipScroll = skipScrollToFooter();
+    if (skipScroll) {
+        return;
+    }
+    const pageHeight = document.body.scrollHeight;
     window.scrollTo({
         top: pageHeight,
         left: 0,

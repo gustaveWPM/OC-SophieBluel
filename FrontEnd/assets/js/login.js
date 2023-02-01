@@ -26,7 +26,7 @@ async function processLogin(payload) {
         if (response?.ok) {
             const responseBody = await response.json();
             const userInfos = JSON.stringify(responseBody);
-            window.localStorage.setItem("userInfos", userInfos);
+            window.localStorage.setItem(getLocalStorageKey("USER_INFOS"), userInfos);
             window.location = getPageUrl("INDEX");
         } else {
             drawErrorToast(getDynamicId("FAILED_TO_LOGIN"), uniq=false);

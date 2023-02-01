@@ -93,6 +93,11 @@ __GLOBALS["MODULES_CONFIG"] = {
     "MAX_TOASTS": 5
 }
 
+/* [§ Localstorage keys] */
+__GLOBALS["LOCALSTORAGE_KEYS"] = {
+    "USER_INFOS": "userInfos"
+}
+
 Object.freeze(__GLOBALS);
 
 /* [§ Getters] */
@@ -148,6 +153,14 @@ function getPageUrl(key) {
     const value = __GLOBALS.PAGES_URLS[key];
     if (value === undefined) {
         console.error(`No configured page URL found with this key: ${key}`)
+    }
+    return value;
+}
+
+function getLocalStorageKey(key) {
+    const value = __GLOBALS.LOCALSTORAGE_KEYS[key];
+    if (value === undefined) {
+        console.error(`No localstorage key found with this key: ${key}`)
     }
     return value;
 }
