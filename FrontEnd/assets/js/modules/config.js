@@ -98,8 +98,8 @@ let __GLOBALS = {
     "DYN_IDS": {
         "DIDNT_UPDATE_GALLERY_FIGURES_TOAST": 'didnt-update-gallery-figures-toast',
         "STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'still-failed-to-load-gallery-figures-toast',
-        "FAILED_TO_LOGIN": 'failed-to-login-toast',
-        "CANT_LOGIN": 'cant-login-toast',
+        "FAILED_TO_LOGIN_TOAST": 'failed-to-login-toast',
+        "CANT_LOGIN_TOAST": 'cant-login-toast',
         "TOASTS_COMPONENT": 'toasts-component'
     },
 
@@ -139,14 +139,14 @@ __GLOBALS["PAGES_URLS"] = {
 __GLOBALS["SELECTORS"] = {
     "GALLERY_COMPONENT": '#gallery-component',
     "FILTERS_COMPONENT": '#filter-by-category-component',
+    "LOGIN_FORM": '#login-form',
     "FILTERS_BUTTONS_COMPONENT": '.filter-by-category-component>.is-btn',
     "ERROR_BOXES": `.${getDynamicClass("ERROR_BOX")}`,
-    "LOGIN_FORM": '#login-form',
     "TOASTS_COMPONENT": `#${getDynamicId("TOASTS_COMPONENT")}`,
     [`${getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST")}`,
     [`${getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`,
-    [`${getDynamicId("FAILED_TO_LOGIN")}`]: `#${getDynamicId("FAILED_TO_LOGIN")}`,
-    [`${getDynamicId("CANT_LOGIN")}`]: `#${getDynamicId("CANT_LOGIN")}`
+    [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOGIN_TOAST")}`,
+    [`${getDynamicId("CANT_LOGIN_TOAST")}`]: `#${getDynamicId("CANT_LOGIN_TOAST")}`
 }
 
 /* [§ Vocab] */
@@ -158,8 +158,8 @@ __GLOBALS["VOCAB"] = {
     "CRASH": '⚠️ L’application a planté. Merci de recharger cette page.',
     [`${getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion : la galerie n’a pas été mise à jour.',
     [`${getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion. Merci de réessayer plus tard.',
-    [`${getDynamicId("FAILED_TO_LOGIN")}`]: 'Erreur dans l’identifiant ou le mot de passe.',
-    [`${getDynamicId("CANT_LOGIN")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.'
+    [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: 'Erreur dans l’identifiant ou le mot de passe.',
+    [`${getDynamicId("CANT_LOGIN_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.'
 }
 
 /* [§ Modules config] */
