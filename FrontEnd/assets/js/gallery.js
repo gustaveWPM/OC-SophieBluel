@@ -161,9 +161,11 @@ function drawGalleryFigures(worksCollection) {
 
     if (failedToGetFromApi(worksCollection)) {
         drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")} : ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
+        rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
         return false;
     }
 
+    rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
     rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
     worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element));
     return true;

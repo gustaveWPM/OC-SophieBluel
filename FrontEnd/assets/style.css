@@ -404,6 +404,7 @@ body *:not(.header) {
 	border-radius: 15px;
 	max-width: 45vw;
 	margin: auto;
+	text-align: center;
 }
 
 .is-box.error-box {
@@ -552,4 +553,8 @@ a:hover {
 /** Javascript patches, do NOT use it in your HTML **/
 .js-monkey-patch-flex-column {
 	flex-direction: column !important;
+}
+
+.js-monkey-patch-display-flex {
+	display: flex !important;
 }

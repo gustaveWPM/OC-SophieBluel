@@ -96,6 +96,7 @@ let __GLOBALS = {
         "WARNING_BOX": 'warning-box',
         "PREVENT_SELECT": 'prevent-select',
         "FORCE_FLEX_COLUMN": 'js-monkey-patch-flex-column',
+        "FORCE_DISPLAY_FLEX": 'js-monkey-patch-display-flex',
         "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-'
     },
 
