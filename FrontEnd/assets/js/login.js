@@ -32,7 +32,7 @@ async function processLogin(payload) {
             drawErrorToast(getDynamicId("FAILED_TO_LOGIN"), uniq=false);
         }
     } catch {
-        drawErrorToast(getDynamicId("CANT_LOGIN"), uniq=false);
+        drawErrorToast(getDynamicId("CANT_LOGIN"));
     }
 }
 
