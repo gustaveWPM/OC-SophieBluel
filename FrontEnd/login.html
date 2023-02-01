@@ -3,14 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Sophie Bluel - Architecte d'intérieur</title>
+    <title>Page de connexion | Sophie Bluel - Architecte d'intérieur</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
-        rel="stylesheet">
-    <meta name="description" content="">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+    <meta property="og:title" content="Page de connexion">
     <link rel="stylesheet" href="./assets/style.css">
+	<script src="./assets/js/modules/config.js" defer></script>
+	<script src="./assets/js/modules/toast.js" defer></script>
+	<script src="./assets/js/login.js" defer></script>
 </head>
 
 <body>
@@ -28,18 +30,21 @@
     <main id="main">
         <section id="login" class="login form">
             <h1>Log In</h1>
-            <form action="#" method="post">
+            <form id="login-form">
                 <label for="email">E-mail</label>
                 <input type="email" name="email" id="email">
                 <label for="password">Mot de passe</label>
                 <input type="password" name="password" id="password">
-                <input type="submit" value="Se connecter" class="is-narrow">
+                <button class="is-narrow submit-btn">Se connecter</button>
             </form>
             <div>
                 <a href="#" class="forgotten-password">Mot de passe oublié</a> <!-- {ToDo} -->
             </div>
         </section>
     </main>
+    <div id="toasts-component" class="toasts-component">
+        <!-- Dynamic Content -->
+    </div>
 
     <footer class="footer">
         <nav>

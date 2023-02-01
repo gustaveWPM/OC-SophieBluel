@@ -6,120 +6,6 @@
 #=================================================
 */
 
-/*** 🌕 [§ Globals] */
-/* [§ Dynamic classes, id, and API Servlet URL] */
-let __GLOBALS = {
-    "DYN_CLASSES": {
-        "GALLERY_FIGURE": 'gallery-figure',
-        "FILTERS_BUTTONS_COMPONENT_IS_ACTIVE": 'is-active',
-        "FILTERS_BUTTONS_COMPONENT_BY_DEFAULT": 'by-default',
-        "FAILED_TO_FETCH": 'failed-to-fetch',
-        "PREVENT_SELECT": 'prevent-select',
-        "TOAST": 'is-toast',
-        "SHOW_TOAST": 'show',
-        "BOX": 'is-box',
-        "ERROR_BOX": 'error-box',
-        "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-',
-        "TOASTS_COMPONENT": "toasts-component"
-    },
-
-    "DYN_IDS": {
-        "DIDNT_UPDATE_GALLERY_FIGURES_TOAST": 'didnt-update-gallery-figures-toast',
-        "STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'still-failed-to-load-gallery-figures-toast'
-    },
-
-    "API": {
-        SERVLET_URL: 'http://localhost:5678/api'
-    },
-
-    "SIDE_EFFECTS": {
-        "SCROLL_DOWN_TRIGGER_HASH": '#contact'
-    }
-}
-
-/* [§ API Routes] */
-Object.assign(__GLOBALS["API"],
-    {
-        "ROUTES": {
-            "WORKS": `${__GLOBALS.API.SERVLET_URL}/works`,
-            "CATEGORIES": `${__GLOBALS.API.SERVLET_URL}/categories`
-        }
-    }
-);
-
-/* [§ Selectors] */
-__GLOBALS["SELECTORS"] = {
-    "GALLERY_COMPONENT": '#gallery-component',
-    "FILTERS_COMPONENT": '#filter-by-category-component',
-    "FILTERS_BUTTONS_COMPONENT": '.filter-by-category-component>.btn',
-    "ERROR_BOXES": `.${__GLOBALS.DYN_CLASSES.ERROR_BOX}`,
-    [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: `#${__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST}`,
-    [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: `#${__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST}`,
-    [__GLOBALS.DYN_CLASSES.TOASTS_COMPONENT]: `#${__GLOBALS.DYN_CLASSES.TOASTS_COMPONENT}`
-}
-
-/* [§ Vocab] */
-__GLOBALS["VOCAB"] = {
-    "FILTERS_BUTTONS_UNAVAILABLE": 'Filters buttons unavailable',
-    "GALLERY_FIGURES_UNAVAILABLE": 'Gallery figures unavailable',
-    "FAILED_TO_CONNECT_TO_THE_API": 'failed to connect to the API!',
-    "UNKNOWN_ERROR": 'Unknown error',
-    "CRASH": '⚠️ Application has crashed. Please, refresh this page.',
-    [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Failed to connect to the API: the gallery has been left untouched.',
-    [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Still failed to load the gallery. Please, try again.'
-}
-
-Object.freeze(__GLOBALS);
-
-/* [§ Getters] */
-function getSelector(key) {
-    const value = __GLOBALS.SELECTORS[key];
-    if (value === undefined) {
-        console.error(`No configured selector found with this key: ${key}`)
-    }
-    return value;
-}
-
-function getRoute(key) {
-    const value = __GLOBALS.API.ROUTES[key];
-    if (value === undefined) {
-        console.error(`No configured route found with this key: ${key}`)
-    }
-    return value;
-}
-
-function getDynamicClass(key) {
-    const value = __GLOBALS.DYN_CLASSES[key];
-    if (value === undefined) {
-        console.error(`No configured dynamic class found with this key: ${key}`)
-    }
-    return value;
-}
-
-function getDynamicId(key) {
-    const value = __GLOBALS.DYN_IDS[key];
-    if (value === undefined) {
-        console.error(`No configured dynamic id found with this key: ${key}`)
-    }
-    return value;
-}
-
-function getVocab(key) {
-    const value = __GLOBALS.VOCAB[key];
-    if (value === undefined) {
-        console.error(`No configured vocab found with this key: ${key}`)
-    }
-    return value;
-}
-
-function getSideEffectConf(key) {
-    const value = __GLOBALS.SIDE_EFFECTS[key];
-    if (value === undefined) {
-        console.error(`No configured vocab found with this key: ${key}`)
-    }
-    return value;
-}
-
 /*** 🔨 [§ Collection from API] */
 /* [§ Builder] */
 async function collectionFromApiBuilder(req) {
@@ -164,30 +50,22 @@ async function fetchGalleryData() {
 }
 
 /*** 📐 [§ DOM getters] */
-function domGetterSingleElement(selector) {
-    return document.querySelector(selector);
-}
-
-function domGetterManyElements(selector) {
-    return document.querySelectorAll(selector);
-}
-
 function galleryFiltersButtonsGetter() {
-    return domGetterManyElements(getSelector("FILTERS_BUTTONS_COMPONENT"));
+    return document.querySelectorAll(getSelector("FILTERS_BUTTONS_COMPONENT"));
 }
 
 function activeBtnGetter() {
     const activeBtnSelector = `${getSelector("FILTERS_BUTTONS_COMPONENT")}.${getDynamicClass("FILTERS_BUTTONS_COMPONENT_IS_ACTIVE")}`;
 
-    return domGetterSingleElement(activeBtnSelector);
+    return document.querySelector(activeBtnSelector);
 }
 
 function galleryComponentRootNodeGetter() {
-    return domGetterSingleElement(getSelector("GALLERY_COMPONENT"));
+    return document.querySelector(getSelector("GALLERY_COMPONENT"));
 }
 
 function filtersComponentRootNodeGetter() {
-    return domGetterSingleElement(getSelector("FILTERS_COMPONENT"));
+    return document.querySelector(getSelector("FILTERS_COMPONENT"));
 }
 
 /*** 📐 [§ Errors States Manager] */
@@ -234,40 +112,6 @@ function getWorksCollectionToDispose(worksCollection) {
 }
 
 /*** 🎨 [§ Drawers] */
-/* [§ Drawers -> Toasts] */
-function createToastThread(toast) {
-    const rootNode = domGetterSingleElement(getSelector(getDynamicClass("TOASTS_COMPONENT")));
-    rootNode.appendChild(toast);
-    setTimeout(() => toast.classList.add(getDynamicClass("SHOW_TOAST")), 250);
-    setTimeout(() => toast.classList.remove(getDynamicClass("SHOW_TOAST")), 4500);
-    setTimeout(() => toast.remove(), 8500);
-}
-
-function drawToast(id, msg) {
-    if (domGetterSingleElement(getSelector(id)) !== null) {
-        return null;
-    }
-    const toast = document.createElement('div');
-    const toastTxt = document.createTextNode(msg);
-    toast.id = id;
-    toast.classList.add(getDynamicClass("PREVENT_SELECT"));
-    toast.classList.add(getDynamicClass("TOAST"));
-    toast.appendChild(toastTxt);
-
-    createToastThread(toast);
-    return toast;
-}
-
-function drawErrorToast(id) {
-    const msg = getVocab(id) ?? getVocab("UNKNOWN_ERROR");
-    const toast = drawToast(id, msg);
-
-    if (toast !== null) {
-        toast.classList.add(getDynamicClass("ERROR_BOX"));
-    }
-    return toast;
-}
-
 /* [§ Drawers -> Error boxes] */
 function drawErrorBox(node, errorMessage) {
     function generateErrorBox(msg) {
@@ -427,7 +271,7 @@ async function generateEvents() {
 
 /*** 💥 [§ Crash] */
 function makeCrash(rootNode) {
-    const errorBoxes = domGetterManyElements(getSelector("ERROR_BOXES"));
+    const errorBoxes = document.querySelectorAll(getSelector("ERROR_BOXES"));
     errorBoxes.forEach(element => element.remove());
     drawErrorBox(rootNode, getVocab("CRASH"));
 }
