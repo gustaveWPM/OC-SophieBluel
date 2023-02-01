@@ -354,7 +354,7 @@ async function run(retryContext = false) {
         if (!retryContext) {
             filtersComponentNode.classList.add(getDynamicClass("FORCE_FLEX_COLUMN"));
         } else {
-            drawErrorToast(getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
+            drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
         }
         return;
     }
