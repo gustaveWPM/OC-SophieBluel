@@ -7,8 +7,9 @@
 */
 
 /* [§ Drawers -> Toasts] */
-function drawToast(id, msg, uniq=true) {
+function drawToast(id, msg, uniq = true) {
     const rootNode = document.querySelector(getSelector("TOASTS_COMPONENT"));
+
     function createToastThread(toast) {
         rootNode.appendChild(toast);
         setTimeout(() => toast.classList.add(getDynamicClass("SHOW_TOAST")), 150);
@@ -34,7 +35,7 @@ function drawToast(id, msg, uniq=true) {
     return toast;
 }
 
-function drawErrorToast(id, uniq=true) {
+function drawErrorToast(id, uniq = true) {
     const msg = getVocab(id) ?? getVocab("UNKNOWN_ERROR");
     const toast = drawToast(id, msg, uniq);
 

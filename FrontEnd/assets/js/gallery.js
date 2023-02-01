@@ -137,7 +137,7 @@ function getWorksCollectionToDispose(worksCollection) {
 
 /*** 🎨 [§ Drawers] */
 /* [§ Drawers -> Gallery] */
-function doDrawGalleryFigures(node, element, fromCache=false) {
+function doDrawGalleryFigures(node, element, fromCache = false) {
     function generateImg(alt, url) {
         const img = document.createElement('img');
         img.setAttribute('src', url);
@@ -190,8 +190,8 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
         const buttonTxt = document.createTextNode(element.name);
         const elementIsFromApi = element.id >= 0;
 
-        button.classList.add('is-btn');
-        button.classList.add('filter-btn');
+        button.classList.add(getDynamicClass("BTN"));
+        button.classList.add(getDynamicClass("FILTER_BTN"));
         if (elementIsFromApi) {
             button.classList.add(`${getDynamicClass("FILTERS_BUTTONS_CATEGORY_PREFIX")}${element.id}`);
         }
@@ -212,7 +212,6 @@ function drawGalleryFilters(categoriesCollection) {
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(categoriesCollection)) {
-        drawErrorBox(rootNode, `${getVocab("FILTERS_BUTTONS_UNAVAILABLE")} : ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
         rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
     }
@@ -312,44 +311,81 @@ function handleContactHash() {
 
 /*** ✏️ [§ Dynamic content generation] */
 async function appendDynamicCategories() {
-    const categoriesCollection = await fetchCategoriesCollection();    
+    const categoriesCollection = await fetchCategoriesCollection();
+    if (failedToGetFromApi(categoriesCollection)) {
+        return false;
+    }
     drawGalleryFilters(categoriesCollection);
+    return categoriesCollection;
 }
 
 async function appendDynamicWorks() {
     const worksCollection = await fetchWorksCollection();
+    if (failedToGetFromApi(worksCollection)) {
+        return false;
+    }
     await updateGalleryFigures(worksCollection);
+    return worksCollection;
 }
 
 async function appendDynamicContent() {
-    await appendDynamicWorks();
-    await appendDynamicCategories();
+    const categoriesCollection = await appendDynamicCategories();
+    if (failedToGetFromApi(categoriesCollection)) {
+        return false;
+    }
+    const worksCollection = await appendDynamicWorks();
+    if (failedToGetFromApi(worksCollection)) {
+        return false;
+    }
+    return true;
 }
 
 /*** 💥 [§ Crash] */
-function makeCrash(rootNode) {
-    function drawCrashErrorBox() {
+function crash(crashNode, retryContext = false) {
+    function drawCrashErrorBox(rootNode) {
         const errorBoxes = document.querySelectorAll(getSelector("ERROR_BOXES"));
         errorBoxes.forEach(element => element.remove());
         drawErrorBox(rootNode, getVocab("CRASH"));
     }
 
-    function drawCrashRetryButton() {
+    function drawCrashRetryButton(rootNode) {
+        const retryButton = document.createElement('button');
+        const retryButtonTxt = document.createTextNode(getVocab("RETRY_TO_LOAD_GALLERY"));
 
+        retryButton.classList.add(getDynamicClass("BTN"));
+        retryButton.appendChild(retryButtonTxt);
+        rootNode.appendChild(retryButton);
+
+        retryButton.addEventListener("click", () => {
+            run(retryContext = true);
+        });
     }
-    drawCrashErrorBox();
-    drawCrashRetryButton();
+
+    if (!retryContext) {
+        drawCrashErrorBox(crashNode);
+        drawCrashRetryButton(crashNode);
+        console.log("lolilol");
+    }
 }
 
 /*** 🚀 [§ Run] */
-async function run() {
-    await appendDynamicContent();
-    if (failedToLoadElement(getSelector("FILTERS_COMPONENT"))) {
-        const crashErrorBoxRootNode = filtersComponentRootNodeGetter();
-        makeCrash(crashErrorBoxRootNode);
-    } else {
-        generateEvents();
+async function run(retryContext = false) {
+    const startApp = await appendDynamicContent();
+    const filtersComponentNode = filtersComponentRootNodeGetter();
+
+    if (!startApp) {
+        crash(filtersComponentNode, retryContext);
+        if (!retryContext) {
+            filtersComponentNode.classList.add(getDynamicClass("FORCE_FLEX_COLUMN"));
+        } else {
+            drawErrorToast(getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
+        }
+        return;
     }
+    if (retryContext) {
+        filtersComponentNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
+    }
+    generateEvents();
 }
 
 /*** 🚪 [§ Entry point] */

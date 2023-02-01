@@ -87,11 +87,14 @@ let __GLOBALS = {
         "FILTERS_BUTTONS_COMPONENT_IS_ACTIVE": 'is-active',
         "FILTERS_BUTTONS_COMPONENT_BY_DEFAULT": 'by-default',
         "FAILED_TO_FETCH": 'failed-to-fetch',
-        "PREVENT_SELECT": 'prevent-select',
         "TOAST": 'is-toast',
         "SHOW_TOAST": 'show',
         "BOX": 'is-box',
+        "BTN": 'is-btn',
+        "FILTER_BTN": 'filter-btn',
         "ERROR_BOX": 'error-box',
+        "PREVENT_SELECT": 'prevent-select',
+        "FORCE_FLEX_COLUMN": 'js-monkey-patch-flex-column',
         "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-'
     },
 
@@ -151,11 +154,11 @@ __GLOBALS["SELECTORS"] = {
 
 /* [§ Vocab] */
 __GLOBALS["VOCAB"] = {
-    "FILTERS_BUTTONS_UNAVAILABLE": 'Les filtres sont indisponibles',
     "GALLERY_FIGURES_UNAVAILABLE": 'Les images de la galerie sont indisponibles',
     "FAILED_TO_CONNECT_TO_THE_API": 'échec de la connexion !',
     "UNKNOWN_ERROR": 'Erreur inconnue',
-    "CRASH": '⚠️ L’application a planté. Merci de recharger cette page.',
+    "RETRY_TO_LOAD_GALLERY": 'Afficher la galerie',
+    "CRASH": 'La galerie n’a pas pu être affichée. Veuillez réessayer.',
     [`${getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion : la galerie n’a pas été mise à jour.',
     [`${getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion. Merci de réessayer plus tard.',
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: 'Erreur dans l’identifiant ou le mot de passe.',
@@ -179,5 +182,3 @@ __GLOBALS["CACHE_KEYS"] = {
 }
 
 Object.freeze(__GLOBALS);
-
-console.log(__GLOBALS.SELECTORS);
