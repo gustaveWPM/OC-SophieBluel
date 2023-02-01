@@ -26,7 +26,8 @@ let __GLOBALS = {
     "DYN_IDS": {
         "DIDNT_UPDATE_GALLERY_FIGURES_TOAST": 'didnt-update-gallery-figures-toast',
         "STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'still-failed-to-load-gallery-figures-toast',
-        "FAILED_TO_LOGIN": 'failed-to-login-toast'
+        "FAILED_TO_LOGIN": 'failed-to-login-toast',
+        "CANT_LOGIN": 'cant-login-toast'
     },
 
     "API": {
@@ -70,6 +71,7 @@ __GLOBALS["SELECTORS"] = {
     [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: `#${__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST}`,
     [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: `#${__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST}`,
     [__GLOBALS.DYN_IDS.FAILED_TO_LOGIN]: `#${__GLOBALS.DYN_IDS.FAILED_TO_LOGIN}`,
+    [__GLOBALS.DYN_IDS.CANT_LOGIN]: `#${__GLOBALS.DYN_IDS.CANT_LOGIN}`,
     [__GLOBALS.DYN_CLASSES.TOASTS_COMPONENT]: `#${__GLOBALS.DYN_CLASSES.TOASTS_COMPONENT}`
 }
 
@@ -82,7 +84,8 @@ __GLOBALS["VOCAB"] = {
     "CRASH": '⚠️ L’application a planté. Merci de recharger cette page.',
     [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Échec de la connexion à l’API: la galerie n’a pas été mise à jour.',
     [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Échec de la connexion à l’API. Merci de réessayer plus tard.',
-    [__GLOBALS.DYN_IDS.FAILED_TO_LOGIN]: 'Erreur dans l’identifiant ou le mot de passe.'
+    [__GLOBALS.DYN_IDS.FAILED_TO_LOGIN]: 'Erreur dans l’identifiant ou le mot de passe.',
+    [__GLOBALS.DYN_IDS.FAILED_TO_LOGIN]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.'
 }
 
 /* [§ Modules config] */
