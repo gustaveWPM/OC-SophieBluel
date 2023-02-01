@@ -56,8 +56,8 @@ Object.assign(__GLOBALS["API"],
     }
 );
 
-/* [§ Page URL] */
-__GLOBALS["PAGE_URLS"] = {
+/* [§ Pages URL] */
+__GLOBALS["PAGES_URLS"] = {
     "INDEX": './index.html'
 }
 
@@ -83,6 +83,11 @@ __GLOBALS["VOCAB"] = {
     [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Échec de la connexion à l’API: la galerie n’a pas été mise à jour.',
     [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Échec de la connexion à l’API. Merci de réessayer plus tard.',
     [__GLOBALS.DYN_IDS.FAILED_TO_LOGIN]: 'Erreur dans l’identifiant ou le mot de passe.'
+}
+
+/* [§ Modules config] */
+__GLOBALS["MODULES_CONFIG"] = {
+    "MAX_TOASTS": 5
 }
 
 Object.freeze(__GLOBALS);
@@ -137,7 +142,7 @@ function getSideEffectConf(key) {
 }
 
 function getPageUrl(key) {
-    const value = __GLOBALS.PAGE_URLS[key];
+    const value = __GLOBALS.PAGES_URLS[key];
     if (value === undefined) {
         console.error(`No configured page URL found with this key: ${key}`)
     }

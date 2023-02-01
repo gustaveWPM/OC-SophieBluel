@@ -377,32 +377,42 @@ footer nav ul {
 .toasts-component>.is-toast:nth-child(4) { --nth-child: 4; }
 .toasts-component>.is-toast:nth-child(n + 5) { --nth-child: 5; }
 
+.toasts-component {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+}
+
 .is-toast {
 	--_default-min-width: 250px;
-	--_margin-left: calc(var(--_default-min-width) / 2 * -1);
 	--_delta: 50px;
-	--_fadein-duration: 1s;
-	--_fadeout-duration: 3s;
+	--_fadein-duration: 0.5s;
+	--_fadeout-duration: 1s;
+	--_movein-duration: 0.7s;
+	--_moveout-duration: 1s;
 	opacity: 0;
+	margin: auto;
 	font-weight: 500;
 	min-width: var(--_default-min-width);
-	margin-left: var(--_margin-left);
 	background-color: var(--portfolio-default-toast-bg-color);
 	color: var(--portfolio-default-toast-font-color);
 	text-align: center;
 	border-radius: 2px;
 	padding: 16px;
-	position: fixed;
 	z-index: 1;
-	left: 50%;
 	bottom: 0;
-	transition: bottom 2s, opacity var(--_fadeout-duration);
+	position: fixed;
+	transition: bottom var(--_movein-duration), opacity var(--_fadeout-duration);
 }
 
 .is-toast.show {
 	opacity: 1;
 	bottom: calc(var(--_delta) * var(--nth-child));
-	transition: bottom 2s, opacity var(--_fadein-duration);
+	transition: bottom var(--_moveout-duration), opacity var(--_fadein-duration);
 }
 
 .is-toast.error-box {

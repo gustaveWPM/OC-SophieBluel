@@ -7,16 +7,20 @@
 */
 
 /* [§ Drawers -> Toasts] */
-function createToastThread(toast) {
-    const rootNode = document.querySelector(getSelector(getDynamicClass("TOASTS_COMPONENT")));
-    rootNode.appendChild(toast);
-    setTimeout(() => toast.classList.add(getDynamicClass("SHOW_TOAST")), 250);
-    setTimeout(() => toast.classList.remove(getDynamicClass("SHOW_TOAST")), 4500);
-    setTimeout(() => toast.remove(), 7500);
-}
-
 function drawToast(id, msg, uniq=true) {
+    const rootNode = document.querySelector(getSelector(getDynamicClass("TOASTS_COMPONENT")));
+    function createToastThread(toast) {
+        rootNode.appendChild(toast);
+        setTimeout(() => toast.classList.add(getDynamicClass("SHOW_TOAST")), 150);
+        setTimeout(() => toast.classList.remove(getDynamicClass("SHOW_TOAST")), 2000);
+        setTimeout(() => toast.remove(), 2800);
+    }
+
+    const curToastsAmount = rootNode.getElementsByTagName('*').length;
     if (document.querySelector(getSelector(id)) !== null && uniq) {
+        return null;
+    }
+    if (__GLOBALS.MODULES_CONFIG.MAX_TOASTS <= curToastsAmount) {
         return null;
     }
     const toast = document.createElement('div');
