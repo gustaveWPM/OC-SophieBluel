@@ -79,11 +79,11 @@ __GLOBALS["SELECTORS"] = {
 __GLOBALS["VOCAB"] = {
     "FILTERS_BUTTONS_UNAVAILABLE": 'Les filtres sont indisponibles',
     "GALLERY_FIGURES_UNAVAILABLE": 'Les images de la galerie sont indisponibles',
-    "FAILED_TO_CONNECT_TO_THE_API": 'échec de la connexion à l’API!',
+    "FAILED_TO_CONNECT_TO_THE_API": 'échec de la connexion !',
     "UNKNOWN_ERROR": 'Erreur inconnue',
     "CRASH": '⚠️ L’application a planté. Merci de recharger cette page.',
-    [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Échec de la connexion à l’API: la galerie n’a pas été mise à jour.',
-    [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Échec de la connexion à l’API. Merci de réessayer plus tard.',
+    [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Échec de la connexion : la galerie n’a pas été mise à jour.',
+    [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Échec de la connexion. Merci de réessayer plus tard.',
     [__GLOBALS.DYN_IDS.FAILED_TO_LOGIN]: 'Erreur dans l’identifiant ou le mot de passe.',
     [__GLOBALS.DYN_IDS.CANT_LOGIN]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.'
 }

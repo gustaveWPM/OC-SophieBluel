@@ -166,7 +166,7 @@ function drawGalleryFigures(worksCollection) {
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(worksCollection)) {
-        drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")}: ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
+        drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")} : ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
         rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
     }
@@ -203,7 +203,7 @@ function drawGalleryFilters(filtersCollection) {
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(filtersCollection)) {
-        drawErrorBox(rootNode, `${getVocab("FILTERS_BUTTONS_UNAVAILABLE")}: ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
+        drawErrorBox(rootNode, `${getVocab("FILTERS_BUTTONS_UNAVAILABLE")} : ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
         rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
     }
