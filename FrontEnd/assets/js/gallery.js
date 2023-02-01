@@ -161,9 +161,9 @@ function drawGalleryFigures(worksCollection) {
 
     if (failedToGetFromApi(worksCollection)) {
         drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")} : ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
-        rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
     }
+
     rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
     worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element));
     return true;
@@ -300,6 +300,8 @@ function handleContactHash() {
 async function appendDynamicCategories() {
     const categoriesCollection = await fetchCategoriesCollection();
     if (failedToGetFromApi(categoriesCollection)) {
+        const rootNode = galleryComponentRootNodeGetter();
+        rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
     }
     drawGalleryFilters(categoriesCollection);
