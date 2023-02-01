@@ -85,7 +85,7 @@ __GLOBALS["VOCAB"] = {
     [__GLOBALS.DYN_IDS.DIDNT_UPDATE_GALLERY_FIGURES_TOAST]: 'Échec de la connexion à l’API: la galerie n’a pas été mise à jour.',
     [__GLOBALS.DYN_IDS.STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST]: 'Échec de la connexion à l’API. Merci de réessayer plus tard.',
     [__GLOBALS.DYN_IDS.FAILED_TO_LOGIN]: 'Erreur dans l’identifiant ou le mot de passe.',
-    [__GLOBALS.DYN_IDS.FAILED_TO_LOGIN]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.'
+    [__GLOBALS.DYN_IDS.CANT_LOGIN]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.'
 }
 
 /* [§ Modules config] */
