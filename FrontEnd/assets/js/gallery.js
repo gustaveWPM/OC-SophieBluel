@@ -6,6 +6,47 @@
 #=================================================
 */
 
+/*** 📝 [§ Cache] */
+let __CACHE = {
+    "COLLECTIONS": {},
+    "WORKS": {}
+}
+
+function deepCopy(obj) {
+    const copy = JSON.parse(JSON.stringify(obj));
+    return copy;
+}
+
+function cacheCategories(categories) {
+    if (failedToGetFromApi(categories)) {
+        return;
+    }
+    __CACHE.COLLECTIONS = deepCopy(categories);
+}
+
+function cacheWorks(worksCollection) {
+    function dynamicRouteToStaticRoute(element) {
+        const url = element.imageUrl;
+        const noodle = getCacheConf("IMAGES_FOLDER_NOODLE");
+        const newPrefix = getCacheConf("STATIC_IMAGES_ROUTE_PREFIX");
+        const noodleIndex = url.indexOf(noodle) + 1;
+        const urlWithoutHost = url.substring(noodleIndex);
+        const newUrl = `${newPrefix}${urlWithoutHost}`;
+
+        element.imageUrl = newUrl;
+        return element;
+    }
+
+    function newWorksCollectionWithStaticRoutes(worksCollection) {
+        const newCollection = worksCollection.map(element => dynamicRouteToStaticRoute(element));
+        return newCollection;
+    }
+    if (failedToGetFromApi(worksCollection)) {
+        return;
+    }
+    __CACHE.WORKS = newWorksCollectionWithStaticRoutes(worksCollection);
+}
+
 /*** 🔨 [§ Collection from API] */
 /* [§ Builder] */
 async function collectionFromApiBuilder(req) {
@@ -28,6 +69,7 @@ async function fetchWorksCollection() {
     const worksRoute = getRoute("WORKS");
     const worksCollection = await collectionFromApiBuilder(worksRoute);
 
+    cacheWorks(worksCollection);
     return worksCollection;
 }
 
@@ -38,7 +80,9 @@ async function fetchCategoriesCollection() {
     if (failedToGetFromApi(categoriesCollection)) {
         return false;
     }
-    return new Set(categoriesCollection);
+    const categoriesSet = new Set(categoriesCollection);
+    cacheCategories(categoriesSet);
+    return categoriesSet;
 }
 
 async function fetchGalleryData() {
@@ -100,31 +144,15 @@ function getWorksCollectionToDispose(worksCollection) {
 }
 
 /*** 🎨 [§ Drawers] */
-/* [§ Drawers -> Error boxes] */
-function drawErrorBox(node, errorMessage) {
-    function generateErrorBox(msg) {
-        const errorBox = document.createElement('div');
-        const errorBoxTxt = document.createTextNode(msg);
-
-        errorBox.classList.add(getDynamicClass("PREVENT_SELECT"));
-        errorBox.classList.add(getDynamicClass("BOX"));
-        errorBox.classList.add(getDynamicClass("ERROR_BOX"));
-        errorBox.appendChild(errorBoxTxt);
-
-        return errorBox;
-    }
-
-    const errorBox = generateErrorBox(errorMessage);
-    node.appendChild(errorBox);
-}
-
 /* [§ Drawers -> Gallery] */
-function doDrawGalleryFigures(node, element) {
+function doDrawGalleryFigures(node, element, fromCache=false) {
     function generateImg(alt, url) {
         const img = document.createElement('img');
         img.setAttribute('src', url);
         img.setAttribute('alt', alt);
-        img.setAttribute('crossorigin', '');
+        if (fromCache) {
+            img.setAttribute('crossorigin', '');
+        }
 
         return img;
     }
@@ -187,11 +215,11 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
     node.appendChild(button);
 }
 
-function drawGalleryFilters(filtersCollection) {
+function drawGalleryFilters(categoriesCollection) {
     const rootNode = filtersComponentRootNodeGetter();
     rootNode.innerHTML = '';
 
-    if (failedToGetFromApi(filtersCollection)) {
+    if (failedToGetFromApi(categoriesCollection)) {
         drawErrorBox(rootNode, `${getVocab("FILTERS_BUTTONS_UNAVAILABLE")} : ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
         rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
@@ -203,7 +231,7 @@ function drawGalleryFilters(filtersCollection) {
     }, {
         classList: ['by-default', 'is-active']
     });
-    filtersCollection.forEach(element => doDrawGalleryFilters(rootNode, element));
+    categoriesCollection.forEach(element => doDrawGalleryFilters(rootNode, element));
     return true;
 }
 
@@ -298,10 +326,14 @@ function handleContactHash() {
 }
 
 /*** 🚀 [§ Entry point] */
-async function run() {
-    const [worksCollection, filtersCollection] = await fetchGalleryData();
+async function appendDynamicContent() {
+    const [worksCollection, categoriesCollection] = await fetchGalleryData();
     await updateGalleryFigures(worksCollection);
-    drawGalleryFilters(filtersCollection);
+    drawGalleryFilters(categoriesCollection);
+}
+
+async function run() {
+    await appendDynamicContent();
     if (failedToLoadElement(getSelector("FILTERS_COMPONENT"))) {
         const crashErrorBoxRootNode = filtersComponentRootNodeGetter();
         makeCrash(crashErrorBoxRootNode);

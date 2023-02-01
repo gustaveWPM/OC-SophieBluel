@@ -20,7 +20,7 @@ let __GLOBALS = {
         "BOX": 'is-box',
         "ERROR_BOX": 'error-box',
         "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-',
-        "TOASTS_COMPONENT": "toasts-component"
+        "TOASTS_COMPONENT": 'toasts-component'
     },
 
     "DYN_IDS": {
@@ -31,7 +31,7 @@ let __GLOBALS = {
     },
 
     "API": {
-        HOST: "http://localhost:5678",
+        "HOST": 'http://localhost:5678',
     },
 
     "SIDE_EFFECTS": {
@@ -95,7 +95,13 @@ __GLOBALS["MODULES_CONFIG"] = {
 
 /* [§ Localstorage keys] */
 __GLOBALS["LOCALSTORAGE_KEYS"] = {
-    "USER_INFOS": "userInfos"
+    "USER_INFOS": 'userInfos'
+}
+
+/* [§ Cache] */
+__GLOBALS["CACHE_KEYS"] = {
+    "IMAGES_FOLDER_NOODLE": '/images',
+    "STATIC_IMAGES_ROUTE_PREFIX": '../Backend/'
 }
 
 Object.freeze(__GLOBALS);
@@ -161,6 +167,14 @@ function getLocalStorageKey(key) {
     const value = __GLOBALS.LOCALSTORAGE_KEYS[key];
     if (value === undefined) {
         console.error(`No localstorage key found with this key: ${key}`)
+    }
+    return value;
+}
+
+function getCacheConf(key) {
+    const value = __GLOBALS.CACHE_KEYS[key];
+    if (value === undefined) {
+        console.error(`No cache configuration value found with this key: ${key}`)
     }
     return value;
 }
