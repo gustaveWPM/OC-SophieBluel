@@ -93,14 +93,15 @@ let __GLOBALS = {
         "BTN": 'is-btn',
         "FILTER_BTN": 'filter-btn',
         "ERROR_BOX": 'error-box',
+        "WARNING_BOX": 'warning-box',
         "PREVENT_SELECT": 'prevent-select',
         "FORCE_FLEX_COLUMN": 'js-monkey-patch-flex-column',
         "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-'
     },
 
     "DYN_IDS": {
-        "DIDNT_UPDATE_GALLERY_FIGURES_TOAST": 'didnt-update-gallery-figures-toast',
-        "STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'still-failed-to-load-gallery-figures-toast',
+        "FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'failed-to-load-gallery-figures-toast',
+        "USING_CACHE_WARNING_TOAST": 'using-cache-warning-toast',
         "FAILED_TO_LOGIN_TOAST": 'failed-to-login-toast',
         "CANT_LOGIN_TOAST": 'cant-login-toast',
         "TOASTS_COMPONENT": 'toasts-component'
@@ -142,10 +143,10 @@ __GLOBALS["SELECTORS"] = {
     "FILTERS_BUTTONS_COMPONENT": '.filter-by-category-component>.is-btn',
     "ERROR_BOXES": `.${getDynamicClass("ERROR_BOX")}`,
     "TOASTS_COMPONENT": `#${getDynamicId("TOASTS_COMPONENT")}`,
-    [`${getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST")}`,
-    [`${getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`,
+    [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOGIN_TOAST")}`,
-    [`${getDynamicId("CANT_LOGIN_TOAST")}`]: `#${getDynamicId("CANT_LOGIN_TOAST")}`
+    [`${getDynamicId("CANT_LOGIN_TOAST")}`]: `#${getDynamicId("CANT_LOGIN_TOAST")}`,
+    [`${getDynamicId("USING_CACHE_WARNING_TOAST")}`]: `#${getDynamicId("USING_CACHE_WARNING_TOAST")}`
 }
 
 /* [§ Vocab] */
@@ -155,10 +156,10 @@ __GLOBALS["VOCAB"] = {
     "UNKNOWN_ERROR": 'Erreur inconnue',
     "RETRY_TO_LOAD_GALLERY": 'Afficher la galerie',
     "CRASH": 'La galerie n’a pas pu être affichée. Veuillez réessayer.',
-    [`${getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion : la galerie n’a pas été mise à jour.',
-    [`${getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion. Merci de réessayer plus tard.',
+    [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion. Merci de réessayer plus tard.',
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: 'Erreur dans l’identifiant ou le mot de passe.',
-    [`${getDynamicId("CANT_LOGIN_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.'
+    [`${getDynamicId("CANT_LOGIN_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.',
+    [`${getDynamicId("USING_CACHE_WARNING_TOAST")}`]: 'Le contenu de la galerie n’a pas pu être mis à jour.'
 }
 
 /* [§ Modules config] */

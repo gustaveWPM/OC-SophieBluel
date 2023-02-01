@@ -7,21 +7,8 @@
 */
 
 /*** 📝 [§ Cache] */
-let __CACHE = {
-    "COLLECTIONS": {},
-    "WORKS": {}
-}
-
-function deepCopy(obj) {
-    const copy = JSON.parse(JSON.stringify(obj));
-    return copy;
-}
-
-function cacheCategories(categories) {
-    if (failedToGetFromApi(categories)) {
-        return;
-    }
-    __CACHE.COLLECTIONS = deepCopy(categories);
+const __CACHE = {
+    "WORKS": null
 }
 
 function cacheWorks(worksCollection) {
@@ -81,7 +68,6 @@ async function fetchCategoriesCollection() {
         return false;
     }
     const categoriesSet = new Set(categoriesCollection);
-    cacheCategories(categoriesSet);
     return categoriesSet;
 }
 
@@ -243,17 +229,18 @@ function updateActiveFilterBtn(element) {
 }
 
 /* [§ Update -> Gallery Figures] */
-async function updateGalleryFigures(worksCollection = null, naive = true) {
+async function updateGalleryFigures(worksCollection = null, onClick = false) {
     if (worksCollection === null) {
         worksCollection = await fetchWorksCollection();
     }
-    if (failedToGetFromApi(worksCollection) && !naive) {
-        if (failedToLoadElement(getSelector("GALLERY_COMPONENT"))) {
-            drawErrorToast(getDynamicId("STILL_FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
+    if (failedToGetFromApi(worksCollection) && onClick) {
+        if (__CACHE.WORKS === null) {
+            drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
+            return false;
         } else {
-            drawErrorToast(getDynamicId("DIDNT_UPDATE_GALLERY_FIGURES_TOAST"));
+            drawWarningToast(getDynamicId("USING_CACHE_WARNING_TOAST"), uniq = false);
+            worksCollection = __CACHE.WORKS;
         }
-        return false;
     }
     const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection);
 
@@ -268,8 +255,8 @@ async function generateEvents() {
 
         buttons.forEach(function (element) {
             element.addEventListener("click", () => {
-                const activeFilterBtnHasBeenUpdated = updateActiveFilterBtn(element);
-                updateGalleryFigures(null, activeFilterBtnHasBeenUpdated);
+                updateActiveFilterBtn(element);
+                updateGalleryFigures(null, onClick = true);
             });
         });
     }
@@ -321,23 +308,9 @@ async function appendDynamicCategories() {
 
 async function appendDynamicWorks() {
     const worksCollection = await fetchWorksCollection();
-    if (failedToGetFromApi(worksCollection)) {
-        return false;
-    }
+
     await updateGalleryFigures(worksCollection);
     return worksCollection;
-}
-
-async function appendDynamicContent() {
-    const categoriesCollection = await appendDynamicCategories();
-    if (failedToGetFromApi(categoriesCollection)) {
-        return false;
-    }
-    const worksCollection = await appendDynamicWorks();
-    if (failedToGetFromApi(worksCollection)) {
-        return false;
-    }
-    return true;
 }
 
 /*** 💥 [§ Crash] */
@@ -364,16 +337,15 @@ function crash(crashNode, retryContext = false) {
     if (!retryContext) {
         drawCrashErrorBox(crashNode);
         drawCrashRetryButton(crashNode);
-        console.log("lolilol");
     }
 }
 
 /*** 🚀 [§ Run] */
 async function run(retryContext = false) {
-    const startApp = await appendDynamicContent();
+    const dynamicCategories = await appendDynamicCategories();
     const filtersComponentNode = filtersComponentRootNodeGetter();
 
-    if (!startApp) {
+    if (failedToGetFromApi(dynamicCategories)) {
         crash(filtersComponentNode, retryContext);
         if (!retryContext) {
             filtersComponentNode.classList.add(getDynamicClass("FORCE_FLEX_COLUMN"));
@@ -382,10 +354,11 @@ async function run(retryContext = false) {
         }
         return;
     }
+    generateEvents();
     if (retryContext) {
         filtersComponentNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
     }
-    generateEvents();
+    await appendDynamicWorks();
 }
 
 /*** 🚪 [§ Entry point] */
