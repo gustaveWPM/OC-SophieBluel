@@ -20,7 +20,7 @@ function drawToast(id, msg, uniq = true) {
     if (document.querySelector(getSelector(id)) !== null && uniq) {
         return null;
     }
-    if (__GLOBALS.MODULES_CONFIG.MAX_TOASTS <= curToastsAmount) {
+    if (curToastsAmount >= __GLOBALS.MODULES_CONFIG.MAX_TOASTS) {
         return null;
     }
     const toast = document.createElement('div');

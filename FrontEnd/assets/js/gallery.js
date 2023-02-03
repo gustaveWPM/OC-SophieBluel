@@ -237,7 +237,7 @@ async function updateGalleryFigures(worksCollection = null, onClick = false) {
     }
     if (failedToGetFromApi(worksCollection) && onClick) {
         if (__CACHE.WORKS === null) {
-            drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
+            drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), uniq = false);
             return false;
         } else {
             drawWarningToast(getDynamicId("USING_CACHE_WARNING_TOAST"), uniq = false);

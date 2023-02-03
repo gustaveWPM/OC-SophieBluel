@@ -153,7 +153,7 @@ __GLOBALS["SELECTORS"] = {
 /* [§ Vocab] */
 __GLOBALS["VOCAB"] = {
     "GALLERY_FIGURES_UNAVAILABLE": 'Les images de la galerie sont indisponibles',
-    "FAILED_TO_CONNECT_TO_THE_API": 'échec de la connexion !',
+    "FAILED_TO_CONNECT_TO_THE_API": 'veuillez essayer de cliquer à nouveau sur une catégorie.',
     "UNKNOWN_ERROR": 'Erreur inconnue',
     "RETRY_TO_LOAD_GALLERY": 'Afficher la galerie',
     "CRASH": 'La galerie n’a pas pu être affichée. Veuillez réessayer.',

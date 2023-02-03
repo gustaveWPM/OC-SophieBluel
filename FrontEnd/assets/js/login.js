@@ -20,18 +20,18 @@ async function processLogin(payload) {
     try {
         const response = await fetch(loginRoute, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": 'application/json' },
             body
         });
         if (response?.ok) {
             const responseBody = await response.json();
             const userInfos = JSON.stringify(responseBody);
-            window.localStorage.setItem(getLocalStorageKey("USER_INFOS"), userInfos);
+            localStorageUserInfos(userInfos);
             window.location = getPageUrl("INDEX");
         } else {
             drawErrorToast(getDynamicId("FAILED_TO_LOGIN_TOAST"), uniq=false);
         }
-    } catch {
+    } catch (error) {
         drawErrorToast(getDynamicId("CANT_LOGIN_TOAST"));
     }
 }
