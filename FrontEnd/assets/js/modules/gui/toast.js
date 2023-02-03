@@ -53,3 +53,14 @@ function drawWarningToast(id, uniq = true) {
     }
     return toast;
 }
+
+function drawSuccessToast(id, uniq = true) {
+    const msg = getVocab(id) ?? null;
+    if (msg === null) {
+        console.error('Failed to create success toast: invalid id argument.');
+        return;
+    }
+    const toast = drawToast(id, msg, uniq);
+
+    return toast;
+}

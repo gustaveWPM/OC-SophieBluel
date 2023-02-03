@@ -149,7 +149,6 @@ table {
 	--portfolio-colors-brown: #B1663C;
 	--portfolio-colors-red: #611D1D;
 	--portfolio-colors-orange: #61381D;
-	--portfolio-colors-darkgray: #333;
 
 	--portfolio-fw-bold: 700;
 	--portfolio-fw-semibold: 500;
@@ -172,7 +171,7 @@ table {
 
 	--portfolio-chart-error-box-bg-color: var(--portfolio-colors-red);
 	--portfolio-chart-warning-box-bg-color: var(--portfolio-colors-orange);
-	--portfolio-chart-box-bg-color: var(--portfolio-colors-darkgray);
+	--portfolio-chart-box-bg-color: var(--portfolio-colors-green);
 
 	--portfolio-title-color: var(--portfolio-colors-brown);
 	--portfolio-chart-title-default-font-weight: var(--portfolio-fw-bold);

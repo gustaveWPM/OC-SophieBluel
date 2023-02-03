@@ -101,10 +101,12 @@ let __GLOBALS = {
     },
 
     "DYN_IDS": {
+        "LOG_USER_BTN": 'log-user-btn',
         "FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'failed-to-load-gallery-figures-toast',
         "USING_CACHE_WARNING_TOAST": 'using-cache-warning-toast',
         "FAILED_TO_LOGIN_TOAST": 'failed-to-login-toast',
         "CANT_LOGIN_TOAST": 'cant-login-toast',
+        "LOGGED_OUT_SUCCESS_TOAST": 'logged-out-success-toast',
         "TOASTS_COMPONENT": 'toasts-component'
     },
 
@@ -143,15 +145,19 @@ __GLOBALS["SELECTORS"] = {
     "LOGIN_FORM": '#login-form',
     "FILTERS_BUTTONS_COMPONENT": '.filter-by-category-component>.is-btn',
     "ERROR_BOXES": `.${getDynamicClass("ERROR_BOX")}`,
+    "LOG_USER_BTN": `#${getDynamicId("LOG_USER_BTN")}`,
     "TOASTS_COMPONENT": `#${getDynamicId("TOASTS_COMPONENT")}`,
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOGIN_TOAST")}`,
     [`${getDynamicId("CANT_LOGIN_TOAST")}`]: `#${getDynamicId("CANT_LOGIN_TOAST")}`,
+    [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: `#${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`,
     [`${getDynamicId("USING_CACHE_WARNING_TOAST")}`]: `#${getDynamicId("USING_CACHE_WARNING_TOAST")}`
 }
 
 /* [§ Vocab] */
 __GLOBALS["VOCAB"] = {
+    "LOGIN": 'login',
+    "LOGOUT": 'logout',
     "GALLERY_FIGURES_UNAVAILABLE": 'Les images de la galerie sont indisponibles',
     "FAILED_TO_CONNECT_TO_THE_API": 'veuillez essayer de cliquer à nouveau sur une catégorie.',
     "UNKNOWN_ERROR": 'Erreur inconnue',
@@ -160,7 +166,8 @@ __GLOBALS["VOCAB"] = {
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion. Merci de réessayer plus tard.',
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: 'Erreur dans l’identifiant ou le mot de passe.',
     [`${getDynamicId("CANT_LOGIN_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.',
-    [`${getDynamicId("USING_CACHE_WARNING_TOAST")}`]: 'Le contenu de la galerie n’a pas pu être mis à jour.'
+    [`${getDynamicId("USING_CACHE_WARNING_TOAST")}`]: 'Le contenu de la galerie n’a pas pu être mis à jour.',
+    [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: 'Vous avez bien été déconnecté !'
 }
 
 /* [§ Modules config] */

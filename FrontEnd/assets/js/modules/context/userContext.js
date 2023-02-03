@@ -1,6 +1,6 @@
 /*
 #================================================================
-# * ... Token validator
+# * ... User Context (Token validator)
 #----------------------------------------------------------------
 # * ... Reject and delete invalid tokens from the localStorage
 # * ... {REM} This is absolutely NOT bulletproof,
@@ -39,4 +39,9 @@ async function tokenValidator() {
 
     const userInfos = localStorageUserInfos();
     return await isValidToken(userInfos);
+}
+
+async function isLoggedIn() {
+    const isLoggedIn = await tokenValidator();
+    return isLoggedIn;
 }

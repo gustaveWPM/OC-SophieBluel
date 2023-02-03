@@ -71,7 +71,38 @@ async function fetchCategoriesCollection() {
     return categoriesSet;
 }
 
+/*** 🔒 [§ Login] */
+function setLoginButtonCtx(isLoggedIn) {
+    function setButtonToLogin(rootNode) {
+        rootNode.innerHTML = getVocab("LOGIN");
+    }
+
+    function setButtonToLogout(rootNode) {
+        rootNode.innerHTML = getVocab("LOGOUT");
+
+        rootNode.addEventListener('click', function doLogOut(event) {
+            event.preventDefault();
+            deleteLocalStorageUserInfos();
+            isLoggedIn = false;
+            rootNode.removeEventListener('click', doLogOut);
+            drawSuccessToast(getDynamicId("LOGGED_OUT_SUCCESS_TOAST"));
+            setLoginButtonCtx(isLoggedIn);
+        });
+    }
+
+    const rootNode = loginComponentRootNodeGetter();
+    isLoggedIn ? setButtonToLogout(rootNode) : setButtonToLogin(rootNode);
+}
+
+function processLogOut() {
+    deleteLocalStorageUserInfos();
+}
+
 /*** 🎣 [§ DOM getters] */
+function loginComponentRootNodeGetter() {
+    return document.querySelector(getSelector("LOG_USER_BTN"));
+}
+
 function galleryFiltersButtonsGetter() {
     return document.querySelectorAll(getSelector("FILTERS_BUTTONS_COMPONENT"));
 }
@@ -299,6 +330,13 @@ function handleContactHash() {
 }
 
 /*** ✏️ [§ Dynamic content generation] */
+async function appendEditor() {
+    const isLogged = await isLoggedIn();
+
+    setEditorVisibility(isLogged);
+    setLoginButtonCtx(isLogged);
+}
+
 async function appendDynamicCategories() {
     const categoriesCollection = await fetchCategoriesCollection();
     if (failedToGetFromApi(categoriesCollection)) {
@@ -363,6 +401,7 @@ async function run(retryContext = false) {
         filtersComponentNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
     }
     await appendDynamicWorks();
+    await appendEditor();
 }
 
 /*** 🚪 [§ Entry point] */

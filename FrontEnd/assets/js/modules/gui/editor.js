@@ -6,9 +6,20 @@
 #=================================================
 */
 
-async function runEditor() {
-    const validToken = await tokenValidator();
-    console.log(validToken); // * ... ToDo
+/*
+#=================================================
+# * ... Gallery Editor
+#-------------------------------------------------
+# * ... ¯\_(ツ)_/¯
+#=================================================
+*/
+
+function disableEditor() {
 }
 
-runEditor();
+function enableEditor() {
+}
+
+function setEditorVisibility(isLoggedIn) {
+    isLoggedIn ? enableEditor() : disableEditor();
+}
