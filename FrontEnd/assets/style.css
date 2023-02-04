@@ -1,171 +1,40 @@
-/* http://meyerweb.com/eric/tools/css/reset/
-   v2.0 | 20110126
-   License: none (public domain)
+/*
+   [CSS] Sophie Bluel Portfolio v1.0
+   This codebase is designed for the lastest Gecko & Blink based browsers only.
+   Free for non commercial and commercial use. Just beware of cheating if you're into OC... 😏
+   Use CTRL+F `§` & CTRL+F `***` to navigate throughout this CSS file sections.
 */
 
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-}
-
-/* HTML5 display-role reset for older browsers */
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-	display: block;
-}
-
-body {
-	line-height: 1;
-}
-
-ol,
-ul {
-	list-style: none;
-}
-
-blockquote,
-q {
-	quotes: none;
-}
-
-blockquote:before,
-blockquote:after,
-q:before,
-q:after {
-	content: '';
-	content: none;
-}
-
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
-}
-
-/** end reset css**/
-
-* {
-	min-width: 0;
-}
-
-@keyframes galleryFadeIn {
-	0% { opacity: 0; }
-	25% { opacity: 0; }
-	100% { opacity: 1; }
-}
-
-@keyframes galleryLoading {
-	0% { opacity: .8; }
-	100% { opacity: .2; }
-}
-
+/*** A. Macro */
+/* ⚙️ [§ A.1) Global Configuration] */
+/* (You can edit the lines which are underneath this one as you wish) */
 :root {
+    /* Configuration.globalLayout => Font */
+	--portfolio-body-font: 'Work Sans';
+	--portfolio-titles-font: 'Syne';
+
+	/* Configuration.globalLayout => Font size */
+    --portfolio-body-font-size: .874em;
+
+	/* Configuration.globalLayout => Font weight aliases */
+	--portfolio-fw-regular: 400;
+	--portfolio-fw-semibold: 500;
+	--portfolio-fw-bold: 700;
+    --portfolio-fw-bolder: 800;
+
+	/* Configuration.chart => Static Colors */
 	--portfolio-colors-white: #FFF;
 	--portfolio-colors-green: #1D6154;
-	--portfolio-colors-darkgreen: #0E2F28;
 	--portfolio-colors-brown: #B1663C;
-	--portfolio-colors-red: #611D1D;
+
+    /* Configuration.chart => FX Colors */
+    --portfolio-colors-darkgreen: #0E2F28;
 	--portfolio-colors-orange: #61381D;
 	--portfolio-colors-blue: #1D4361;
+	--portfolio-colors-red: #611D1D;
 
-	--portfolio-fw-bolder: 800;
-	--portfolio-fw-bold: 700;
-	--portfolio-fw-semibold: 500;
-	--portfolio-fw-regular: 400;
-
-	--portfolio-page-margin: 50px;
+    /* Configuration.globalLayout => margins/max-width */
+    --portfolio-page-margin: 50px;
 	--portfolio-max-width: 1140px;
 
 	--portfolio-navbar-item-hover-fw: var(--portfolio-fw-bold);
@@ -193,15 +62,111 @@ table {
 	--portfolio-chart-subtitle-font-color: var(--portfolio-colors-green);
 }
 
+/* 🧰 [§ A.2) i. Reset CSS => 📖 https://tinyurl.com/reset-css] */
+* {
+	box-sizing: border-box;
+	/* [📖 https://tinyurl.com/border-box] */
+	min-width: 0;
+	/* [📖 https://tinyurl.com/flex-min-width-0] */
+	margin: 0;
+	padding: 0;
+	font: inherit;
+	color: inherit;
+	font-size: 100%;
+	vertical-align: baseline;
+}
+
 body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
 	margin: auto;
-	font-family: 'Work Sans', sans-serif;
-	font-size: .874em;
+	font-family: var(--portfolio-body-font), sans-serif;
+	font-size: var(--portfolio-body-font-size);
+	line-height: 1rem;
+	font-weight: var(--portfolio-fw-regular);
+	overflow-wrap: break-word;
+}
+  
+ol,
+ul {
+	list-style-type: none;
+}
+  
+/* ✨ [§ A.3) Animations] */
+@keyframes galleryFadeIn {
+	0% { opacity: 0; }
+	25% { opacity: 0; }
+	100% { opacity: 1; }
 }
 
+@keyframes galleryLoading {
+	0% { opacity: .8; }
+	100% { opacity: .2; }
+}
+
+.toasts-component>.is-toast:nth-child(1) { --nth-child: 1; }
+.toasts-component>.is-toast:nth-child(2) { --nth-child: 2; }
+.toasts-component>.is-toast:nth-child(3) { --nth-child: 3; }
+.toasts-component>.is-toast:nth-child(4) { --nth-child: 4; }
+.toasts-component>.is-toast:nth-child(n + 5) { --nth-child: 5; }
+
+.gallery>.gallery-figure:nth-child(1) { --nth-child: 1; }
+.gallery>.gallery-figure:nth-child(2) { --nth-child: 2; }
+.gallery>.gallery-figure:nth-child(3) { --nth-child: 3; }
+.gallery>.gallery-figure:nth-child(4) { --nth-child: 4; }
+.gallery>.gallery-figure:nth-child(n + 5) { --nth-child: 5; }
+
+.gallery>.gallery-figure {
+	animation: galleryFadeIn calc(.4s * var(--nth-child)) ease-in;
+}
+
+body *:not(.header) {
+	animation: galleryFadeIn .7s ease-in-out;
+}
+
+header {
+	animation: galleryFadeIn .4s ease-in-out;
+}
+
+/* 🧰 [§ A.4) Utilitary classes] */
+.is-btn {
+	--_background-color: var(--portfolio-chart-button-bg-color);
+	font-family: var(--portfolio-titles-font), serif;
+	font-weight: var(--portfolio-chart-button-default-font-weight);
+	color: var(--portfolio-chart-button-font-color);
+	background-color: var(--_background-color);
+	border-color: var(--_background-color);
+	margin: 2em auto;
+	width: 180px;
+	text-align: center;
+	margin-top: 35px;
+	border-radius: 60px;
+	border: none;
+	padding: 10px;
+}
+
+.is-btn:hover {
+	--_background-color: var(--portfolio-chart-button-bg-color-hover);
+	cursor: pointer;
+	color: var(--portfolio-chart-button-font-color);
+}
+
+.reset-text-decoration {
+	text-decoration: none;
+	color: inherit;
+}
+
+.prevent-select {
+	user-select: none;
+}
+
+/* ⛔ Do NOT edit the code BELOW this line unless you know what you are doing */
+/* ⛔ Do NOT edit the code BELOW this line unless you know what you are doing */
+/* ⛔ Do NOT edit the code BELOW this line unless you know what you are doing */
+
+/*** B. Desktop */
+/* 📚 [§ B.1) Semantic tags] */
 section {
 	margin: var(--portfolio-page-margin) 0;
 }
@@ -209,7 +174,7 @@ section {
 h1 {
 	display: flex;
 	flex-direction: column;
-	font-family: 'Syne', serif;
+	font-family: var(--portfolio-titles-font), serif;
 	font-size: 1.58em;
 	font-weight: var(--portfolio-title-fw);
 	color: var(--portfolio-title-color);
@@ -219,7 +184,7 @@ h1 {
 h1>span {
 	position: relative;
 	text-transform: uppercase;
-	font-family: 'Work Sans', sans-serif;
+	font-family: var(--portfolio-body-font), sans-serif;
 	font-weight: var(--portfolio-fw-regular);
 	font-size: .45em;
 	letter-spacing: .1em;
@@ -232,11 +197,59 @@ h2 {
 }
 
 h2, h3, h4, h5, h6 {
-	font-family: 'Syne', serif;
+	font-family: var(--portfolio-titles-font), serif;
 	font-weight: var(--portfolio-chart-title-default-font-weight);
 	color: var(--portfolio-chart-inactive-filter-button-font-color);
 }
 
+/* 🏷️ [§ B.2) Other HTML Tags styling] */
+a:hover {
+	color: var(--portfolio-title-color);
+}
+
+/*** C. Website base */
+/* 🍔 [§ C.1) Navbar] */
+.header {
+	--_margin-delta: 22px;
+	display: flex;
+	justify-content: space-between;
+	margin: var(--portfolio-page-margin) auto;
+	min-width: 1150px;
+	max-width: var(--portfolio-max-width);
+}
+
+.navbar-menu-elements>* {
+	padding: 0 10px;
+	font-size: 1.2em;
+}
+
+.navbar-item:hover {
+	font-weight: var(--portfolio-navbar-item-hover-fw);
+	color: inherit;
+}
+
+.navbar-menu {
+	display: flex;
+	align-items: center;
+	height: 42px;
+}
+
+.navbar-menu-elements .navbar-img {
+	--_height: 21px;
+	position: relative;
+	height: var(--_height);
+	top: calc(var(--_height) * .1);
+}
+
+.navbar-menu-elements {
+	display: flex;
+	align-items: center;
+	list-style-type: none;
+	justify-content: space-between;
+	width: 320px;
+}
+
+/* 👋 [§ C.2) Introduction section] */
 .introduction {
 	display: flex;
 	align-items: center;
@@ -245,7 +258,7 @@ h2, h3, h4, h5, h6 {
 	margin-top: calc(var(--portfolio-page-margin) * 1.5);
 }
 
-.introduction figure {
+.introduction .introduction-figure {
 	flex-basis: 53%;
 }
 
@@ -265,13 +278,8 @@ h2, h3, h4, h5, h6 {
 	height: 30%;
 }
 
-.introduction-article p:first-of-type {
+.introduction-article *:first-of-type:not(h1, h2, h3, h4, h5, h6) {
 	margin-top: 5px;
-}
-
-.description-edit-btn {
-	position: absolute;
-	top: -20%;
 }
 
 .introduction-article-container {
@@ -283,6 +291,42 @@ h2, h3, h4, h5, h6 {
 	gap: 18px;
 }
 
+.description-edit-btn {
+	position: absolute;
+	top: -20%;
+}
+
+/* ✅ [§ C.3) i. Filters component] */
+.filter-by-category-component {
+	display: flex;
+	justify-content: center;
+	gap: 0 1em;
+}
+
+.filter-btn {
+	border: 1px solid var(--portfolio-chart-inactive-filter-button-font-color);
+	font-size: 1em;
+	margin: 0;
+
+	color: var(--portfolio-chart-inactive-filter-button-font-color);
+	background-color: var(--portfolio-chart-inactive-filter-button-bg);
+	padding: 8px 1%;
+	min-width: 100px;
+}
+
+.filter-btn:hover {
+	color: var(--portfolio-chart-button-font-color);
+	background-color: var(--portfolio-chart-button-bg-color-hover);
+	border-color: var(--portfolio-chart-button-bg-color-hover);
+}
+
+.filter-btn.is-active {
+	background-color: var(--portfolio-chart-active-filter-button-bg-hover);
+	border-color: var(--portfolio-chart-active-filter-button-bg-hover);
+	color: var(--portfolio-chart-active-filter-button-bg-color);
+}
+
+/* 🖼️ [§ C.3) ii. Portfolio section] */
 .main {
 	width: 83%;
 	margin: auto;
@@ -293,8 +337,11 @@ h2, h3, h4, h5, h6 {
 	margin-bottom: calc(var(--portfolio-page-margin) * 1.3);
 }
 
-.portfolio h2 {
-	text-align: center;
+.portfolio-title-wrapper {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 3.5em;
 }
 
 .gallery {
@@ -306,10 +353,23 @@ h2, h3, h4, h5, h6 {
 	margin-top: 3.7em;
 }
 
-.gallery figure {
+.gallery.failed-to-fetch {
+	display: flex;
+	justify-content: center;
+}
+
+.gallery-figure {
 	margin: auto;
 }
 
+.gallery-figure img {
+	height: 407px;
+	width: 305px;
+	object-fit: cover;
+	margin-bottom: .5em;
+}
+
+/* ✉️ [§ C.4) Contact section] */
 .form {
 	display: flex;
 	flex-direction: column;
@@ -348,83 +408,13 @@ h2, h3, h4, h5, h6 {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
 }
 
-.is-btn {
-	--_background-color: var(--portfolio-chart-button-bg-color);
-	font-family: 'Syne', serif;
-	font-weight: var(--portfolio-chart-button-default-font-weight);
-	color: var(--portfolio-chart-button-font-color);
-	background-color: var(--_background-color);
-	border-color: var(--_background-color);
-	margin: 2em auto;
-	width: 180px;
-	text-align: center;
-	margin-top: 35px;
-	border-radius: 60px;
-	border: none;
-	padding: 10px;
-}
-
-.is-btn:hover {
-	--_background-color: var(--portfolio-chart-button-bg-color-hover);
-	cursor: pointer;
-	color: var(--portfolio-chart-button-font-color);
-}
-
-/** Animations **/
-.gallery>.gallery-figure:nth-child(1) { --nth-child: 1; }
-.gallery>.gallery-figure:nth-child(2) { --nth-child: 2; }
-.gallery>.gallery-figure:nth-child(3) { --nth-child: 3; }
-.gallery>.gallery-figure:nth-child(4) { --nth-child: 4; }
-.gallery>.gallery-figure:nth-child(n + 5) { --nth-child: 5; }
-
-.gallery>.gallery-figure {
-	animation: galleryFadeIn calc(.4s * var(--nth-child)) ease-in;
-}
-
-body *:not(.header) {
-	animation: galleryFadeIn .7s ease-in-out;
-}
-
-.header {
-	animation: galleryFadeIn .4s ease-in-out;
-	max-width: var(--portfolio-max-width);
-}
-
-/** Filters **/
-.filter-by-category-component {
-	display: flex;
-	justify-content: center;
-	gap: 0 1em;
-}
-
-.filter-btn {
-	border: 1px solid var(--portfolio-chart-inactive-filter-button-font-color);
+.form input.is-narrow {
+	height: 35px;
 	font-size: 1em;
-	margin: 0;
-
-	color: var(--portfolio-chart-inactive-filter-button-font-color);
-	background-color: var(--portfolio-chart-inactive-filter-button-bg);
-	padding: 8px 1%;
-	min-width: 100px;
 }
 
-.filter-btn:hover {
-	color: var(--portfolio-chart-button-font-color);
-	background-color: var(--portfolio-chart-button-bg-color-hover);
-	border-color: var(--portfolio-chart-button-bg-color-hover);
-}
-
-.filter-btn.is-active {
-	background-color: var(--portfolio-chart-active-filter-button-bg-hover);
-	border-color: var(--portfolio-chart-active-filter-button-bg-hover);
-	color: var(--portfolio-chart-active-filter-button-bg-color);
-}
-
-/** Boxes **/
-.prevent-select {
-	user-select: none;
-}
-
+/*** D. Dynamic components */
+/* 📦 [§ D.1) Boxes] */
 .is-box {
 	background-color: var(--portfolio-chart-buttons-font-color);
 	color: var(--portfolio-chart-button-font-color);
@@ -444,18 +434,7 @@ body *:not(.header) {
 	background-color: var(--portfolio-chart-warning-box-bg-color);
 }
 
-.gallery.failed-to-fetch {
-	display: flex;
-	justify-content: center;
-}
-
-/** Toasts **/
-.toasts-component>.is-toast:nth-child(1) { --nth-child: 1; }
-.toasts-component>.is-toast:nth-child(2) { --nth-child: 2; }
-.toasts-component>.is-toast:nth-child(3) { --nth-child: 3; }
-.toasts-component>.is-toast:nth-child(4) { --nth-child: 4; }
-.toasts-component>.is-toast:nth-child(n + 5) { --nth-child: 5; }
-
+/* 🥞 [§ D.2) Toasts] */
 .toasts-component {
 	display: flex;
 	flex-direction: column;
@@ -506,18 +485,7 @@ body *:not(.header) {
 	background-color: var(--portfolio-chart-info-box-bg-color);
 }
 
-.gallery-figure img {
-	height: 407px;
-	width: 305px;
-	object-fit: cover;
-	margin-bottom: .5em;
-}
-
-.forgotten-password {
-	color: inherit;
-	font-weight: var(--portfolio-fw-semibold);
-}
-
+/*** E. Footer */
 .footer {
 	display: flex;
 	align-items: flex-end;
@@ -527,68 +495,8 @@ body *:not(.header) {
 	margin-top: 2.5em;
 }
 
-.reset-text-decoration {
-	text-decoration: none;
-	color: inherit;
-}
-
-.form input.is-narrow {
-	height: 35px;
-	font-size: 1em;
-}
-
-/** Navbar **/
-.header {
-	--_margin-delta: 22px;
-	display: flex;
-	justify-content: space-between;
-	margin: var(--portfolio-page-margin) auto;
-	min-width: 1150px;
-}
-
-.navbar-menu-elements>* {
-	padding: 0 10px;
-	font-size: 1.2em;
-}
-
-a:hover {
-	color: var(--portfolio-title-color);
-}
-
-.navbar-item:hover {
-	font-weight: var(--portfolio-navbar-item-hover-fw);
-	color: inherit;
-}
-
-.navbar-menu {
-	display: flex;
-	align-items: center;
-	height: 42px;
-}
-
-.navbar-menu-elements .navbar-img {
-	--_height: 21px;
-	position: relative;
-	height: var(--_height);
-	top: calc(var(--_height) * .1);
-}
-
-.navbar-menu-elements {
-	display: flex;
-	align-items: center;
-	list-style-type: none;
-	justify-content: space-between;
-	width: 320px;
-}
-
-.login {
-	display: flex;
-	align-items: center;
-	margin: auto;
-	margin-top: 100px;
-}
-
-/** Editor **/
+/*** F. Editor */
+/* [Editor banner */
 .editor-banner {
 	display: flex;
 	justify-content: center;
@@ -608,7 +516,7 @@ a:hover {
 }
 
 .confirm-changes-btn {
-	font-family: 'Work Sans', sans-serif;
+	font-family: var(--portfolio-body-font), sans-serif;
 	font-size: 1em;
 	width: auto;
 	padding: 0.75em 1.65em;
@@ -672,17 +580,23 @@ a:hover {
 	top: -0.10em;
 }
 
-.portfolio-title-wrapper {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	margin-bottom: 3.5em;
-}
-
 .gallery-edit-btn {
 	position: absolute;
 	right: 29%;
 	top: 16%;
+}
+
+/* § Login page */
+.login {
+	display: flex;
+	align-items: center;
+	margin: auto;
+	margin-top: 100px;
+}
+
+.forgotten-password {
+	color: inherit;
+	font-weight: var(--portfolio-fw-semibold);
 }
 
 /** Javascript patches, do NOT use it in your HTML **/
