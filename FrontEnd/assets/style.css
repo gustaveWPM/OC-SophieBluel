@@ -136,10 +136,19 @@ table {
 
 /** end reset css**/
 
+* {
+	min-width: 0;
+}
+
 @keyframes galleryFadeIn {
 	0% { opacity: 0; }
 	25% { opacity: 0; }
 	100% { opacity: 1; }
+}
+
+@keyframes galleryLoading {
+	0% { opacity: .8; }
+	100% { opacity: .2; }
 }
 
 :root {
@@ -149,12 +158,15 @@ table {
 	--portfolio-colors-brown: #B1663C;
 	--portfolio-colors-red: #611D1D;
 	--portfolio-colors-orange: #61381D;
+	--portfolio-colors-blue: #1D4361;
 
+	--portfolio-fw-bolder: 800;
 	--portfolio-fw-bold: 700;
 	--portfolio-fw-semibold: 500;
 	--portfolio-fw-regular: 400;
 
 	--portfolio-page-margin: 50px;
+	--portfolio-max-width: 1140px;
 
 	--portfolio-navbar-item-hover-fw: var(--portfolio-fw-bold);
 
@@ -169,10 +181,12 @@ table {
 	--portfolio-chart-inactive-filter-button-bg-hover: var(--portfolio-colors-green);
 	--portfolio-chart-inactive-filter-button-font-color: var(--portfolio-colors-green);
 
+	--portfolio-chart-info-box-bg-color: var(--portfolio-colors-blue);
 	--portfolio-chart-error-box-bg-color: var(--portfolio-colors-red);
 	--portfolio-chart-warning-box-bg-color: var(--portfolio-colors-orange);
 	--portfolio-chart-box-bg-color: var(--portfolio-colors-green);
 
+	--portfolio-title-fw: var(--portfolio-fw-bolder);
 	--portfolio-title-color: var(--portfolio-colors-brown);
 	--portfolio-chart-title-default-font-weight: var(--portfolio-fw-bold);
 
@@ -180,13 +194,12 @@ table {
 }
 
 body {
-	max-width: 1140px;
-	min-height: 100vh;
-	margin: auto;
-	font-family: 'Work Sans', 'Syne', sans-serif;
-	font-size: .874em;
 	display: flex;
 	flex-direction: column;
+	min-height: 100vh;
+	margin: auto;
+	font-family: 'Work Sans', sans-serif;
+	font-size: .874em;
 }
 
 section {
@@ -196,9 +209,9 @@ section {
 h1 {
 	display: flex;
 	flex-direction: column;
-	font-family: 'Syne';
+	font-family: 'Syne', serif;
 	font-size: 1.58em;
-	font-weight: 800;
+	font-weight: var(--portfolio-title-fw);
 	color: var(--portfolio-title-color);
 	line-height: 1em;
 }
@@ -206,7 +219,7 @@ h1 {
 h1>span {
 	position: relative;
 	text-transform: uppercase;
-	font-family: 'Work Sans';
+	font-family: 'Work Sans', sans-serif;
 	font-weight: var(--portfolio-fw-regular);
 	font-size: .45em;
 	letter-spacing: .1em;
@@ -219,7 +232,7 @@ h2 {
 }
 
 h2, h3, h4, h5, h6 {
-	font-family: 'Syne';
+	font-family: 'Syne', serif;
 	font-weight: var(--portfolio-chart-title-default-font-weight);
 	color: var(--portfolio-chart-inactive-filter-button-font-color);
 }
@@ -258,6 +271,11 @@ h2, h3, h4, h5, h6 {
 .main {
 	width: 83%;
 	margin: auto;
+	margin-top: 0;
+}
+
+.portfolio {
+	margin-bottom: calc(var(--portfolio-page-margin) * 1.3);
 }
 
 .portfolio h2 {
@@ -278,11 +296,13 @@ h2, h3, h4, h5, h6 {
 }
 
 .form {
-	width: 50%;
+	display: flex;
+	flex-direction: column;
 	margin: auto;
+	align-items: center;
 }
 
-.form>* {
+.form>*:not(label) {
 	text-align: center;
 }
 
@@ -294,6 +314,7 @@ h2, h3, h4, h5, h6 {
 	text-align: left;
 	display: flex;
 	flex-direction: column;
+	width: 40%;
 }
 
 .form input {
@@ -314,7 +335,7 @@ h2, h3, h4, h5, h6 {
 
 .is-btn {
 	--_background-color: var(--portfolio-chart-button-bg-color);
-	font-family: 'Syne';
+	font-family: 'Syne', serif;
 	font-weight: var(--portfolio-chart-button-default-font-weight);
 	color: var(--portfolio-chart-button-font-color);
 	background-color: var(--_background-color);
@@ -334,12 +355,6 @@ h2, h3, h4, h5, h6 {
 	color: var(--portfolio-chart-button-font-color);
 }
 
-footer nav ul {
-	display: flex;
-	justify-content: flex-end;
-	margin: 2em;
-}
-
 /** Animations **/
 .gallery>.gallery-figure:nth-child(1) { --nth-child: 1; }
 .gallery>.gallery-figure:nth-child(2) { --nth-child: 2; }
@@ -357,6 +372,7 @@ body *:not(.header) {
 
 .header {
 	animation: galleryFadeIn .4s ease-in-out;
+	max-width: var(--portfolio-max-width);
 }
 
 /** Filters **/
@@ -472,6 +488,10 @@ body *:not(.header) {
 	background-color: var(--portfolio-chart-warning-box-bg-color);
 }
 
+.is-toast.info-box {
+	background-color: var(--portfolio-chart-info-box-bg-color);
+}
+
 .gallery-figure img {
 	height: 407px;
 	width: 305px;
@@ -485,10 +505,12 @@ body *:not(.header) {
 }
 
 .footer {
-	flex: 100%;
 	display: flex;
 	align-items: flex-end;
 	justify-content: flex-end;
+	align-self: flex-end;
+	margin: 2em;
+	margin-top: 2.5em;
 }
 
 .reset-text-decoration {
@@ -534,7 +556,7 @@ a:hover {
 	--_height: 21px;
 	position: relative;
 	height: var(--_height);
-	top: calc(var(--_height) * .01);
+	top: calc(var(--_height) * .1);
 }
 
 .navbar-menu-elements {
@@ -545,8 +567,77 @@ a:hover {
 	width: 320px;
 }
 
-.login h2 {
-	margin-top: 80px;
+.login {
+	display: flex;
+	align-items: center;
+	margin: auto;
+	margin-top: 100px;
+}
+
+/** Editor **/
+.editor-banner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 60px;
+	min-width: 100%;
+	background-color: black; /* ToDo: Config */
+	color: white; /* ToDo: Config */
+}
+
+.editor-banner-component {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 63.33%;
+	width: 367px;
+}
+
+.confirm-changes-btn {
+	font-family: 'Work Sans', sans-serif;
+	font-size: 1em;
+	width: auto;
+	padding: 0.75em 1.65em;
+	margin: auto;
+	margin-right: 0;
+	background-color: white; /* ToDo: Config */
+	color: black; /* ToDo: Config */
+}
+
+.confirm-changes-btn:hover {
+	background-color: #0E2F28; /* ToDo: Config */
+	color: white; /* ToDo: Config */
+}
+
+.edit-icon {
+	height: 19px;
+	width: auto;
+}
+
+.editor-banner-component .edit-icon {
+	position: relative;
+	top: -0.10em;
+	margin-left: 0;
+	margin-right: 10px;
+}
+
+.editor-banner-component .editor-banner-label {
+	font-size: 16px; /* ToDo: Config */
+	font-weight: 400; /* ToDo: Config */
+}
+
+.main-wrapper {
+	width: var(--portfolio-max-width);
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	margin: auto;
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+.hidden-editor-element {
+	display: none !important;
 }
 
 /** Javascript patches, do NOT use it in your HTML **/
@@ -556,4 +647,8 @@ a:hover {
 
 .js-monkey-patch-display-flex {
 	display: flex !important;
+}
+
+.js-monkey-patch-loading {
+	animation: galleryLoading .8s ease-in-out infinite !important;
 }

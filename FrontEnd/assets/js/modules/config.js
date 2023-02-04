@@ -92,9 +92,13 @@ let __GLOBALS = {
         "BOX": 'is-box',
         "BTN": 'is-btn',
         "FILTER_BTN": 'filter-btn',
+        "INFO_BOX": 'info-box',
         "ERROR_BOX": 'error-box',
         "WARNING_BOX": 'warning-box',
         "PREVENT_SELECT": 'prevent-select',
+        "EDITOR_ELEMENT": 'is-editor-element',
+        "HIDDEN_EDITOR_ELEMENT": 'hidden-editor-element',
+        "FORCE_LOADING_ANIMATION": 'js-monkey-patch-loading',
         "FORCE_FLEX_COLUMN": 'js-monkey-patch-flex-column',
         "FORCE_DISPLAY_FLEX": 'js-monkey-patch-display-flex',
         "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-'
@@ -102,8 +106,8 @@ let __GLOBALS = {
 
     "DYN_IDS": {
         "LOG_USER_BTN": 'log-user-btn',
+        "TRYING_TO_RELOAD_TOAST": 'trying-to-reload-toast',
         "FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'failed-to-load-gallery-figures-toast',
-        "USING_CACHE_WARNING_TOAST": 'using-cache-warning-toast',
         "FAILED_TO_LOGIN_TOAST": 'failed-to-login-toast',
         "CANT_LOGIN_TOAST": 'cant-login-toast',
         "LOGGED_OUT_SUCCESS_TOAST": 'logged-out-success-toast',
@@ -144,29 +148,30 @@ __GLOBALS["SELECTORS"] = {
     "FILTERS_COMPONENT": '#filter-by-category-component',
     "LOGIN_FORM": '#login-form',
     "FILTERS_BUTTONS_COMPONENT": '.filter-by-category-component>.is-btn',
+    "EDITOR_ELEMENT": `.${getDynamicClass("EDITOR_ELEMENT")}`,
     "ERROR_BOXES": `.${getDynamicClass("ERROR_BOX")}`,
     "LOG_USER_BTN": `#${getDynamicId("LOG_USER_BTN")}`,
     "TOASTS_COMPONENT": `#${getDynamicId("TOASTS_COMPONENT")}`,
+    [`${getDynamicId("TRYING_TO_RELOAD_TOAST")}`]: `#${getDynamicId("TRYING_TO_RELOAD_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOGIN_TOAST")}`,
     [`${getDynamicId("CANT_LOGIN_TOAST")}`]: `#${getDynamicId("CANT_LOGIN_TOAST")}`,
-    [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: `#${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`,
-    [`${getDynamicId("USING_CACHE_WARNING_TOAST")}`]: `#${getDynamicId("USING_CACHE_WARNING_TOAST")}`
+    [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: `#${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`
 }
 
 /* [§ Vocab] */
 __GLOBALS["VOCAB"] = {
     "LOGIN": 'login',
     "LOGOUT": 'logout',
-    "GALLERY_FIGURES_UNAVAILABLE": 'Les images de la galerie sont indisponibles',
-    "FAILED_TO_CONNECT_TO_THE_API": 'veuillez essayer de cliquer à nouveau sur une catégorie.',
+    "GALLERY_FIGURES_UNAVAILABLE": 'Les images de la galerie sont indisponibles.',
     "UNKNOWN_ERROR": 'Erreur inconnue',
     "RETRY_TO_LOAD_GALLERY": 'Afficher la galerie',
+    "RETRY_TO_LOAD_GALLERY_FIGURES": 'Afficher les images',
     "CRASH": 'La galerie n’a pas pu être affichée. Veuillez réessayer.',
+    [`${getDynamicId("TRYING_TO_RELOAD_TOAST")}`]: 'Tentative de reconnexion...',
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion. Merci de réessayer plus tard.',
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: 'Erreur dans l’identifiant ou le mot de passe.',
     [`${getDynamicId("CANT_LOGIN_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.',
-    [`${getDynamicId("USING_CACHE_WARNING_TOAST")}`]: 'Le contenu de la galerie n’a pas pu être mis à jour.',
     [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: 'Vous avez bien été déconnecté !'
 }
 
@@ -187,3 +192,14 @@ __GLOBALS["CACHE_KEYS"] = {
 }
 
 Object.freeze(__GLOBALS);
+Object.freeze(__GLOBALS.DYN_CLASSES);
+Object.freeze(__GLOBALS.DYN_IDS);
+Object.freeze(__GLOBALS.API);
+Object.freeze(__GLOBALS.API.ROUTES);
+Object.freeze(__GLOBALS.SIDE_EFFECTS);
+Object.freeze(__GLOBALS.PAGES_URLS);
+Object.freeze(__GLOBALS.SELECTORS);
+Object.freeze(__GLOBALS.VOCAB);
+Object.freeze(__GLOBALS.MODULES_CONFIG);
+Object.freeze(__GLOBALS.LOCALSTORAGE_KEYS);
+Object.freeze(__GLOBALS.CACHE_KEYS);

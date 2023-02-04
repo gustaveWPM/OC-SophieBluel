@@ -3,7 +3,7 @@
 async function processCreateWork(payload) {
     const body = JSON.stringify(payload);
     const worksRoute = getRoute("WORKS");
-    const offlineReturnValue = {"status": -1};
+    const offlineReturnValue = {"status": 401};
     const token = getLocalStorageUserToken();
 
     try {

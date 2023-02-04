@@ -54,6 +54,20 @@ function drawWarningToast(id, uniq = true) {
     return toast;
 }
 
+function drawInfoToast(id, uniq = true) {
+    const msg = getVocab(id) ?? null;
+    if (msg === null) {
+        console.error('Failed to create info toast: invalid id argument.');
+        return;
+    }
+    const toast = drawToast(id, msg, uniq);
+
+    if (toast !== null) {
+        toast.classList.add(getDynamicClass("INFO_BOX"));
+    }
+    return toast;
+}
+
 function drawSuccessToast(id, uniq = true) {
     const msg = getVocab(id) ?? null;
     if (msg === null) {

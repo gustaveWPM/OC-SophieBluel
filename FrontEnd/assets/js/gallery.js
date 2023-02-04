@@ -86,6 +86,7 @@ function setLoginButtonCtx(isLoggedIn) {
             isLoggedIn = false;
             rootNode.removeEventListener('click', doLogOut);
             drawSuccessToast(getDynamicId("LOGGED_OUT_SUCCESS_TOAST"));
+            appendEditor();
             setLoginButtonCtx(isLoggedIn);
         });
     }
@@ -187,15 +188,31 @@ function doDrawGalleryFigures(node, element, fromCache = false) {
 }
 
 function drawGalleryFigures(worksCollection) {
+    function drawRetryButton(rootNode) {
+        const retryButton = document.createElement('button');
+        const retryButtonTxt = document.createTextNode(getVocab("RETRY_TO_LOAD_GALLERY_FIGURES"));
+
+        retryButton.classList.add(getDynamicClass("BTN"));
+        retryButton.appendChild(retryButtonTxt);
+        rootNode.appendChild(retryButton);
+
+        retryButton.addEventListener("click", () => {
+            updateGalleryFigures();
+        });
+        rootNode.classList.add(getDynamicClass("FORCE_FLEX_COLUMN"));
+    }
+
     const rootNode = galleryComponentRootNodeGetter();
     rootNode.innerHTML = '';
 
     if (failedToGetFromApi(worksCollection)) {
-        drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")} : ${getVocab("FAILED_TO_CONNECT_TO_THE_API")}`);
+        drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")}`);
         rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
+        drawRetryButton(rootNode);
         return false;
     }
 
+    rootNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
     rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
     rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
     worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element));
@@ -263,6 +280,8 @@ function updateActiveFilterBtn(element) {
 
 /* [§ Update -> Gallery Figures] */
 async function updateGalleryFigures(worksCollection = null, onClick = false) {
+    const rootNode = galleryComponentRootNodeGetter();
+    rootNode.classList.add(getDynamicClass("FORCE_LOADING_ANIMATION"));
     if (worksCollection === null) {
         worksCollection = await fetchWorksCollection();
     }
@@ -271,12 +290,12 @@ async function updateGalleryFigures(worksCollection = null, onClick = false) {
             drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), uniq = false);
             return false;
         } else {
-            drawWarningToast(getDynamicId("USING_CACHE_WARNING_TOAST"), uniq = false);
             worksCollection = __CACHE.WORKS;
         }
     }
     const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection);
 
+    rootNode.classList.remove(getDynamicClass("FORCE_LOADING_ANIMATION"));
     drawGalleryFigures(worksCollectionToDispose);
     return worksCollectionToDispose;
 }
@@ -372,6 +391,7 @@ function crash(crashNode, retryContext = false) {
         rootNode.appendChild(retryButton);
 
         retryButton.addEventListener("click", () => {
+            drawInfoToast(getDynamicId("TRYING_TO_RELOAD_TOAST"));
             run(retryContext = true);
         });
     }
