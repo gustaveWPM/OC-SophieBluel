@@ -249,23 +249,38 @@ h2, h3, h4, h5, h6 {
 	flex-basis: 53%;
 }
 
-.introduction img {
+.introduction .introduction-picture {
 	display: block;
 	height: auto;
 	width: 94.5%;
 }
 
-.introduction article {
-	flex-basis: 47%;
+.introduction-article {
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	align-self: stretch;
+	top: 65px;
 	max-width: 42.8%;
+	height: 30%;
 }
 
-.introduction h2 {
-	margin-bottom: 1em;
+.introduction-article p:first-of-type {
+	margin-top: 5px;
 }
 
-.introduction p {
-	margin-bottom: .5em;
+.description-edit-btn {
+	position: absolute;
+	top: -20%;
+}
+
+.introduction-article-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-self: stretch;
+	line-height: 1.15em;
+	gap: 18px;
 }
 
 .main {
@@ -280,7 +295,6 @@ h2, h3, h4, h5, h6 {
 
 .portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
 }
 
 .gallery {
@@ -289,6 +303,7 @@ h2, h3, h4, h5, h6 {
 	grid-template-columns: repeat(3, 1fr);
 	grid-column-gap: .9rem;
 	grid-row-gap: 20px;
+	margin-top: 3.7em;
 }
 
 .gallery figure {
@@ -380,7 +395,6 @@ body *:not(.header) {
 	display: flex;
 	justify-content: center;
 	gap: 0 1em;
-	margin: 4em 0;
 }
 
 .filter-btn {
@@ -612,13 +626,13 @@ a:hover {
 .edit-icon {
 	height: 19px;
 	width: auto;
+	margin-left: 0;
+	margin-right: 10px;
 }
 
 .editor-banner-component .edit-icon {
 	position: relative;
 	top: -0.10em;
-	margin-left: 0;
-	margin-right: 10px;
 }
 
 .editor-banner-component .editor-banner-label {
@@ -637,7 +651,38 @@ a:hover {
 }
 
 .hidden-editor-element {
-	display: none !important;
+	visibility: hidden !important;
+	min-height: 1px !important;
+	max-height: 1px !important;
+}
+
+.edit-component {
+	display: flex;
+	align-items: center;
+}
+
+.edit-component.introduction-img-btn {
+	position: relative;
+	top: 15px;
+}
+
+.is-editor-element .edit-icon {
+	position: relative;
+	margin-right: 6px;
+	top: -0.10em;
+}
+
+.portfolio-title-wrapper {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 3.5em;
+}
+
+.gallery-edit-btn {
+	position: absolute;
+	right: 29%;
+	top: 16%;
 }
 
 /** Javascript patches, do NOT use it in your HTML **/

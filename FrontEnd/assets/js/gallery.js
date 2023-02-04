@@ -305,7 +305,7 @@ async function generateEvents() {
     async function generateFiltersButtonsEvents() {
         const buttons = galleryFiltersButtonsGetter();
 
-        buttons.forEach(function (element) {
+        buttons.forEach(element => {
             element.addEventListener("click", () => {
                 updateActiveFilterBtn(element);
                 updateGalleryFigures(null, onClick = true);

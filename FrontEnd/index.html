@@ -47,22 +47,29 @@
 		<main id="main" class="main">
 			<section id="introduction" class="introduction">
 				<figure>
-					<img src="./assets/images/sophie-bluel.png" alt="Photo de Sophie Bluel">
+					<img class="introduction-picture" src="./assets/images/sophie-bluel.png" alt="Photo de Sophie Bluel">
+					<div class="edit-component introduction-img-btn is-editor-element"><img class="edit-icon" src="./assets/icons/button-edit-black.svg" alt="edition-icon">modifier</div>
 				</figure>
-				<article>
-					<h2>Designer d'espace</h2>
-					<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
-						finale du chantier.</p>
-					<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les
-						couleurs dans le respect de l’esprit des lieux, et le choix adapté des matériaux. Le suivi du
-						chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
-					<p>En cas de besoin, une équipe pluridisciplinaire peut être constituée : architecte DPLG,
-						décorateur(trice).</p>
+				<article class="introduction-article">
+					<div class="edit-component description-edit-btn is-editor-element"><img class="edit-icon" src="./assets/icons/button-edit-black.svg" alt="edition-icon">modifier</div>
+					<div class="introduction-article-container">
+						<h2>Designer d'espace</h2>
+						<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison
+							finale du chantier.</p>
+						<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les
+							couleurs dans le respect de l’esprit des lieux, et le choix adapté des matériaux. Le suivi du
+							chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+						<p>En cas de besoin, une équipe pluridisciplinaire peut être constituée : architecte DPLG,
+							décorateur(trice).</p>
+					</div>
 				</article>
 			</section>
 			<section id="portfolio" class="portfolio">
-				<h2>Mes projets</h2>
-				<nav id="filter-by-category-component" class="filter-by-category-component">
+				<div class="portfolio-title-wrapper">
+					<h2>Mes projets</h2>
+					<div class="edit-component gallery-edit-btn is-editor-element"><img class="edit-icon" src="./assets/icons/button-edit-black.svg" alt="edition-icon">modifier</div>
+				</div>
+				<nav id="filter-by-category-component" class="filter-by-category-component hide-when-editor-enabled">
 					<!-- Dynamic Content -->
 				</nav>
 				<div id="gallery-component" class="gallery">
