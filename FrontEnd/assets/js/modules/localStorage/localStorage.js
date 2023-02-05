@@ -1,38 +1,22 @@
 /*
-#=================================================
+#===================================================
 # * ... Local storage manager
-#-------------------------------------------------
+#---------------------------------------------------
 # * ... Handles local storages mutations
-#=================================================
+# * ... {REM} Obvs run the website on a Live Server
+# * ... or yall get unexpected behaviours.
+#===================================================
 */
-
-function getUserCookieObj() {
-    const cookie = document.cookie;
-    if (cookie === "") {
-        return cookie;
-    }
-    const cookiePrefixLen = getMiscConf("USER_COOKIE_PREFIX").length; 
-    const cookieObj = cookie.substring(cookiePrefixLen);
-
-    return cookieObj;
-}
 
 function localStorageUserInfos(userInfos = null) {
     if (userInfos === null) {
         try {
-            const data = getUserCookieObj();
+            const data = window.localStorage.getItem(getLocalStorageKey("USER_INFOS"));
             return JSON.parse(data);
         } catch {
-            try {
-                const data = window.localStorage.getItem(getLocalStorageKey("USER_INFOS"));
-                return JSON.parse(data);
-            } catch {
-                return {};
-            }
+            return {};
         }
     }
-    const cookie = `${getMiscConf("USER_COOKIE_PREFIX")}${userInfos}${getMiscConf("USER_COOKIE_SUFFIX")}`;
-    document.cookie = cookie;
     window.localStorage.setItem(getLocalStorageKey("USER_INFOS"), userInfos);
 }
 
@@ -47,6 +31,5 @@ function getLocalStorageUserToken() {
 }
 
 function deleteLocalStorageUserInfos() {
-    document.cookie = `${document.cookie}${getMiscConf("USER_COOKIE_SUFFIX")}${getMiscConf("KILL_COOKIE")}`;
     window.localStorage.removeItem(getLocalStorageKey("USER_INFOS"));
 }

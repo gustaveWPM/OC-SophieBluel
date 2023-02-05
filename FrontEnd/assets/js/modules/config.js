@@ -198,10 +198,7 @@ __GLOBALS["CACHE_KEYS"] = {
 
 /* [§ Misc] */
 __GLOBALS["MISC"] = {
-    "MAX_TOASTS": 5,
-    "USER_COOKIE_PREFIX": 'user=',
-    "USER_COOKIE_SUFFIX": '; SameSite=Lax',
-    "KILL_COOKIE": '; expires=Thu, 01 Jan 1970 00:00:00 UTC'
+    "MAX_TOASTS": 5
 }
 
 Object.freeze(__GLOBALS);
