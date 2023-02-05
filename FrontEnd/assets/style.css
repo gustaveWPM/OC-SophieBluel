@@ -27,12 +27,13 @@
     --portfolio-colors-black: #000;
     --portfolio-colors-green: #1D6154;
     --portfolio-colors-brown: #B1663C;
+    --portfolio-colors-red: #D65353;
 
     /* Configuration.chart => FX Colors */
     --portfolio-colors-darkgreen: #0E2F28;
     --portfolio-colors-orange: #61381D;
     --portfolio-colors-blue: #1D4361;
-    --portfolio-colors-red: #611D1D;
+    --portfolio-colors-darkred: #611D1D;
 
     /* Configuration.globalLayout => Margins/max-width */
     --portfolio-page-margin: 50px;
@@ -56,7 +57,7 @@
 
     /* Configuration.boxesLayout */
     --portfolio-chart-info-box-bg-color: var(--portfolio-colors-blue);
-    --portfolio-chart-error-box-bg-color: var(--portfolio-colors-red);
+    --portfolio-chart-error-box-bg-color: var(--portfolio-colors-darkred);
     --portfolio-chart-warning-box-bg-color: var(--portfolio-colors-orange);
     --portfolio-chart-box-bg-color: var(--portfolio-colors-green);
 
@@ -79,6 +80,9 @@
     --portfolio-editorbanner-confirm-changes-btn-font-color-hover: var(--portfolio-colors-white);
     --portfolio-editorbanner-confirm-changes-btn-padding: .75em 1.65em;
     --portfolio-editorbanner-min-height: 60px;
+
+    /* Configuration.modal => Delete button color */
+    --portfolio-modal-delete-button-font-color: var(--portfolio-colors-red);
 }
 
 /* 🧰 [§ A.2) i. Reset CSS => 📖 https://tinyurl.com/reset-css] */
@@ -619,6 +623,10 @@ a:hover {
     color: var(--portfolio-editorbanner-confirm-changes-btn-font-color-hover);
 }
 
+.close-editor {
+    cursor: pointer;
+}
+
 /* 👁️ [§ F. 2) Visibility default state] */
 .hidden-editor-element {
     visibility: hidden !important;
@@ -690,10 +698,10 @@ a:hover {
 }
 
 /*** H. Modal box */
-
 .modal {
     position: fixed;
     top: var(--portfolio-editorbanner-min-height);
+    overflow-y: hidden;
     margin: auto;
     padding: 1em;
     max-width: 43.75vw;
@@ -704,11 +712,92 @@ a:hover {
 }
 
 .modal-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
+    min-height: 730px;
     max-height: calc(100vh - 180px);
     padding: 20px;
     background-color: #FFF;
+}
+
+.modal-wrapper h1 {
+    font-size: 1.85em;
+    color: inherit;
+    font-family: var(--portfolio-body-font);
+    font-weight: var(--portfolio-fw-regular);
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.modal-wrapper hr {
+    margin-top: 50px;
+    opacity: .7;
+}
+
+.modal-wrapper .modal-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: .9rem;
+    grid-row-gap: 20px;
+}
+
+.modal-wrapper .modal-gallery img {
+    width: 100%;
+    height: 104px;
+    object-fit: cover;
+}
+
+.modal-wrapper .gallery-element {
+    display: flex;
+    flex-direction: column;    
+}
+
+.modal-wrapper .close-editor {
+    position: relative;
+    align-self: flex-end;
+    left: 10px;
+    bottom: 10px;
+}
+
+.modal-wrapper .modal-bottom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-wrapper .modal-bottom button {
+    width: 237px;
+    margin: 2.4em auto;
+    margin-bottom: 1.5em;
+}
+
+.modal-wrapper .modal-bottom div {
+    margin: auto;
+}
+
+.modal-wrapper .modal-gallery a {
+    text-decoration: none;
+    color: inherit;
+    margin-top: 3px;
+    font-size: .9em;
+}
+
+.modal-wrapper .modal-gallery a:hover {
+    font-weight: var(--portfolio-navbar-item-hover-fw);
+}
+
+.modal-wrapper .modal-bottom a {
+    text-decoration: none;
+    color: var(--portfolio-modal-delete-button-font-color);
+}
+
+.modal-wrapper .modal-content {
+    width: 76%;
+    margin: auto;
+    margin-top: 0;
 }
 
 dialog::backdrop {
