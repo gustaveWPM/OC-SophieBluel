@@ -407,6 +407,7 @@ async function run(retryContext = false) {
     const dynamicCategories = await appendDynamicCategories();
     const filtersComponentNode = filtersComponentRootNodeGetter();
 
+    await appendEditor();
     if (failedToGetFromApi(dynamicCategories)) {
         crash(filtersComponentNode, retryContext);
         if (!retryContext) {
@@ -421,7 +422,6 @@ async function run(retryContext = false) {
         filtersComponentNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
     }
     await appendDynamicWorks();
-    await appendEditor();
 }
 
 /*** 🚪 [§ Entry point] */

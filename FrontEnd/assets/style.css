@@ -668,6 +668,12 @@ a:hover {
     font-weight: var(--portfolio-fw-semibold);
 }
 
+.hidden-editor-element {
+    visibility: hidden !important;
+    min-height: 1px !important;
+    max-height: 1px !important;
+}
+
 /*** H. Javascript patches, do NOT use it in your HTML */
 .js-monkey-patch-flex-column {
     flex-direction: column !important;
@@ -679,10 +685,4 @@ a:hover {
 
 .js-monkey-patch-loading {
     animation: galleryLoading .8s ease-in-out infinite !important;
-}
-
-.hidden-editor-element {
-    visibility: hidden !important;
-    min-height: 1px !important;
-    max-height: 1px !important;
 }
