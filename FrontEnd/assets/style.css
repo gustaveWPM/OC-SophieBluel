@@ -751,8 +751,41 @@ a:hover {
 }
 
 .modal-wrapper .gallery-element {
+    position: relative;
     display: flex;
     flex-direction: column;    
+}
+
+.modal-wrapper .gallery-element-btns {
+    right: 1px;
+    top: 5px;
+    position: absolute;
+    display: flex;
+}
+
+.modal-wrapper .gallery-element-btns img {
+    background: var(--portfolio-editorbanner-bg-color);
+    border-radius: 2px;
+    height: 17px;
+    width: 17px;
+    margin-right: 3px;
+    object-fit: cover;
+}
+
+.gallery-trash-btn {
+    padding: 4px;
+}
+
+.gallery-move-btn {
+    padding: 2px;
+}
+
+.gallery-trash-btn:hover {
+    cursor: pointer;
+}
+
+.gallery-move-btn:hover {
+    cursor: pointer;
 }
 
 .modal-wrapper .close-editor {
