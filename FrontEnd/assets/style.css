@@ -575,12 +575,20 @@ a:hover {
 
 /*** F. Editor */
 /* 🔝 [§ F. 1) Editor banner] */
+.editor-banner-wrapper {
+    --_min-height: 60px;
+    position: relative;
+    min-height: var(--_min-height);
+}
+
 .editor-banner {
     display: flex;
+    position: fixed;
     justify-content: center;
     align-items: center;
-    min-height: 60px;
+    min-height: var(--_min-height);
     min-width: 100%;
+    z-index: 1;
     background-color: var(--portfolio-editorbanner-bg-color);
     color: var(--portfolio-editorbanner-font-color);
 }
