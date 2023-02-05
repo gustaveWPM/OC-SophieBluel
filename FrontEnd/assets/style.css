@@ -605,7 +605,14 @@ a:hover {
     color: var(--portfolio-editorbanner-confirm-changes-btn-font-color-hover);
 }
 
-/* ✍️ [§ F. 2) Edit buttons] */
+/* 👁️ [§ F. 2) Visibility default state] */
+.hidden-editor-element {
+    visibility: hidden !important;
+    min-height: 1px !important;
+    max-height: 1px !important;
+}
+
+/* ✍️ [§ F. 3) Edit buttons] */
 .edit-icon {
     height: 19px;
     width: auto;
@@ -666,12 +673,6 @@ a:hover {
 .forgotten-password {
     color: inherit;
     font-weight: var(--portfolio-fw-semibold);
-}
-
-.hidden-editor-element {
-    visibility: hidden !important;
-    min-height: 1px !important;
-    max-height: 1px !important;
 }
 
 /*** H. Javascript patches, do NOT use it in your HTML */
