@@ -10,155 +10,214 @@
 /* (You can edit the lines which are underneath this one as you wish) */
 :root {
     /* Configuration.globalLayout => Font */
-	--portfolio-body-font: 'Work Sans';
-	--portfolio-titles-font: 'Syne';
+    --portfolio-body-font: 'Work Sans';
+    --portfolio-titles-font: 'Syne';
 
-	/* Configuration.globalLayout => Font size */
+    /* Configuration.globalLayout => Font size */
     --portfolio-body-font-size: .874em;
 
-	/* Configuration.globalLayout => Font weight aliases */
-	--portfolio-fw-regular: 400;
-	--portfolio-fw-semibold: 500;
-	--portfolio-fw-bold: 700;
+    /* Configuration.globalLayout => Font weight aliases */
+    --portfolio-fw-regular: 400;
+    --portfolio-fw-semibold: 500;
+    --portfolio-fw-bold: 700;
     --portfolio-fw-bolder: 800;
 
-	/* Configuration.chart => Static Colors */
-	--portfolio-colors-white: #FFF;
-	--portfolio-colors-green: #1D6154;
-	--portfolio-colors-brown: #B1663C;
+    /* Configuration.chart => Static Colors */
+    --portfolio-colors-white: #FFF;
+    --portfolio-colors-black: #000;
+    --portfolio-colors-green: #1D6154;
+    --portfolio-colors-brown: #B1663C;
 
     /* Configuration.chart => FX Colors */
     --portfolio-colors-darkgreen: #0E2F28;
-	--portfolio-colors-orange: #61381D;
-	--portfolio-colors-blue: #1D4361;
-	--portfolio-colors-red: #611D1D;
+    --portfolio-colors-orange: #61381D;
+    --portfolio-colors-blue: #1D4361;
+    --portfolio-colors-red: #611D1D;
 
-    /* Configuration.globalLayout => margins/max-width */
+    /* Configuration.globalLayout => Margins/max-width */
     --portfolio-page-margin: 50px;
-	--portfolio-max-width: 1140px;
+    --portfolio-max-width: 1140px;
 
-	--portfolio-navbar-item-hover-fw: var(--portfolio-fw-bold);
+    /* Configuration.globalLayout => Navbar */
+    --portfolio-navbar-item-hover-fw: var(--portfolio-fw-bold);
 
-	--portfolio-chart-button-font-color: var(--portfolio-colors-white);
-	--portfolio-chart-button-bg-color: var(--portfolio-colors-green);
-	--portfolio-chart-button-bg-color-hover: var(--portfolio-colors-darkgreen);
-	--portfolio-chart-button-default-font-weight: var(--portfolio-fw-bold);
+    /* Configuration.globalLayout => Buttons */
+    --portfolio-chart-button-font-color: var(--portfolio-colors-white);
+    --portfolio-chart-button-bg-color: var(--portfolio-colors-green);
+    --portfolio-chart-button-bg-color-hover: var(--portfolio-colors-darkgreen);
+    --portfolio-chart-button-default-font-weight: var(--portfolio-fw-bold);
 
-	--portfolio-chart-active-filter-button-bg-hover: var(--portfolio-colors-green);
-	--portfolio-chart-active-filter-button-bg-color: var(--portfolio-colors-white);
-	--portfolio-chart-inactive-filter-button-bg: var(--portfolio-colors-white);
-	--portfolio-chart-inactive-filter-button-bg-hover: var(--portfolio-colors-green);
-	--portfolio-chart-inactive-filter-button-font-color: var(--portfolio-colors-green);
+    /* Configuration.filtersLayout */
+    --portfolio-chart-active-filter-button-bg-hover: var(--portfolio-colors-green);
+    --portfolio-chart-active-filter-button-bg-color: var(--portfolio-colors-white);
+    --portfolio-chart-inactive-filter-button-bg: var(--portfolio-colors-white);
+    --portfolio-chart-inactive-filter-button-bg-hover: var(--portfolio-colors-green);
+    --portfolio-chart-inactive-filter-button-font-color: var(--portfolio-colors-green);
 
-	--portfolio-chart-info-box-bg-color: var(--portfolio-colors-blue);
-	--portfolio-chart-error-box-bg-color: var(--portfolio-colors-red);
-	--portfolio-chart-warning-box-bg-color: var(--portfolio-colors-orange);
-	--portfolio-chart-box-bg-color: var(--portfolio-colors-green);
+    /* Configuration.boxesLayout */
+    --portfolio-chart-info-box-bg-color: var(--portfolio-colors-blue);
+    --portfolio-chart-error-box-bg-color: var(--portfolio-colors-red);
+    --portfolio-chart-warning-box-bg-color: var(--portfolio-colors-orange);
+    --portfolio-chart-box-bg-color: var(--portfolio-colors-green);
 
-	--portfolio-title-fw: var(--portfolio-fw-bolder);
-	--portfolio-title-color: var(--portfolio-colors-brown);
-	--portfolio-chart-title-default-font-weight: var(--portfolio-fw-bold);
+    /* Configuration.titlesLayout */
+    --portfolio-title-fw: var(--portfolio-fw-bolder);
+    --portfolio-title-color: var(--portfolio-colors-brown);
+    --portfolio-chart-title-default-font-weight: var(--portfolio-fw-bold);
 
-	--portfolio-chart-subtitle-font-color: var(--portfolio-colors-green);
+    /* Configuration.subtitlesLayout */
+    --portfolio-chart-subtitle-font-color: var(--portfolio-colors-green);
+
+    /* Configuration.editorBanner */
+    --portfolio-editorbanner-bg-color: var(--portfolio-colors-black);
+    --portfolio-editorbanner-font-color: var(--portfolio-colors-white);
+
+    /* Configuration.editorBanner => Confirm changes button */
+    --portfolio-editorbanner-confirm-changes-btn-bg-color: var(--portfolio-colors-white);
+    --portfolio-editorbanner-confirm-changes-btn-font-color: var(--portfolio-colors-black);
+    --portfolio-editorbanner-confirm-changes-btn-bg-color-hover: var(--portfolio-colors-darkgreen);
+    --portfolio-editorbanner-confirm-changes-btn-font-color-hover: var(--portfolio-colors-white);
+    --portfolio-editorbanner-confirm-changes-btn-padding: 0.75em 1.65em;
 }
 
 /* 🧰 [§ A.2) i. Reset CSS => 📖 https://tinyurl.com/reset-css] */
 * {
-	box-sizing: border-box;
-	/* [📖 https://tinyurl.com/border-box] */
-	min-width: 0;
-	/* [📖 https://tinyurl.com/flex-min-width-0] */
-	margin: 0;
-	padding: 0;
-	font: inherit;
-	color: inherit;
-	font-size: 100%;
-	vertical-align: baseline;
+    box-sizing: border-box;
+    /* [📖 https://tinyurl.com/border-box] */
+    min-width: 0;
+    /* [📖 https://tinyurl.com/flex-min-width-0] */
+    margin: 0;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    font-size: 100%;
+    vertical-align: baseline;
 }
 
 body {
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
-	margin: auto;
-	font-family: var(--portfolio-body-font), sans-serif;
-	font-size: var(--portfolio-body-font-size);
-	line-height: 1rem;
-	font-weight: var(--portfolio-fw-regular);
-	overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: auto;
+    font-family: var(--portfolio-body-font), sans-serif;
+    font-size: var(--portfolio-body-font-size);
+    line-height: 1rem;
+    font-weight: var(--portfolio-fw-regular);
+    overflow-wrap: break-word;
 }
-  
+
 ol,
 ul {
-	list-style-type: none;
+    list-style-type: none;
 }
-  
+
 /* ✨ [§ A.3) Animations] */
 @keyframes galleryFadeIn {
-	0% { opacity: 0; }
-	25% { opacity: 0; }
-	100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+
+    25% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 @keyframes galleryLoading {
-	0% { opacity: .8; }
-	100% { opacity: .2; }
+    0% {
+        opacity: .8;
+    }
+
+    100% {
+        opacity: .2;
+    }
 }
 
-.toasts-component>.is-toast:nth-child(1) { --nth-child: 1; }
-.toasts-component>.is-toast:nth-child(2) { --nth-child: 2; }
-.toasts-component>.is-toast:nth-child(3) { --nth-child: 3; }
-.toasts-component>.is-toast:nth-child(4) { --nth-child: 4; }
-.toasts-component>.is-toast:nth-child(n + 5) { --nth-child: 5; }
+.toasts-component>.is-toast:nth-child(1) {
+    --nth-child: 1;
+}
 
-.gallery>.gallery-figure:nth-child(1) { --nth-child: 1; }
-.gallery>.gallery-figure:nth-child(2) { --nth-child: 2; }
-.gallery>.gallery-figure:nth-child(3) { --nth-child: 3; }
-.gallery>.gallery-figure:nth-child(4) { --nth-child: 4; }
-.gallery>.gallery-figure:nth-child(n + 5) { --nth-child: 5; }
+.toasts-component>.is-toast:nth-child(2) {
+    --nth-child: 2;
+}
+
+.toasts-component>.is-toast:nth-child(3) {
+    --nth-child: 3;
+}
+
+.toasts-component>.is-toast:nth-child(4) {
+    --nth-child: 4;
+}
+
+.toasts-component>.is-toast:nth-child(n + 5) {
+    --nth-child: 5;
+}
+
+.gallery>.gallery-figure:nth-child(1) {
+    --nth-child: 1;
+}
+
+.gallery>.gallery-figure:nth-child(2) {
+    --nth-child: 2;
+}
+
+.gallery>.gallery-figure:nth-child(3) {
+    --nth-child: 3;
+}
+
+.gallery>.gallery-figure:nth-child(4) {
+    --nth-child: 4;
+}
+
+.gallery>.gallery-figure:nth-child(n + 5) {
+    --nth-child: 5;
+}
 
 .gallery>.gallery-figure {
-	animation: galleryFadeIn calc(.4s * var(--nth-child)) ease-in;
+    animation: galleryFadeIn calc(.4s * var(--nth-child)) ease-in;
 }
 
 body *:not(.header) {
-	animation: galleryFadeIn .7s ease-in-out;
+    animation: galleryFadeIn .7s ease-in-out;
 }
 
 header {
-	animation: galleryFadeIn .4s ease-in-out;
+    animation: galleryFadeIn .4s ease-in-out;
 }
 
 /* 🧰 [§ A.4) Utilitary classes] */
 .is-btn {
-	--_background-color: var(--portfolio-chart-button-bg-color);
-	font-family: var(--portfolio-titles-font), serif;
-	font-weight: var(--portfolio-chart-button-default-font-weight);
-	color: var(--portfolio-chart-button-font-color);
-	background-color: var(--_background-color);
-	border-color: var(--_background-color);
-	margin: 2em auto;
-	width: 180px;
-	text-align: center;
-	margin-top: 35px;
-	border-radius: 60px;
-	border: none;
-	padding: 10px;
+    --_background-color: var(--portfolio-chart-button-bg-color);
+    font-family: var(--portfolio-titles-font), serif;
+    font-weight: var(--portfolio-chart-button-default-font-weight);
+    color: var(--portfolio-chart-button-font-color);
+    background-color: var(--_background-color);
+    border-color: var(--_background-color);
+    margin: 2em auto;
+    width: 180px;
+    text-align: center;
+    margin-top: 35px;
+    border-radius: 60px;
+    border: none;
+    padding: 10px;
 }
 
 .is-btn:hover {
-	--_background-color: var(--portfolio-chart-button-bg-color-hover);
-	cursor: pointer;
-	color: var(--portfolio-chart-button-font-color);
+    --_background-color: var(--portfolio-chart-button-bg-color-hover);
+    cursor: pointer;
+    color: var(--portfolio-chart-button-font-color);
 }
 
 .reset-text-decoration {
-	text-decoration: none;
-	color: inherit;
+    text-decoration: none;
+    color: inherit;
 }
 
 .prevent-select {
-	user-select: none;
+    user-select: none;
 }
 
 /* ⛔ Do NOT edit the code BELOW this line unless you know what you are doing */
@@ -168,446 +227,462 @@ header {
 /*** B. Desktop */
 /* 📚 [§ B.1) Semantic tags] */
 section {
-	margin: var(--portfolio-page-margin) 0;
+    margin: var(--portfolio-page-margin) 0;
 }
 
 h1 {
-	display: flex;
-	flex-direction: column;
-	font-family: var(--portfolio-titles-font), serif;
-	font-size: 1.58em;
-	font-weight: var(--portfolio-title-fw);
-	color: var(--portfolio-title-color);
-	line-height: 1em;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--portfolio-titles-font), serif;
+    font-size: 1.58em;
+    font-weight: var(--portfolio-title-fw);
+    color: var(--portfolio-title-color);
+    line-height: 1em;
 }
 
 h1>span {
-	position: relative;
-	text-transform: uppercase;
-	font-family: var(--portfolio-body-font), sans-serif;
-	font-weight: var(--portfolio-fw-regular);
-	font-size: .45em;
-	letter-spacing: .1em;
-	transform: scale(.92, 1);
-	left: -3.5%;
+    position: relative;
+    text-transform: uppercase;
+    font-family: var(--portfolio-body-font), sans-serif;
+    font-weight: var(--portfolio-fw-regular);
+    font-size: .45em;
+    letter-spacing: .1em;
+    transform: scale(.92, 1);
+    left: -3.5%;
 }
 
 h2 {
-	font-size: 2em;
+    font-size: 2em;
 }
 
-h2, h3, h4, h5, h6 {
-	font-family: var(--portfolio-titles-font), serif;
-	font-weight: var(--portfolio-chart-title-default-font-weight);
-	color: var(--portfolio-chart-inactive-filter-button-font-color);
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--portfolio-titles-font), serif;
+    font-weight: var(--portfolio-chart-title-default-font-weight);
+    color: var(--portfolio-chart-inactive-filter-button-font-color);
 }
 
 /* 🏷️ [§ B.2) Other HTML Tags styling] */
 a:hover {
-	color: var(--portfolio-title-color);
+    color: var(--portfolio-title-color);
 }
 
 /*** C. Website base */
-/* 🍔 [§ C.1) Navbar] */
+/* 🍬 [§ C.1) Wrapper] */
+.main-wrapper {
+    width: var(--portfolio-max-width);
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: auto;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+/* 🍔 [§ C.2) Navbar] */
 .header {
-	--_margin-delta: 22px;
-	display: flex;
-	justify-content: space-between;
-	margin: var(--portfolio-page-margin) auto;
-	min-width: 1150px;
-	max-width: var(--portfolio-max-width);
+    --_margin-delta: 22px;
+    display: flex;
+    justify-content: space-between;
+    margin: var(--portfolio-page-margin) auto;
+    min-width: 1150px;
+    max-width: var(--portfolio-max-width);
 }
 
 .navbar-menu-elements>* {
-	padding: 0 10px;
-	font-size: 1.2em;
+    padding: 0 10px;
+    font-size: 1.2em;
 }
 
 .navbar-item:hover {
-	font-weight: var(--portfolio-navbar-item-hover-fw);
-	color: inherit;
+    font-weight: var(--portfolio-navbar-item-hover-fw);
+    color: inherit;
 }
 
 .navbar-menu {
-	display: flex;
-	align-items: center;
-	height: 42px;
+    display: flex;
+    align-items: center;
+    height: 42px;
 }
 
 .navbar-menu-elements .navbar-img {
-	--_height: 21px;
-	position: relative;
-	height: var(--_height);
-	top: calc(var(--_height) * .1);
+    --_height: 21px;
+    position: relative;
+    height: var(--_height);
+    top: calc(var(--_height) * .1);
 }
 
 .navbar-menu-elements {
-	display: flex;
-	align-items: center;
-	list-style-type: none;
-	justify-content: space-between;
-	width: 320px;
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    justify-content: space-between;
+    width: 320px;
 }
 
-/* 👋 [§ C.2) Introduction section] */
+/* 👋 [§ C.3) Introduction section] */
 .introduction {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	margin-bottom: calc(var(--portfolio-page-margin) * 2.5);
-	margin-top: calc(var(--portfolio-page-margin) * 1.5);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: calc(var(--portfolio-page-margin) * 2.5);
+    margin-top: calc(var(--portfolio-page-margin) * 1.5);
 }
 
 .introduction .introduction-figure {
-	flex-basis: 53%;
+    flex-basis: 53%;
 }
 
 .introduction .introduction-picture {
-	display: block;
-	height: auto;
-	width: 94.5%;
+    display: block;
+    height: auto;
+    width: 94.5%;
 }
 
 .introduction-article {
-	display: flex;
-	position: relative;
-	flex-direction: column;
-	align-self: stretch;
-	top: 65px;
-	max-width: 42.8%;
-	height: 30%;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-self: stretch;
+    top: 65px;
+    max-width: 42.8%;
+    height: 30%;
 }
 
-.introduction-article *:first-of-type:not(h1, h2, h3, h4, h5, h6) {
-	margin-top: 5px;
+.introduction-article p {
+    margin-top: 5px;
 }
 
 .introduction-article-container {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	align-self: stretch;
-	line-height: 1.15em;
-	gap: 18px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    line-height: 1.15em;
+    gap: 18px;
 }
 
-.description-edit-btn {
-	position: absolute;
-	top: -20%;
-}
-
-/* ✅ [§ C.3) i. Filters component] */
+/* ✅ [§ C.4) i. Filters component] */
 .filter-by-category-component {
-	display: flex;
-	justify-content: center;
-	gap: 0 1em;
+    display: flex;
+    justify-content: center;
+    gap: 0 1em;
 }
 
 .filter-btn {
-	border: 1px solid var(--portfolio-chart-inactive-filter-button-font-color);
-	font-size: 1em;
-	margin: 0;
+    border: 1px solid var(--portfolio-chart-inactive-filter-button-font-color);
+    font-size: 1em;
+    margin: 0;
 
-	color: var(--portfolio-chart-inactive-filter-button-font-color);
-	background-color: var(--portfolio-chart-inactive-filter-button-bg);
-	padding: 8px 1%;
-	min-width: 100px;
+    color: var(--portfolio-chart-inactive-filter-button-font-color);
+    background-color: var(--portfolio-chart-inactive-filter-button-bg);
+    padding: 8px 1%;
+    min-width: 100px;
 }
 
 .filter-btn:hover {
-	color: var(--portfolio-chart-button-font-color);
-	background-color: var(--portfolio-chart-button-bg-color-hover);
-	border-color: var(--portfolio-chart-button-bg-color-hover);
+    color: var(--portfolio-chart-button-font-color);
+    background-color: var(--portfolio-chart-button-bg-color-hover);
+    border-color: var(--portfolio-chart-button-bg-color-hover);
 }
 
 .filter-btn.is-active {
-	background-color: var(--portfolio-chart-active-filter-button-bg-hover);
-	border-color: var(--portfolio-chart-active-filter-button-bg-hover);
-	color: var(--portfolio-chart-active-filter-button-bg-color);
+    background-color: var(--portfolio-chart-active-filter-button-bg-hover);
+    border-color: var(--portfolio-chart-active-filter-button-bg-hover);
+    color: var(--portfolio-chart-active-filter-button-bg-color);
 }
 
-/* 🖼️ [§ C.3) ii. Portfolio section] */
+/* 🖼️ [§ C.4) ii. Portfolio section] */
 .main {
-	width: 83%;
-	margin: auto;
-	margin-top: 0;
+    width: 83%;
+    margin: auto;
+    margin-top: 0;
 }
 
 .portfolio {
-	margin-bottom: calc(var(--portfolio-page-margin) * 1.3);
+    margin-bottom: calc(var(--portfolio-page-margin) * 1.3);
 }
 
 .portfolio-title-wrapper {
-	position: relative;
-	display: flex;
-	justify-content: center;
-	margin-bottom: 3.5em;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3.5em;
 }
 
 .gallery {
-	width: 100%;
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	grid-column-gap: .9rem;
-	grid-row-gap: 20px;
-	margin-top: 3.7em;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: .9rem;
+    grid-row-gap: 20px;
+    margin-top: 3.7em;
 }
 
 .gallery.failed-to-fetch {
-	display: flex;
-	justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .gallery-figure {
-	margin: auto;
+    margin: auto;
 }
 
 .gallery-figure img {
-	height: 407px;
-	width: 305px;
-	object-fit: cover;
-	margin-bottom: .5em;
+    height: 407px;
+    width: 305px;
+    object-fit: cover;
+    margin-bottom: .5em;
 }
 
-/* ✉️ [§ C.4) Contact section] */
+/* ✉️ [§ C.5) Contact section] */
 .form {
-	display: flex;
-	flex-direction: column;
-	margin: auto;
-	align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
 }
 
 .form>*:not(label) {
-	text-align: center;
+    text-align: center;
 }
 
 .form h2 {
-	margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .form form {
-	text-align: left;
-	display: flex;
-	flex-direction: column;
-	width: 40%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
 }
 
 .form input {
-	height: 50px;
-	font-size: 1.2em;
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
+    height: 50px;
+    font-size: 1.2em;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
 }
 
 .form label {
-	margin: 3em 0 .5em 0;
+    margin: 3em 0 .5em 0;
 }
 
 .form textarea {
-	border: none;
-	box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
 }
 
 .form input.is-narrow {
-	height: 35px;
-	font-size: 1em;
+    height: 35px;
+    font-size: 1em;
 }
 
 /*** D. Dynamic components */
 /* 📦 [§ D.1) Boxes] */
 .is-box {
-	background-color: var(--portfolio-chart-buttons-font-color);
-	color: var(--portfolio-chart-button-font-color);
-	font-weight: var(--portfolio-fw-semibold);
-	padding: 15px;
-	border-radius: 15px;
-	max-width: 45vw;
-	margin: auto;
-	text-align: center;
+    background-color: var(--portfolio-chart-buttons-font-color);
+    color: var(--portfolio-chart-button-font-color);
+    font-weight: var(--portfolio-fw-semibold);
+    padding: 15px;
+    border-radius: 15px;
+    max-width: 45vw;
+    margin: auto;
+    text-align: center;
 }
 
 .is-box.error-box {
-	background-color: var(--portfolio-chart-error-box-bg-color);
+    background-color: var(--portfolio-chart-error-box-bg-color);
 }
 
 .is-box.warning-box {
-	background-color: var(--portfolio-chart-warning-box-bg-color);
+    background-color: var(--portfolio-chart-warning-box-bg-color);
 }
 
 /* 🥞 [§ D.2) Toasts] */
 .toasts-component {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 .is-toast {
-	--_default-min-width: 250px;
-	--_delta: 50px;
-	--_fadein-duration: .5s;
-	--_fadeout-duration: 1s;
-	--_movein-duration: .7s;
-	--_moveout-duration: 1s;
-	opacity: 0;
-	margin: auto;
-	font-weight: var(--portfolio-fw-semibold);
-	min-width: var(--_default-min-width);
-	background-color: var(--portfolio-chart-box-bg-color);
-	color: var(--portfolio-chart-button-font-color);
-	text-align: center;
-	border-radius: 2px;
-	padding: 16px;
-	z-index: 1;
-	bottom: 0;
-	position: fixed;
-	transition: bottom var(--_movein-duration), opacity var(--_fadeout-duration);
+    --_default-min-width: 250px;
+    --_delta: 50px;
+    --_fadein-duration: .5s;
+    --_fadeout-duration: 1s;
+    --_movein-duration: .7s;
+    --_moveout-duration: 1s;
+    opacity: 0;
+    margin: auto;
+    font-weight: var(--portfolio-fw-semibold);
+    min-width: var(--_default-min-width);
+    background-color: var(--portfolio-chart-box-bg-color);
+    color: var(--portfolio-chart-button-font-color);
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    z-index: 1;
+    bottom: 0;
+    position: fixed;
+    transition: bottom var(--_movein-duration), opacity var(--_fadeout-duration);
 }
 
 .is-toast.show {
-	opacity: 1;
-	bottom: calc(var(--_delta) * var(--nth-child));
-	transition: bottom var(--_moveout-duration), opacity var(--_fadein-duration);
+    opacity: 1;
+    bottom: calc(var(--_delta) * var(--nth-child));
+    transition: bottom var(--_moveout-duration), opacity var(--_fadein-duration);
 }
 
 .is-toast.error-box {
-	background-color: var(--portfolio-chart-error-box-bg-color);
+    background-color: var(--portfolio-chart-error-box-bg-color);
 }
 
 .is-toast.warning-box {
-	background-color: var(--portfolio-chart-warning-box-bg-color);
+    background-color: var(--portfolio-chart-warning-box-bg-color);
 }
 
 .is-toast.info-box {
-	background-color: var(--portfolio-chart-info-box-bg-color);
+    background-color: var(--portfolio-chart-info-box-bg-color);
 }
 
 /*** E. Footer */
 .footer {
-	display: flex;
-	align-items: flex-end;
-	justify-content: flex-end;
-	align-self: flex-end;
-	margin: 2em;
-	margin-top: 2.5em;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    align-self: flex-end;
+    margin: 2em;
+    margin-top: 2.5em;
 }
 
 /*** F. Editor */
-/* [Editor banner */
+/* 🔝 [§ F. 1) Editor banner] */
 .editor-banner {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	min-height: 60px;
-	min-width: 100%;
-	background-color: black; /* ToDo: Config */
-	color: white; /* ToDo: Config */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60px;
+    min-width: 100%;
+    background-color: var(--portfolio-editorbanner-bg-color);
+    color: var(--portfolio-editorbanner-font-color);
 }
 
 .editor-banner-component {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 63.33%;
-	width: 367px;
-}
-
-.confirm-changes-btn {
-	font-family: var(--portfolio-body-font), sans-serif;
-	font-size: 1em;
-	width: auto;
-	padding: 0.75em 1.65em;
-	margin: auto;
-	margin-right: 0;
-	background-color: white; /* ToDo: Config */
-	color: black; /* ToDo: Config */
-}
-
-.confirm-changes-btn:hover {
-	background-color: #0E2F28; /* ToDo: Config */
-	color: white; /* ToDo: Config */
-}
-
-.edit-icon {
-	height: 19px;
-	width: auto;
-	margin-left: 0;
-	margin-right: 10px;
-}
-
-.editor-banner-component .edit-icon {
-	position: relative;
-	top: -0.10em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 63.33%;
+    width: 367px;
 }
 
 .editor-banner-component .editor-banner-label {
-	font-size: 16px; /* ToDo: Config */
-	font-weight: 400; /* ToDo: Config */
+    font-size: 1.1em;
+    font-weight: var(--portfolio-fw-regular);
 }
 
-.main-wrapper {
-	width: var(--portfolio-max-width);
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	margin: auto;
-	margin-bottom: 0;
-	margin-top: 0;
+.confirm-changes-btn {
+    font-family: var(--portfolio-body-font), sans-serif;
+    font-size: 1em;
+    width: auto;
+    padding: var(--portfolio-editorbanner-confirm-changes-btn-padding);
+    margin: auto;
+    margin-right: 0;
+    background-color: var(--portfolio-editorbanner-confirm-changes-btn-bg-color);
+    color: var(--portfolio-editorbanner-confirm-changes-btn-font-color);
 }
 
-.hidden-editor-element {
-	visibility: hidden !important;
-	min-height: 1px !important;
-	max-height: 1px !important;
+.confirm-changes-btn:hover {
+    background-color: var(--portfolio-editorbanner-confirm-changes-btn-bg-color-hover);
+    color: var(--portfolio-editorbanner-confirm-changes-btn-font-color-hover);
+}
+
+/* ✍️ [§ F. 2) Edit buttons] */
+.edit-icon {
+    height: 19px;
+    width: auto;
+    margin-left: 0;
+    margin-right: 10px;
 }
 
 .edit-component {
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
+}
+
+.edit-component span {
+    position: relative;
+    top: 1px;
+}
+
+.edit-component-clickable-area {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.edit-component-clickable-area:hover {
+    font-weight: var(--portfolio-navbar-item-hover-fw);
+    color: inherit;
+}
+
+.editor-banner-component .edit-icon {
+    position: relative;
+    top: -0.10em;
+}
+
+.description-edit-btn {
+    position: absolute;
+    top: -22%;
 }
 
 .edit-component.introduction-img-btn {
-	position: relative;
-	top: 15px;
+    position: relative;
+    top: 15px;
 }
 
-.is-editor-element .edit-icon {
-	position: relative;
-	margin-right: 6px;
-	top: -0.10em;
+.edit-component.gallery-edit-btn {
+    position: absolute;
+    right: 29%;
+    top: -11%;
 }
 
-.gallery-edit-btn {
-	position: absolute;
-	right: 29%;
-	top: 16%;
-}
-
-/* § Login page */
+/*** G. Login Page */
 .login {
-	display: flex;
-	align-items: center;
-	margin: auto;
-	margin-top: 100px;
+    display: flex;
+    align-items: center;
+    margin: auto;
+    margin-top: 100px;
 }
 
 .forgotten-password {
-	color: inherit;
-	font-weight: var(--portfolio-fw-semibold);
+    color: inherit;
+    font-weight: var(--portfolio-fw-semibold);
 }
 
-/** Javascript patches, do NOT use it in your HTML **/
+/*** H. Javascript patches, do NOT use it in your HTML */
 .js-monkey-patch-flex-column {
-	flex-direction: column !important;
+    flex-direction: column !important;
 }
 
 .js-monkey-patch-display-flex {
-	display: flex !important;
+    display: flex !important;
 }
 
 .js-monkey-patch-loading {
-	animation: galleryLoading .8s ease-in-out infinite !important;
+    animation: galleryLoading .8s ease-in-out infinite !important;
+}
+
+.hidden-editor-element {
+    visibility: hidden !important;
+    min-height: 1px !important;
+    max-height: 1px !important;
 }
