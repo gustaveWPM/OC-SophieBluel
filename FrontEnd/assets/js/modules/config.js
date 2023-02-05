@@ -80,6 +80,14 @@ function getCacheConf(key) {
     return value;
 }
 
+function getMiscConf(key) {
+    const value = __GLOBALS.MISC[key];
+    if (value === undefined) {
+        console.error(`No misc configuration value found with this key: ${key}`)
+    }
+    return value;
+}
+
 /* [§ Dynamic classes, id, and API Host] */
 let __GLOBALS = {
     "DYN_CLASSES": {
@@ -177,11 +185,6 @@ __GLOBALS["VOCAB"] = {
     [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: 'Vous avez bien été déconnecté !'
 }
 
-/* [§ Modules config] */
-__GLOBALS["MODULES_CONFIG"] = {
-    "MAX_TOASTS": 5
-}
-
 /* [§ Localstorage keys] */
 __GLOBALS["LOCALSTORAGE_KEYS"] = {
     "USER_INFOS": 'userInfos'
@@ -193,6 +196,14 @@ __GLOBALS["CACHE_KEYS"] = {
     "STATIC_IMAGES_ROUTE_PREFIX": '../Backend/'
 }
 
+/* [§ Misc] */
+__GLOBALS["MISC"] = {
+    "MAX_TOASTS": 5,
+    "USER_COOKIE_PREFIX": 'user=',
+    "USER_COOKIE_SUFFIX": '; SameSite=Lax',
+    "KILL_COOKIE": '; expires=Thu, 01 Jan 1970 00:00:00 UTC'
+}
+
 Object.freeze(__GLOBALS);
 Object.freeze(__GLOBALS.DYN_CLASSES);
 Object.freeze(__GLOBALS.DYN_IDS);
@@ -202,6 +213,6 @@ Object.freeze(__GLOBALS.SIDE_EFFECTS);
 Object.freeze(__GLOBALS.PAGES_URLS);
 Object.freeze(__GLOBALS.SELECTORS);
 Object.freeze(__GLOBALS.VOCAB);
-Object.freeze(__GLOBALS.MODULES_CONFIG);
+Object.freeze(__GLOBALS.MISC);
 Object.freeze(__GLOBALS.LOCALSTORAGE_KEYS);
 Object.freeze(__GLOBALS.CACHE_KEYS);

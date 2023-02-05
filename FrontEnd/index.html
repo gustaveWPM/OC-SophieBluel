@@ -26,8 +26,8 @@
 
 <body>
     <header id="header">
-        <div class="editor-banner-wrapper is-editor-element hidden-editor-element">
-            <div class="editor-banner prevent-select is-editor-element hidden-editor-element">
+        <div class="editor-banner-wrapper is-editor-element hidden-editor-element" aria-hidden="true">
+            <div class="editor-banner prevent-select is-editor-element hidden-editor-element" aria-hidden="true">
                 <div class="editor-banner-component">
                     <img class="edit-icon" src="./assets/icons/button-edit-white.svg" alt="edition-icon">
                     <span class="editor-banner-label">Mode édition</span>
@@ -56,14 +56,14 @@
                 <figure class="introduction-figure">
                     <img class="introduction-picture" src="./assets/images/sophie-bluel.png"
                         alt="Photo de Sophie Bluel">
-                    <div class="prevent-select edit-component introduction-img-btn is-editor-element hidden-editor-element"><a href="#"
-                            class="edit-component-clickable-area"><img class="edit-icon"
+                    <div class="prevent-select edit-component introduction-img-btn is-editor-element hidden-editor-element" aria-hidden="true"><a href="#editor"
+                            class="open-editor"><img class="edit-icon"
                                 src="./assets/icons/button-edit-black.svg" alt="edition-icon"><span>modifier</span></a>
                     </div>
                 </figure>
                 <article class="introduction-article">
-                    <div class="prevent-select edit-component description-edit-btn is-editor-element hidden-editor-element"><a href="#"
-                            class="edit-component-clickable-area"><img class="edit-icon"
+                    <div class="prevent-select edit-component description-edit-btn is-editor-element hidden-editor-element" aria-hidden="true"><a href="#editor"
+                            class="open-editor"><img class="edit-icon"
                                 src="./assets/icons/button-edit-black.svg" alt="edition-icon"><span>modifier</span></a>
                     </div>
                     <div class="introduction-article-container">
@@ -84,8 +84,8 @@
             <section id="portfolio" class="portfolio">
                 <div class="portfolio-title-wrapper">
                     <h2>Mes projets</h2>
-                    <div class="prevent-select edit-component gallery-edit-btn is-editor-element hidden-editor-element"><a href="#"
-                            class="edit-component-clickable-area"><img class="edit-icon"
+                    <div class="prevent-select edit-component gallery-edit-btn is-editor-element hidden-editor-element" aria-hidden="true"><a href="#editor"
+                            class="open-editor"><img class="edit-icon"
                                 src="./assets/icons/button-edit-black.svg" alt="edition-icon"><span>modifier</span></a>
                     </div>
                 </div>
@@ -112,6 +112,19 @@
             <div id="toasts-component" class="toasts-component">
                 <!-- Dynamic Content -->
             </div>
+
+            <dialog id="editor" class="modal" aria-hidden="true" aria-labelledby="modal-title">
+                <div class="modal-wrapper" autofocus>
+                    <h1 id="modal-title">Titre boîte de dialogue</h1>
+                    <form class="form" method="dialog">
+                        <label for="name">Nom</label>
+                        <input type="text" name="name" id="name" required>
+                        <label for="email">Email</label>
+                        <input type="email" name="email" id="email" required>
+                        <input type="submit" value="Envoyer" class="is-btn is-narrow">
+                    </form>
+                </div>
+            </dialog>
         </main>
 
         <footer class="footer">

@@ -54,15 +54,6 @@ async function generateEvents() {
     generateLoginButtonEvent();
 }
 
-/*** ⏩ [§ SkipLogin] */
-async function tryToSkipLogin() {
-    const isLogged = await isLoggedIn();
-
-    if (isLogged) {
-        window.location = getPageUrl("INDEX");
-    }
-}
-
 /*** 🚀 [§ Entry point] */
 async function run() {
     generateEvents();
@@ -70,7 +61,6 @@ async function run() {
 
 async function main() {
     try {
-        await tryToSkipLogin();
         await run();
     } catch (e) {
         console.log(e);

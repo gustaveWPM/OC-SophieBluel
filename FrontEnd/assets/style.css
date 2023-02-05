@@ -78,6 +78,7 @@
     --portfolio-editorbanner-confirm-changes-btn-bg-color-hover: var(--portfolio-colors-darkgreen);
     --portfolio-editorbanner-confirm-changes-btn-font-color-hover: var(--portfolio-colors-white);
     --portfolio-editorbanner-confirm-changes-btn-padding: .75em 1.65em;
+    --portfolio-editorbanner-min-height: 60px;
 }
 
 /* 🧰 [§ A.2) i. Reset CSS => 📖 https://tinyurl.com/reset-css] */
@@ -180,11 +181,11 @@ ul {
     animation: galleryFadeIn calc(.4s * var(--nth-child)) ease-in;
 }
 
-body *:not(.header) {
+body > *:not(header, .modal) {
     animation: galleryFadeIn .7s ease-in-out;
 }
 
-header {
+.header {
     animation: galleryFadeIn .4s ease-in-out;
 }
 
@@ -266,10 +267,6 @@ h6 {
 }
 
 /* 🏷️ [§ B.2) Other HTML Tags styling] */
-textarea {
-    padding: 8px;
-}
-
 a:hover {
     color: var(--portfolio-title-color);
 }
@@ -484,6 +481,7 @@ a:hover {
 .form textarea {
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
+    padding: 8px;
 }
 
 .form input.is-narrow {
@@ -576,9 +574,8 @@ a:hover {
 /*** F. Editor */
 /* 🔝 [§ F. 1) Editor banner] */
 .editor-banner-wrapper {
-    --_min-height: 60px;
     position: relative;
-    min-height: var(--_min-height);
+    min-height: var(--portfolio-editorbanner-min-height);
 }
 
 .editor-banner {
@@ -586,7 +583,7 @@ a:hover {
     position: fixed;
     justify-content: center;
     align-items: center;
-    min-height: var(--_min-height);
+    min-height: var(--portfolio-editorbanner-min-height);
     min-width: 100%;
     z-index: 1;
     background-color: var(--portfolio-editorbanner-bg-color);
@@ -647,13 +644,13 @@ a:hover {
     top: 1px;
 }
 
-.edit-component-clickable-area {
+.open-editor {
     display: flex;
     align-items: center;
     text-decoration: none;
 }
 
-.edit-component-clickable-area:hover {
+.open-editor:hover {
     font-weight: var(--portfolio-navbar-item-hover-fw);
     color: inherit;
 }
@@ -692,7 +689,34 @@ a:hover {
     font-weight: var(--portfolio-fw-semibold);
 }
 
-/*** H. Javascript patches, do NOT use it in your HTML */
+/*** H. Modal box */
+
+.modal {
+    position: fixed;
+    top: var(--portfolio-editorbanner-min-height);
+    margin: auto;
+    padding: 1em;
+    max-width: 43.75vw;
+    min-width: 630px;
+    border: 0;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.modal-wrapper {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 180px);
+    padding: 20px;
+    background-color: #FFF;
+}
+
+dialog::backdrop {
+    top: 60px;
+    backdrop-filter: saturate(80%) brightness(80%);
+}
+
+/*** I. Javascript patches, do NOT use it in your HTML */
 .js-monkey-patch-flex-column {
     flex-direction: column !important;
 }

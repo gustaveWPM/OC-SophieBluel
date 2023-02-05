@@ -24,3 +24,11 @@ function enableEditor() {
 function setEditorVisibility(isLoggedIn) {
     isLoggedIn ? enableEditor() : disableEditor();
 }
+
+// ToDo: implement this properly
+const modal = document.querySelector('#editor');
+const openModalBtns = document.querySelectorAll('.open-editor');
+const closeModalBtns = document.querySelectorAll('.close-editor');
+
+openModalBtns.forEach(element => element.addEventListener('click', () => modal.showModal()));
+closeModalBtns.forEach(element => element.addEventListener('click', () => modal.close()));

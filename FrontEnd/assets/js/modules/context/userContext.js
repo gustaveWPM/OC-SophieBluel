@@ -42,6 +42,7 @@ async function tokenValidator() {
 }
 
 async function isLoggedIn() {
-    const isLoggedIn = await tokenValidator();
-    return isLoggedIn;
+    const isLogged = await tokenValidator();
+
+    return isLogged;
 }
