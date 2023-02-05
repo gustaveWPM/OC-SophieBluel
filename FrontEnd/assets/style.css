@@ -455,10 +455,6 @@ a:hover {
     align-items: center;
 }
 
-.form>*:not(label) {
-    text-align: center;
-}
-
 .form h2 {
     margin-bottom: 20px;
 }
@@ -706,8 +702,11 @@ a:hover {
     padding: 1em;
     max-width: 43.75vw;
     min-width: 630px;
+    max-height: 730px;
+    min-height: 670px;
     border: 0;
     z-index: 1;
+    margin-top: var(--portfolio-editorbanner-min-height);
     border-radius: 10px;
 }
 
@@ -717,8 +716,6 @@ a:hover {
     flex-direction: column;
     overflow-y: auto;
     overflow-x: hidden;
-    min-height: 730px;
-    max-height: calc(100vh - 180px);
     padding: 20px;
     background-color: #FFF;
 }
@@ -729,7 +726,7 @@ a:hover {
     font-family: var(--portfolio-body-font);
     font-weight: var(--portfolio-fw-regular);
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 35px;
 }
 
 .modal-wrapper hr {
@@ -825,6 +822,42 @@ a:hover {
 .modal-wrapper .modal-bottom a {
     text-decoration: none;
     color: var(--portfolio-modal-delete-button-font-color);
+}
+
+.send-img {
+    display: flex;
+    align-self: stretch;
+    align-items: inherit;
+    margin: auto;
+}
+
+.modal-wrapper .add-photo-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: #E8F1F6;
+    padding-bottom: 20px;
+}
+
+.modal-wrapper .add-photo-box p {
+    margin-top: 5px;
+    font-size: .7em;
+}
+
+.modal-wrapper .add-photo-box button {
+    padding: .7em 2.5em;
+    border: 0;
+    border-radius: 50px;
+    background-color: #CBD6DC;
+    color: #306685;
+}
+
+.modal-wrapper .picture-placeholder {
+    object-fit: cover;
+    margin: 2em 0;
+    margin-bottom: 1em;
 }
 
 .modal-wrapper .modal-content {
