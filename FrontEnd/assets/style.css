@@ -266,6 +266,10 @@ h6 {
 }
 
 /* 🏷️ [§ B.2) Other HTML Tags styling] */
+textarea {
+    padding: 8px;
+}
+
 a:hover {
     color: var(--portfolio-title-color);
 }
@@ -470,6 +474,7 @@ a:hover {
     font-size: 1.2em;
     border: none;
     box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
+    text-indent: 12pt;
 }
 
 .form label {
