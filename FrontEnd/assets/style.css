@@ -77,7 +77,7 @@
     --portfolio-editorbanner-confirm-changes-btn-font-color: var(--portfolio-colors-black);
     --portfolio-editorbanner-confirm-changes-btn-bg-color-hover: var(--portfolio-colors-darkgreen);
     --portfolio-editorbanner-confirm-changes-btn-font-color-hover: var(--portfolio-colors-white);
-    --portfolio-editorbanner-confirm-changes-btn-padding: 0.75em 1.65em;
+    --portfolio-editorbanner-confirm-changes-btn-padding: .75em 1.65em;
 }
 
 /* 🧰 [§ A.2) i. Reset CSS => 📖 https://tinyurl.com/reset-css] */
@@ -362,7 +362,11 @@ a:hover {
     flex-direction: column;
     align-self: stretch;
     line-height: 1.15em;
-    gap: 18px;
+    gap: .8em;
+}
+
+.introduction-article-container h2 {
+    margin-bottom: 10px;
 }
 
 /* ✅ [§ C.4) i. Filters component] */
@@ -643,12 +647,12 @@ a:hover {
 
 .editor-banner-component .edit-icon {
     position: relative;
-    top: -0.10em;
+    top: -.10em;
 }
 
 .description-edit-btn {
     position: absolute;
-    top: -22%;
+    top: -20%;
 }
 
 .edit-component.introduction-img-btn {
