@@ -28,9 +28,9 @@
         <div class="editor-banner-wrapper is-editor-element hidden-editor-element" aria-hidden="true">
             <div class="editor-banner prevent-select is-editor-element hidden-editor-element" aria-hidden="true">
                 <div class="editor-banner-component">
-                    <img class="edit-icon" src="./assets/icons/button-edit-white.svg" alt="edition-icon">
+                    <img class="edit-icon" src="./assets/icons/button-edit-white.svg" alt="Icône de l'éditeur">
                     <span class="editor-banner-label">Mode édition</span>
-                    <button class="is-btn is-narrow confirm-changes-btn">publier les changements</button>
+                    <button class="is-btn is-narrow confirm-changes-btn close-editor">publier les changements</button>
                 </div>
             </div>
         </div>
@@ -57,13 +57,13 @@
                         alt="Photo de Sophie Bluel">
                     <div class="prevent-select edit-component introduction-img-btn is-editor-element hidden-editor-element" aria-hidden="true"><a href="#editor"
                             class="open-editor"><img class="edit-icon"
-                                src="./assets/icons/button-edit-black.svg" alt="edition-icon"><span>modifier</span></a>
+                                src="./assets/icons/button-edit-black.svg" alt="Icône de l'éditeur"><span>modifier</span></a>
                     </div>
                 </figure>
                 <article class="introduction-article">
                     <div class="prevent-select edit-component description-edit-btn is-editor-element hidden-editor-element" aria-hidden="true"><a href="#editor"
                             class="open-editor"><img class="edit-icon"
-                                src="./assets/icons/button-edit-black.svg" alt="edition-icon"><span>modifier</span></a>
+                                src="./assets/icons/button-edit-black.svg" alt="Icône de l'éditeur"><span>modifier</span></a>
                     </div>
                     <div class="introduction-article-container">
                         <h2>Designer d'espace</h2>
@@ -85,7 +85,7 @@
                     <h2>Mes projets</h2>
                     <div class="prevent-select edit-component gallery-edit-btn is-editor-element hidden-editor-element" aria-hidden="true"><a href="#editor"
                             class="open-editor"><img class="edit-icon"
-                                src="./assets/icons/button-edit-black.svg" alt="edition-icon"><span>modifier</span></a>
+                                src="./assets/icons/button-edit-black.svg" alt="Icône de l'éditeur"><span>modifier</span></a>
                     </div>
                 </div>
                 <nav id="filter-by-category-component" class="filter-by-category-component hide-when-editor-enabled">
@@ -114,11 +114,14 @@
 
             <dialog id="editor" class="modal" aria-hidden="true" aria-labelledby="modal-title">
                 <div class="modal-wrapper" autofocus>
-                    <img class="close-editor" src="./assets/icons/button-close.svg" alt="close-button">
+                    <div class="modal-head">
+                        <img class="go-back-editor" src="./assets/icons/button-back.svg" alt="Bouton retour">
+                        <img class="close-editor" src="./assets/icons/button-close.svg" alt="Bouton fermer">
+                    </div>
                     <div class="modal-content">
                         <h1 id="modal-title">Ajout photo</h1>
                         <div class="add-photo-box">
-                            <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg" alt="">
+                            <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg" alt="Bouton ajouter une image">
                             <button>+ Ajouter photo</button>
                             <p>jpg, png : 4mo max</p>
                         </div>

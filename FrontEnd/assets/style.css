@@ -620,7 +620,16 @@ a:hover {
 }
 
 .close-editor {
+    align-self: flex-start;
+}
+
+.close-editor:hover,
+.go-back-editor:hover {
     cursor: pointer;
+}
+
+.go-back-editor {
+    visibility: hidden;
 }
 
 /* 👁️ [§ F. 2) Visibility default state] */
@@ -696,17 +705,15 @@ a:hover {
 /*** H. Modal box */
 .modal {
     position: fixed;
+    overflow-y: auto;
     top: var(--portfolio-editorbanner-min-height);
-    overflow-y: hidden;
     margin: auto;
     padding: 1em;
     max-width: 43.75vw;
     min-width: 630px;
-    max-height: 730px;
-    min-height: 670px;
+    max-height: 87vh;
     border: 0;
     z-index: 1;
-    margin-top: var(--portfolio-editorbanner-min-height);
     border-radius: 10px;
 }
 
@@ -714,7 +721,6 @@ a:hover {
     position: relative;
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
     overflow-x: hidden;
     padding: 20px;
     background-color: #FFF;
@@ -731,7 +737,7 @@ a:hover {
 
 .modal-wrapper hr {
     margin-top: 50px;
-    opacity: .7;
+    opacity: .4;
 }
 
 .modal-wrapper .modal-gallery {
@@ -785,10 +791,17 @@ a:hover {
     cursor: pointer;
 }
 
-.modal-wrapper .close-editor {
+.modal-head {
     position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.modal-wrapper .editor-close-btn {
+    position: absolute;
     align-self: flex-end;
-    left: 10px;
+    right: 10px;
     bottom: 10px;
 }
 
