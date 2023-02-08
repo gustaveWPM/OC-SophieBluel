@@ -131,14 +131,6 @@ function getWorksCollectionToDispose(worksCollection, worksCategoryId) {
         return worksCollection;
     }
 
-    function extractCategoryId(string) {
-        const prefix = getDynamicClass("FILTERS_BUTTONS_CATEGORY_PREFIX");
-        const startIndex = string.indexOf(prefix) + prefix.length;
-        const substringFromStartIndex = string.substring(startIndex, string.length);
-        const id = substringFromStartIndex.substring(0, substringFromStartIndex.indexOf(' '));
-        return id;
-    }
-
     const activeBtn = activeBtnGetter();
     const mutateCollection = activeBtn ? !activeBtn.classList.contains(getDynamicClass("FILTERS_BUTTONS_COMPONENT_BY_DEFAULT")) : false;
 
@@ -216,20 +208,21 @@ function drawGalleryFigures(worksCollection) {
 
 /* [§ Drawers -> Gallery Filters] */
 function doDrawGalleryFilters(node, element, opts = undefined) {
-    function generateButtonEvent(filterButtonElement, id) {
+    function generateButtonEvent(filterButtonElement, categoryId) {
         filterButtonElement.addEventListener("click", () => {
             updateActiveFilterBtn(filterButtonElement);
-            updateGalleryFigures(null, id);
+            updateGalleryFigures(null, categoryId);
         });
     }
 
     function generateButton(element, opts) {
         const button = document.createElement('button');
         const buttonTxt = document.createTextNode(element.name);
+        const categoryId = element.id;
 
         button.classList.add(getDynamicClass("BTN"));
         button.classList.add(getDynamicClass("FILTER_BTN"));
-        generateButtonEvent(button, element.id);
+        generateButtonEvent(button, categoryId);
         if (opts && opts.classList) {
             button.classList.add(...opts.classList);
         }
