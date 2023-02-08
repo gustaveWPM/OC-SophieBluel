@@ -7,10 +7,6 @@
 */
 
 /*** 📝 [§ Cache] */
-const __CACHE = {
-    "WORKS": null
-}
-
 function cacheWorks(worksCollection) {
     function dynamicRouteToStaticRoute(element) {
         const url = element.imageUrl;
@@ -31,7 +27,7 @@ function cacheWorks(worksCollection) {
     if (failedToGetFromApi(worksCollection)) {
         return;
     }
-    __CACHE.WORKS = newWorksCollectionWithStaticRoutes(worksCollection);
+    __GALLERY_CACHE.WORKS = newWorksCollectionWithStaticRoutes(worksCollection);
 }
 
 /*** 🔨 [§ Collection from API] */
@@ -130,7 +126,7 @@ function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
     return new Set(worksCollection.filter(item => item.categoryId == id));
 }
 
-function getWorksCollectionToDispose(worksCollection) {
+function getWorksCollectionToDispose(worksCollection, worksCategoryId) {
     if (failedToGetFromApi(worksCollection)) {
         return worksCollection;
     }
@@ -147,8 +143,7 @@ function getWorksCollectionToDispose(worksCollection) {
     const mutateCollection = activeBtn ? !activeBtn.classList.contains(getDynamicClass("FILTERS_BUTTONS_COMPONENT_BY_DEFAULT")) : false;
 
     if (mutateCollection) {
-        const id = extractCategoryId(activeBtn.classList.value);
-        return getGalleryWorksCollectionSortedByCategory(worksCollection, id);
+        return getGalleryWorksCollectionSortedByCategory(worksCollection, worksCategoryId);
     }
     return worksCollection;
 }
@@ -221,16 +216,20 @@ function drawGalleryFigures(worksCollection) {
 
 /* [§ Drawers -> Gallery Filters] */
 function doDrawGalleryFilters(node, element, opts = undefined) {
+    function generateButtonEvent(filterButtonElement, id) {
+        filterButtonElement.addEventListener("click", () => {
+            updateActiveFilterBtn(filterButtonElement);
+            updateGalleryFigures(null, id);
+        });
+    }
+
     function generateButton(element, opts) {
         const button = document.createElement('button');
         const buttonTxt = document.createTextNode(element.name);
-        const elementIsFromApi = element.id >= 0;
 
         button.classList.add(getDynamicClass("BTN"));
         button.classList.add(getDynamicClass("FILTER_BTN"));
-        if (elementIsFromApi) {
-            button.classList.add(`${getDynamicClass("FILTERS_BUTTONS_CATEGORY_PREFIX")}${element.id}`);
-        }
+        generateButtonEvent(button, element.id);
         if (opts && opts.classList) {
             button.classList.add(...opts.classList);
         }
@@ -253,7 +252,7 @@ function drawGalleryFilters(categoriesCollection) {
     }
     rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
     doDrawGalleryFilters(rootNode, {
-        "id": -1,
+        "id": 0,
         "name": 'Tous'
     }, {
         classList: ['by-default', 'is-active']
@@ -279,41 +278,25 @@ function updateActiveFilterBtn(element) {
 }
 
 /* [§ Update -> Gallery Figures] */
-async function updateGalleryFigures(worksCollection = null, onClick = false) {
+async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1) {
     const rootNode = galleryComponentRootNodeGetter();
     rootNode.classList.add(getDynamicClass("FORCE_LOADING_ANIMATION"));
     if (worksCollection === null) {
         worksCollection = await fetchWorksCollection();
     }
-    if (failedToGetFromApi(worksCollection) && onClick) {
-        if (__CACHE.WORKS === null) {
+    if (failedToGetFromApi(worksCollection) && worksCategoryId !== -1) {
+        if (cacheIsEmpty()) {
             drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), uniq = false);
             return false;
         } else {
-            worksCollection = __CACHE.WORKS;
+            worksCollection = __GALLERY_CACHE.WORKS;
         }
     }
-    const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection);
+    const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection, worksCategoryId);
 
     rootNode.classList.remove(getDynamicClass("FORCE_LOADING_ANIMATION"));
     drawGalleryFigures(worksCollectionToDispose);
     return worksCollectionToDispose;
-}
-
-/*** 📐 [§ Events Generator] */
-async function generateEvents() {
-    async function generateFiltersButtonsEvents() {
-        const buttons = galleryFiltersButtonsGetter();
-
-        buttons.forEach(element => {
-            element.addEventListener("click", () => {
-                updateActiveFilterBtn(element);
-                updateGalleryFigures(null, onClick = true);
-            });
-        });
-    }
-
-    generateFiltersButtonsEvents();
 }
 
 /*** ✨ [§ Side Effects] */
@@ -391,7 +374,6 @@ function crash(crashNode, retryContext = false) {
         rootNode.appendChild(retryButton);
 
         retryButton.addEventListener("click", () => {
-            drawInfoToast(getDynamicId("TRYING_TO_RELOAD_TOAST"));
             run(retryContext = true);
         });
     }
@@ -417,7 +399,6 @@ async function run(retryContext = false) {
         }
         return;
     }
-    generateEvents();
     if (retryContext) {
         filtersComponentNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
     }

@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Work+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Work+Sans:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
     <meta name="description"
         content="Sophie Bluel est l'architecte d'intérieur pour faire briller vos idées. Retrouvez ici ses meilleures conceptions : objets, appartements, hôtels et restaurants !">
     <link rel="stylesheet" href="./assets/style.css">
@@ -19,6 +21,7 @@
     <script src="./assets/js/modules/localStorage/localStorage.js" defer></script>
     <script src="./assets/js/modules/crud/crud.js" defer></script>
     <script src="./assets/js/modules/context/userContext.js" defer></script>
+    <script src="./assets/js/modules/context/galleryCacheContext.js" defer></script>
     <script src="./assets/js/modules/gui/editor.js" defer></script>
     <script src="./assets/js/gallery.js" defer></script>
 </head>
@@ -55,15 +58,17 @@
                 <figure class="introduction-figure">
                     <img class="introduction-picture" src="./assets/images/sophie-bluel.png"
                         alt="Photo de Sophie Bluel">
-                    <div class="prevent-select edit-component introduction-img-btn is-editor-element hidden-editor-element" aria-hidden="true"><a href="#editor"
-                            class="open-editor"><img class="edit-icon"
-                                src="./assets/icons/button-edit-black.svg" alt="Icône de l'éditeur"><span>modifier</span></a>
+                    <div class="prevent-select edit-component introduction-img-btn is-editor-element hidden-editor-element"
+                        aria-hidden="true"><a href="#" class="open-editor"><img class="edit-icon"
+                                src="./assets/icons/button-edit-black.svg"
+                                alt="Icône de l'éditeur"><span>modifier</span></a>
                     </div>
                 </figure>
                 <article class="introduction-article">
-                    <div class="prevent-select edit-component description-edit-btn is-editor-element hidden-editor-element" aria-hidden="true"><a href="#editor"
-                            class="open-editor"><img class="edit-icon"
-                                src="./assets/icons/button-edit-black.svg" alt="Icône de l'éditeur"><span>modifier</span></a>
+                    <div class="prevent-select edit-component description-edit-btn is-editor-element hidden-editor-element"
+                        aria-hidden="true"><a href="#" class="open-editor"><img class="edit-icon"
+                                src="./assets/icons/button-edit-black.svg"
+                                alt="Icône de l'éditeur"><span>modifier</span></a>
                     </div>
                     <div class="introduction-article-container">
                         <h2>Designer d'espace</h2>
@@ -83,9 +88,10 @@
             <section id="portfolio" class="portfolio">
                 <div class="portfolio-title-wrapper">
                     <h2>Mes projets</h2>
-                    <div class="prevent-select edit-component gallery-edit-btn is-editor-element hidden-editor-element" aria-hidden="true"><a href="#editor"
-                            class="open-editor"><img class="edit-icon"
-                                src="./assets/icons/button-edit-black.svg" alt="Icône de l'éditeur"><span>modifier</span></a>
+                    <div class="prevent-select edit-component gallery-edit-btn is-editor-element hidden-editor-element"
+                        aria-hidden="true"><a href="#" class="open-editor"><img class="edit-icon"
+                                src="./assets/icons/button-edit-black.svg"
+                                alt="Icône de l'éditeur"><span>modifier</span></a>
                     </div>
                 </div>
                 <nav id="filter-by-category-component" class="filter-by-category-component hide-when-editor-enabled">
@@ -112,53 +118,46 @@
                 <!-- Dynamic Content -->
             </div>
 
-            <dialog id="editor" class="modal" aria-hidden="true" aria-labelledby="modal-title">
-                <div class="modal-wrapper" autofocus>
+            <dialog id="editor" class="dialog" aria-hidden="true" aria-labelledby="modal-title">
+                <div class="modal" autofocus>
                     <div class="modal-head">
                         <img class="go-back-editor" src="./assets/icons/button-back.svg" alt="Bouton retour">
                         <img class="close-editor" src="./assets/icons/button-close.svg" alt="Bouton fermer">
                     </div>
                     <div class="modal-content">
-                        <h1 id="modal-title">Ajout photo</h1>
-                        <div class="add-photo-box">
-                            <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg" alt="Bouton ajouter une image">
-                            <button>+ Ajouter photo</button>
-                            <p>jpg, png : 4mo max</p>
-                        </div>
-                        <form action="#" method="post" class="send-img form">
-                            <label for="name">Titre</label>
-                            <input type="text" name="name" id="name" required>
-                            <label for="email">Catégorie</label>
-                            <input type="email" name="email" id="email" required>
-                            <hr>
-                            <button class="is-btn is-narrow">Valider</button>
-                        </form>
-                        <!--
-                        <h1 id="modal-title">Galerie photo</h1>
-                        <div class="modal-gallery">
-                            <div class="gallery-element">
-                                <div class="gallery-element-btns"><img class="gallery-move-btn" src="./assets/icons/button-move.svg"><img class="gallery-trash-btn" src="./assets/icons/button-trash.svg"></div>
-                                <img src="./assets/images/abajour-tahina.png" alt="">
-                                <div>
-                                    <a href="#">éditer</a>
-                                </div>
+                        <div class="modal-dynamic-content modal-state-1">
+                            <div class="modal-dynamic-content-main">
+                            <h1 id="modal-title">Galerie photo</h1>
+                            <div class="modal-gallery">
+                                <!-- Dynamic Content -->
                             </div>
-                            <div class="gallery-element">
-                                <div class="gallery-element-btns"><img class="gallery-trash-btn" src="./assets/icons/button-trash.svg"></div>
-                                <img src="./assets/images/abajour-tahina.png" alt="">
-                                <div>
-                                    <a href="#">éditer</a>
+                            </div>
+                            <div class="modal-bottom">
+                                <hr>
+                                <button class="is-btn is-narrow">Ajouter une photo</button>
+                                <div class="modal-gallery-delete-all-button">
+                                    <a href="#">Supprimer la galerie</a>
                                 </div>
                             </div>
                         </div>
-                        <hr>
-                        <div class="modal-bottom">
-                            <button class="is-btn is-narrow">Ajouter une photo</button>
-                            <div>
-                                <a href="#">Supprimer la galerie</a>
+
+                        <div class="modal-dynamic-content modal-state-2">
+                            <h1 id="modal-title">Ajout photo</h1>
+                            <div class="add-photo-box">
+                                <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg"
+                                    alt="Bouton ajouter une image">
+                                <button>+ Ajouter photo</button>
+                                <p>jpg, png : 4mo max</p>
                             </div>
+                            <form action="#" method="post" class="send-img form">
+                                <label for="name">Titre</label>
+                                <input type="text" name="name" id="name" required>
+                                <label for="email">Catégorie</label>
+                                <input type="email" name="email" id="email" required>
+                                <hr>
+                                <button class="is-btn is-narrow">Valider</button>
+                            </form>
                         </div>
-                        -->
                     </div>
                 </div>
             </dialog>
