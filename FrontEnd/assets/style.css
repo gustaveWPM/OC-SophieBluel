@@ -926,3 +926,7 @@ a:hover {
 .js-monkey-patch-loading {
     animation: galleryLoading .8s ease-in-out infinite !important;
 }
+
+.js-monkey-patch-remove-animations {
+    animation: none !important;
+}

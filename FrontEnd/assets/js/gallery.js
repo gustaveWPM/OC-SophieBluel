@@ -100,6 +100,10 @@ function filtersComponentRootNodeGetter() {
     return document.querySelector(getSelector("FILTERS_COMPONENT"));
 }
 
+function galleryFiguresGetter() {
+    return document.querySelectorAll(getSelector("FILTERS_COMPONENT"));
+}
+
 /*** 🧬 [§ DOM mutations functions] */
 function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
     if (failedToGetFromApi(worksCollection)) {
@@ -124,14 +128,11 @@ function getWorksCollectionToDispose(worksCollection, worksCategoryId) {
 
 /*** 🎨 [§ Drawers] */
 /* [§ Drawers -> Gallery] */
-function doDrawGalleryFigures(node, element, fromCache = false) {
+function doDrawGalleryFigures(node, element, noFadeIn = false) {
     function generateImg(alt, url) {
         const img = document.createElement('img');
         img.setAttribute('src', url);
         img.setAttribute('alt', alt);
-        if (fromCache) {
-            img.setAttribute('crossorigin', '');
-        }
 
         return img;
     }
@@ -153,10 +154,13 @@ function doDrawGalleryFigures(node, element, fromCache = false) {
     const figure = generateFigure(img, title);
 
     figure.classList.add(getDynamicClass("GALLERY_FIGURE"));
+    if (noFadeIn) {
+        figure.classList.add(getDynamicClass("FORCE_NO_ANIMATION"));
+    }
     node.appendChild(figure);
 }
 
-function drawGalleryFigures(worksCollection) {
+function drawGalleryFigures(worksCollection, noFadeIn = false) {
     function drawRetryButton(rootNode) {
         const retryButton = document.createElement('button');
         const retryButtonTxt = document.createTextNode(getVocab("RETRY_TO_LOAD_GALLERY_FIGURES"));
@@ -184,7 +188,7 @@ function drawGalleryFigures(worksCollection) {
     rootNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
     rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
     rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
-    worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element));
+    worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element, noFadeIn));
     return true;
 }
 
@@ -253,7 +257,7 @@ function updateActiveFilterBtn(element) {
 }
 
 /* [§ Update -> Gallery Figures] */
-async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1) {
+async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1, noFadeIn = false) {
     const rootNode = galleryComponentRootNodeGetter();
     rootNode.classList.add(getDynamicClass("FORCE_LOADING_ANIMATION"));
     if (worksCollection === null) {
@@ -270,7 +274,7 @@ async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1
     const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection, worksCategoryId);
 
     rootNode.classList.remove(getDynamicClass("FORCE_LOADING_ANIMATION"));
-    drawGalleryFigures(worksCollectionToDispose);
+    drawGalleryFigures(worksCollectionToDispose, noFadeIn);
     return worksCollectionToDispose;
 }
 

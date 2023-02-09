@@ -62,7 +62,8 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
                 deleteCacheWorkElementById(id);
                 updateModalGalleryContent();
                 drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = false);
-                // ToDo: finish this (lol)
+                const worksCollection = getCacheValue("WORKS");
+                updateGalleryFigures(worksCollection, worksCategoryId = 0, noFadeIn = true);
             } else {
                 response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
                     drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq = false) :
