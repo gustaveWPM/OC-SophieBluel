@@ -192,6 +192,7 @@ function openEditorModal(modalElement) {
 
     const editorModalElement = document.querySelector("#editor-component");
     editorModalElement.removeAttribute("aria-hidden");
+    editorModalElement.setAttribute("aria-modal", "true");
     editorModalElement.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
     setDefaultModalState();
 }
@@ -199,6 +200,7 @@ function openEditorModal(modalElement) {
 function closeEditorModal(modalElement) {
     const editorModalElement = document.querySelector("#editor-component");
     editorModalElement.setAttribute("aria-hidden", "true");
+    editorModalElement.removeAttribute("aria-modal");
     editorModalElement.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
 }
 
