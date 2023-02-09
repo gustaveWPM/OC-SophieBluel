@@ -257,15 +257,19 @@ function appendModalVisibilityEvents() {
     });
 
     window.addEventListener("keydown", (event) => {
-        modalElement.addEventListener("transitionend", () => {
-            const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
-            if (outOfScopeElementCurrentlyFocused !== null) {
-                const focusElement = galleryConditionalFocus(event.shiftKey, modalElement);
-                if (focusElement !== null) {
-                    focusElement.focus();
+        if (event.key == "Escape" || event.key == "Esc") {
+            closeEditorModal(modalElement);
+        } else {
+            modalElement.addEventListener("transitionend", () => {
+                const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
+                if (outOfScopeElementCurrentlyFocused !== null) {
+                    const focusElement = galleryConditionalFocus(event.shiftKey, modalElement);
+                    if (focusElement !== null) {
+                        focusElement.focus();
+                    }
                 }
-            }
-        });
+            });
+        }
     });
 
     const deleteTheWholeGalleryBtn = document.querySelector(".modal-gallery-delete-all-button");
