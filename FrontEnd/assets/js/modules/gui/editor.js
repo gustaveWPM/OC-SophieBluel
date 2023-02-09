@@ -6,6 +6,8 @@
 #=================================================
 */
 
+let __MEMO_FOCUS = null;
+
 /*** Editor */
 /* 👁️ [§ Editor -> Visibility] */
 function disableEditor() {
@@ -190,10 +192,13 @@ function openEditorModal(modalElement) {
         return;
     }
 
+    __MEMO_FOCUS = document.querySelector(':focus');
     const editorModalElement = document.querySelector("#editor-component");
     editorModalElement.removeAttribute("aria-hidden");
     editorModalElement.setAttribute("aria-modal", "true");
     editorModalElement.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
+    focusElement = modalElement.querySelector('a');
+    focusElement.focus();
     setDefaultModalState();
 }
 
@@ -202,6 +207,11 @@ function closeEditorModal(modalElement) {
     editorModalElement.setAttribute("aria-hidden", "true");
     editorModalElement.removeAttribute("aria-modal");
     editorModalElement.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
+
+    if (__MEMO_FOCUS !== null) {
+        __MEMO_FOCUS.focus();
+        __MEMO_FOCUS = null;
+    }
 }
 
 /* 📐 [§ Modal -> Events Generator] */
@@ -218,6 +228,23 @@ function appendModalVisibilityEvents() {
         event.preventDefault();
         closeEditorModal(modalElement);
     }));
+
+    window.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" || event.key === "Esc") {
+            closeEditorModal(modalElement);
+        }
+
+        modalElement.addEventListener('transitionend', () => {
+            let focusElement = null;
+            if (event.shiftKey) {
+                const lastFocusableElement = [...modalElement.querySelectorAll('a')].at(-1); 
+                focusElement = lastFocusableElement;
+            } else {
+                focusElement = modalElement.querySelector('a');
+            }
+            focusElement.focus();
+        });
+    });
 }
 
 function generateModalEvents() {

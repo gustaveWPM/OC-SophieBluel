@@ -628,10 +628,6 @@ a:hover {
     cursor: pointer;
 }
 
-.go-back-editor {
-    visibility: hidden;
-}
-
 /* 👁️ [§ F. 2) Visibility default state] */
 .hidden-editor-element {
     visibility: hidden !important;
@@ -713,6 +709,12 @@ a:hover {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, .8);
+}
+
+/* Focus trap */
+.modal[aria-modal="true"]:not(:focus-within) {
+    background: rgba(0, 0, 0, .79);
+    transition: background 0.01s;
 }
 
 .modal-wrapper {
