@@ -36,6 +36,15 @@
     --portfolio-colors-blue: #1D4361;
     --portfolio-colors-darkred: #611D1D;
 
+    /* Configuration.forms => Forms */
+    --portfolio-forms-fields-font-size: 1.2em;
+    --portfolio-forms-fields-min-height: 50px;
+    --portfolio-forms-fields-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
+    --portfolio-forms-fields-text-indent: 12pt;
+    --portfolio-forms-fields-bg-color: var(--portfolio-colors-white);
+    --portfolio-forms-labels-font-color: #3D3D3D;
+    --portfolio-forms-fields-font-color: #444;
+
     /* Configuration.globalLayout => Margins/max-width */
     --portfolio-page-margin: 50px;
     --portfolio-max-width: 1140px;
@@ -72,6 +81,7 @@
 
     /* Configuration.editorBanner */
     --portfolio-editorbanner-bg-color: var(--portfolio-colors-black);
+    --portfolio-editorbanner-pseudo-transition-bg-color: rgb(0, 0, 1);
     --portfolio-editorbanner-font-color: var(--portfolio-colors-white);
 
     /* Configuration.editorBanner => Confirm changes button */
@@ -82,8 +92,16 @@
     --portfolio-editorbanner-confirm-changes-btn-padding: .75em 1.65em;
     --portfolio-editorbanner-min-height: 60px;
 
-    /* Configuration.modal => Delete button color */
-    --portfolio-modal-delete-button-font-color: var(--portfolio-colors-red);
+    /* Configuration.modal => Colors */
+    --portfolio-modals-delete-button-font-color: var(--portfolio-colors-red);
+    --portfolio-modals-bg-color: var(--portfolio-colors-white);
+    --portfolio-modals-wrapper-bg-color: rgba(0, 0, 0, .8);
+    --portfolio-modals-wrapper-pseudo-transition-bg-color: rgba(0, 0, 1, .8);
+    --portfolio-modals-forms-font-size: calc(var(--portfolio-forms-fields-font-size) * .8);
+    --portfolio-modals-forms-font-color: #444;
+    --portfolio-modals-add-photo-box-bg-color: #E8F1F6;
+    --portfolio-modals-add-photo-button-bg-color: #CBD6DC;
+    --portfolio-modals-add-photo-button-font-color: #306685;
 }
 
 /* 🧰 [§ A.2) i. Reset CSS => 📖 https://tinyurl.com/reset-css] */
@@ -467,22 +485,29 @@ a:hover {
     width: 40%;
 }
 
-.form input {
-    height: 50px;
-    font-size: 1.2em;
+.form input:not([type="submit"]) {
     border: none;
-    box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
-    text-indent: 12pt;
+    background-color: var(--portfolio-forms-fields-bg-color);
+    font-size: var(--portfolio-forms-fields-font-size);
+    min-height: var(--portfolio-forms-fields-min-height);
+    box-shadow: var(--portfolio-forms-fields-shadow);
+    text-indent: var(--portfolio-forms-fields-text-indent);
 }
 
 .form label {
     margin: 3em 0 .5em 0;
+    color: var(--portfolio-forms-labels-font-color);
 }
 
 .form textarea {
     border: none;
-    box-shadow: 0px 4px 14px rgba(0, 0, 0, .09);
+    background-color: var(--portfolio-forms-fields-bg-color);
+    box-shadow: var(--portfolio-forms-fields-shadow);
     padding: 8px;
+}
+
+.form input:not([type="submit"]), .form select, .form textarea {
+    color: var(--portfolio-forms-fields-font-color);
 }
 
 .form input.is-narrow {
@@ -702,7 +727,7 @@ a:hover {
     left: 0;
     width: 100%;
     height: calc(100vh - var(--portfolio-editorbanner-min-height));
-    background: rgba(0, 0, 0, .8);
+    background: var(--portfolio-modals-wrapper-bg-color);
 }
 
 .modal {
@@ -712,7 +737,7 @@ a:hover {
     min-height: 74vh;
     max-height: calc(100vh - 95px);
     padding: 20px;
-    background-color: #FFF;
+    background-color: var(--portfolio-modals-bg-color);
     border-radius: 10px;
 }
 
@@ -854,14 +879,36 @@ a:hover {
 
 .modal .modal-bottom a {
     text-decoration: none;
-    color: var(--portfolio-modal-delete-button-font-color);
+    color: var(--portfolio-modals-delete-button-font-color);
 }
 
 .send-img {
     display: flex;
     align-self: stretch;
-    align-items: inherit;
+    align-items: stretch;
+    width: 100%;
     margin: auto;
+}
+
+.send-img label {
+    margin: 2em 0 .5em 0;
+}
+
+.send-img.form input, .send-img.form select {
+    font-size: var(--portfolio-modals-forms-font-size);
+}
+
+.select {
+    border: none;
+    background-color: var(--portfolio-forms-fields-bg-color);
+    font-size: var(--portfolio-forms-fields-font-size);
+    min-height: var(--portfolio-forms-fields-min-height);
+    box-shadow: var(--portfolio-forms-fields-shadow);
+    text-indent: var(--portfolio-forms-fields-text-indent);
+
+    appearance: none;
+    background: url("./icons/button-expand.svg") no-repeat;
+    background-position: right 6.64% bottom 48%;
 }
 
 .modal .add-photo-box {
@@ -870,8 +917,16 @@ a:hover {
     justify-content: center;
     align-items: center;
     width: 100%;
-    background: #E8F1F6;
+    min-height: 170px;
+    background: var(--portfolio-modals-add-photo-box-bg-color);
     padding-bottom: 20px;
+}
+
+.modal .add-photo-box-placeholder {
+    display: inherit;
+    flex-direction: inherit;
+    justify-content: inherit;
+    align-items: inherit;
 }
 
 .modal .add-photo-box p {
@@ -883,8 +938,8 @@ a:hover {
     padding: .7em 2.5em;
     border: 0;
     border-radius: 50px;
-    background-color: #CBD6DC;
-    color: #306685;
+    background-color: var(--portfolio-modals-add-photo-button-bg-color);
+    color: var(--portfolio-modals-add-photo-button-font-color);
 }
 
 .modal .picture-placeholder {
@@ -901,14 +956,14 @@ a:hover {
 
 /* Focus trap (hack in the matrix) */
 .editor-banner:not(:focus-within) {
-    background: rgb(0, 0, 1);
-    transition: background 0.01s;
+    background: var(--portfolio-editorbanner-pseudo-transition-bg-color);
+    transition: background .01s;
 }
 
 /* Focus trap (hack in the matrix) */
 .modal-wrapper[aria-modal="true"]:not(:focus-within) {
-    background: rgba(0, 0, 1, .8);
-    transition: background 0.01s;
+    background: var(--portfolio-modals-wrapper-pseudo-transition-bg-color);
+    transition: background .01s;
 }
 
 /*** I. Javascript patches, do NOT use it in your HTML */

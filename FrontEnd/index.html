@@ -144,16 +144,23 @@
                         <div class="modal-dynamic-content modal-state-2">
                             <h1 id="modal-title">Ajout photo</h1>
                             <div class="add-photo-box">
-                                <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg"
-                                    alt="Bouton ajouter une image">
-                                <button>+ Ajouter photo</button>
-                                <p>jpg, png : 4mo max</p>
+                                <div class="add-photo-box-placeholder">
+                                    <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg"
+                                        alt="Bouton ajouter une image">
+                                    <button>+ Ajouter photo</button>
+                                    <p>jpg, png : 4mo max</p>
+                                </div>
                             </div>
                             <form action="#" method="post" class="send-img form">
                                 <label for="name">Titre</label>
                                 <input type="text" name="name" id="name" required>
-                                <label for="email">Catégorie</label>
-                                <input type="email" name="email" id="email" required>
+                                <label for="category-select">Catégorie</label>
+                                <select class="select" name="categories" id="category-select">
+                                    <option value="" selected disabled hidden></option>
+                                    <option value="category-1">Objets</option>
+                                    <option value="category-2">Appartements</option>
+                                    <option value="category-3">Hôtels & restaurants</option>
+                                </select>
                                 <hr>
                                 <button class="is-btn is-narrow">Valider</button>
                             </form>
