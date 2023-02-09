@@ -812,7 +812,7 @@ a:hover {
     justify-content: space-between;
 }
 
-.modal .modal-gallery-delete-all-button {
+.modal .modal-gallery-delete-all-button-wrapper {
     text-align: center;
 }
 
