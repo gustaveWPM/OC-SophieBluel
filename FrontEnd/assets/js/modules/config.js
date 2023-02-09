@@ -104,7 +104,20 @@ let __GLOBALS = {
         "ERROR_BOX": 'error-box',
         "WARNING_BOX": 'warning-box',
         "PREVENT_SELECT": 'prevent-select',
+        "OPEN_EDITOR": 'open-editor',
+        "CLOSE_EDITOR": 'close-editor',
         "EDITOR_ELEMENT": 'is-editor-element',
+        "EDITOR_COMPONENT": 'editor-component',
+        "EDITOR_BANNER": 'editor-banner',
+        "MODAL_WRAPPER": 'modal-wrapper',
+        "MODAL_GO_BACK_EDITOR": 'modal-go-back-editor',
+        "MODAL_GALLERY_DELETE_ALL_BUTTON": 'modal-gallery-delete-all-button',    
+        "MODAL_GALLERY": 'modal-gallery',
+        "MODAL_GALLERY_ELEMENT": 'modal-gallery-element',
+        "MODAL_GALLERY_ELEMENT_IMG": 'modal-gallery-element-img',
+        "MODAL_GALLERY_ELEMENT_BTNS": 'modal-gallery-element-btns',
+        "MODAL_GALLERY_MOVE_BTN": 'modal-gallery-move-btn',
+        "MODAL_GALLERY_TRASH_BTN": 'modal-gallery-trash-btn',
         "HIDE_WHEN_EDITOR_ENABLED": 'hide-when-editor-enabled',
         "HIDDEN_EDITOR_ELEMENT": 'hidden-editor-element',
         "FORCE_NO_ANIMATION": 'js-monkey-patch-remove-animations',
@@ -112,7 +125,8 @@ let __GLOBALS = {
         "FORCE_FLEX_COLUMN": 'js-monkey-patch-flex-column',
         "FORCE_DISPLAY_FLEX": 'js-monkey-patch-display-flex',
         "FORCE_DISPLAY_NONE": 'js-monkey-patch-display-none',
-        "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-'
+        "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-',
+        "MODAL_STATE_PREFIX": 'modal-state-'
     },
 
     "DYN_IDS": {
@@ -157,12 +171,22 @@ __GLOBALS["PAGES_URLS"] = {
 
 /* [§ Selectors] */
 __GLOBALS["SELECTORS"] = {
+    "CURRENT_FOCUSED_ELEMENT": ':focus',
     "GALLERY_COMPONENT": '#gallery-component',
     "FILTERS_COMPONENT": '#filter-by-category-component',
     "LOGIN_FORM": '#login-form',
     "FILTERS_BUTTONS_COMPONENT": '.filter-by-category-component>.is-btn',
     "GALLERY_FIGURE": `.${getDynamicClass("GALLERY_FIGURE")}`,
+    "OPEN_EDITOR": `.${getDynamicClass("OPEN_EDITOR")}`,
+    "CLOSE_EDITOR": `.${getDynamicClass("CLOSE_EDITOR")}`,
+    "EDITOR_COMPONENT": `.${getDynamicClass("EDITOR_COMPONENT")}`,
+    "EDITOR_BANNER": `.${getDynamicClass("EDITOR_BANNER")}`,
     "EDITOR_ELEMENT": `.${getDynamicClass("EDITOR_ELEMENT")}`,
+    "MODAL_WRAPPER": `.${getDynamicClass("MODAL_WRAPPER")}`,
+    "MODAL_GO_BACK_EDITOR": `.${getDynamicClass("MODAL_GO_BACK_EDITOR")}`,
+    "MODAL_GALLERY": `.${getDynamicClass("MODAL_GALLERY")}`,
+    "MODAL_GALLERY_DELETE_ALL_BUTTON": `.${getDynamicClass("MODAL_GALLERY_DELETE_ALL_BUTTON")}`,
+    "MODAL_FOCUSABLES": 'a:not(.hidden-editor-element)',
     "HIDE_WHEN_EDITOR_ENABLED": `.${getDynamicClass("HIDE_WHEN_EDITOR_ENABLED")}`,
     "ERROR_BOXES": `.${getDynamicClass("ERROR_BOX")}`,
     "LOG_USER_BTN": `#${getDynamicId("LOG_USER_BTN")}`,
@@ -180,6 +204,7 @@ __GLOBALS["SELECTORS"] = {
 __GLOBALS["VOCAB"] = {
     "LOGIN": 'login',
     "LOGOUT": 'logout',
+    "EDIT": 'éditer',
     "GALLERY_FIGURES_UNAVAILABLE": 'Les images de la galerie sont indisponibles.',
     "GALLERY_NO_FIGURES_HERE": 'Il n’y a rien à afficher ici pour le moment.',
     "UNKNOWN_ERROR": 'Erreur inconnue',

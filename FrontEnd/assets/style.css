@@ -756,7 +756,7 @@ a:hover {
     object-fit: cover;
 }
 
-.modal .gallery-element {
+.modal .modal-gallery-element {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -764,7 +764,7 @@ a:hover {
     min-height: 100px;
 }
 
-.modal .gallery-element-btns {
+.modal .modal-gallery-element-btns {
     width: 100%;
     position: absolute;
     display: flex;
@@ -773,7 +773,7 @@ a:hover {
     flex-wrap: wrap;
 }
 
-.modal .gallery-element-btns a {
+.modal .modal-gallery-element-btns a {
     background: var(--portfolio-editorbanner-bg-color);
     border-radius: 3px;
     margin-right: 3px;
@@ -782,13 +782,13 @@ a:hover {
     width: 20px;
 }
 
-.modal .gallery-element-btns img {
+.modal .modal-gallery-element-btns img {
     height: 100%;
     width: 100%;
     object-fit: cover;
 }
 
-.modal .gallery-element-img {
+.modal .modal-gallery-element-img {
     margin-bottom: 2px;
 }
 
@@ -796,20 +796,12 @@ a:hover {
     width: 100%;
 }
 
-.gallery-trash-btn {
-    padding: 4px;
+.modal-gallery-trash-btn {
+    padding: 3px;
 }
 
-.gallery-move-btn {
+.modal-gallery-move-btn {
     padding: 2px;
-}
-
-.gallery-trash-btn:hover {
-    cursor: pointer;
-}
-
-.gallery-move-btn:hover {
-    cursor: pointer;
 }
 
 .modal-head {

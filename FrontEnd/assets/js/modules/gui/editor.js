@@ -49,7 +49,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         const img = document.createElement('img');
         img.setAttribute('src', url);
         img.setAttribute('alt', alt);
-        img.classList.add('gallery-element-img');
+        img.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT_IMG"));
 
         return img;
     }
@@ -82,7 +82,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
 
     function generateGalleryElementButtons(firstElement = false, elementId) {
         const galleryElementButtonsWrapper = document.createElement('div');
-        galleryElementButtonsWrapper.classList.add('gallery-element-btns');
+        galleryElementButtonsWrapper.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT_BTNS"));
         const galleryElementMoveButtonItem = document.createElement('a');
         galleryElementMoveButtonItem.href = "#";
         const galleryElementMoveButtonImg = generateImg('Bouton déplacer', './assets/icons/button-move.svg');
@@ -93,8 +93,8 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
 
         galleryElementMoveButtonItem.append(galleryElementMoveButtonImg);
         galleryElementDeleteButtonItem.append(galleryElementDeleteButtonImg);
-        galleryElementMoveButtonItem.classList.add('gallery-move-btn');
-        galleryElementDeleteButtonItem.classList.add('gallery-trash-btn');
+        galleryElementMoveButtonItem.classList.add(getDynamicClass("MODAL_GALLERY_MOVE_BTN"));
+        galleryElementDeleteButtonItem.classList.add(getDynamicClass("MODAL_GALLERY_TRASH_BTN"));
 
         generateGalleryElementDeleteBtnEvent(galleryElementDeleteButtonImg, elementId);
         if (firstElement) {
@@ -107,7 +107,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
     function generateGalleryElementEditBtn() {
         const editBtnWrapper = document.createElement('div');
         const editBtn = document.createElement('a');
-        const editBtnTxt = document.createTextNode('éditer');
+        const editBtnTxt = document.createTextNode(getVocab("EDIT"));
         editBtn.href = "#";
         editBtn.appendChild(editBtnTxt);
         editBtnWrapper.append(editBtn);
@@ -136,7 +136,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
     const img = generateImg(alt, imgUrl);
     const galleryElement = generateGalleryElement(img, elementId, isFirst);
 
-    galleryElement.classList.add('gallery-element');
+    galleryElement.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT"));
     rootNode.appendChild(galleryElement);
 }
 
@@ -146,7 +146,7 @@ function drawModalGalleryContent(worksCollection) {
         rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
     }
 
-    const rootNode = document.querySelector(".modal-gallery");
+    const rootNode = document.querySelector(getSelector("MODAL_GALLERY"));
     let firstIteration = true;
     rootNode.innerHTML = '';
 
@@ -164,12 +164,12 @@ function drawModalGalleryContent(worksCollection) {
 
 /* 🔄 [§ Modal -> Updates] */
 function hideModalGoBackButton() {
-    const goBackBtnElement = document.querySelector(".go-back-editor");
+    const goBackBtnElement = document.querySelector(getSelector("MODAL_GO_BACK_EDITOR"));
     goBackBtnElement.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
 }
 
 function showModalGoBackButton() {
-    const goBackBtnElement = document.querySelector(".go-back-editor");
+    const goBackBtnElement = document.querySelector(getSelector("MODAL_GO_BACK_EDITOR"));
     goBackBtnElement.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
 }
 
@@ -201,7 +201,7 @@ function updateModal(stateId) {
 /* 🎰 [§ Modal -> States] */
 function modalSetState(stateId) {
     const stateAmounts = 2;
-    const modalStatePrefix = 'modal-state-';
+    const modalStatePrefix = getDynamicClass("MODAL_STATE_PREFIX");
 
     for (let curStateId = 0; curStateId <= stateAmounts; curStateId++) {
         let curModalStateSelector = `.${modalStatePrefix}${curStateId}`;
@@ -229,8 +229,8 @@ function openEditorModal(modalElement) {
         return;
     }
 
-    __MEMO_FOCUS = document.querySelector(':focus');
-    const editorModalElement = document.querySelector("#editor-component");
+    __MEMO_FOCUS = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
+    const editorModalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
     editorModalElement.removeAttribute("aria-hidden");
     editorModalElement.setAttribute("aria-modal", "true");
     editorModalElement.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
@@ -241,7 +241,7 @@ function openEditorModal(modalElement) {
 }
 
 function closeEditorModal(modalElement) {
-    const editorModalElement = document.querySelector("#editor-component");
+    const editorModalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
     editorModalElement.setAttribute("aria-hidden", "true");
     editorModalElement.removeAttribute("aria-modal");
     editorModalElement.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
@@ -257,7 +257,7 @@ function closeEditorModal(modalElement) {
 function appendModalVisibilityEvents() {
     function galleryConditionalFocus(shiftkeyPressed, modalElement) {
         let focusElement = null;
-        const selector = "a:not(.hidden-editor-element)";
+        const selector = getSelector("MODAL_FOCUSABLES");
         if (shiftkeyPressed) {
             const lastFocusableElement = [...modalElement.querySelectorAll(selector)].at(-1);
             focusElement = (lastFocusableElement) ? lastFocusableElement : null;
@@ -268,12 +268,12 @@ function appendModalVisibilityEvents() {
     }
 
     function generateDeleteTheWholeGalleryEvent() {
-        const deleteTheWholeGalleryBtn = document.querySelector(".modal-gallery-delete-all-button");
+        const deleteTheWholeGalleryBtn = document.querySelector(getSelector("MODAL_GALLERY_DELETE_ALL_BUTTON"));
         deleteTheWholeGalleryBtn.addEventListener("click", () => console.log(`{ToDo} Réinitialiser la galerie. N'est pas dans le périmètre de l'itération concernée par le projet.`));
     }
 
     function generateOpenModalEvents() {
-        const openModalBtnElements = document.querySelectorAll('.open-editor');
+        const openModalBtnElements = document.querySelectorAll(getSelector("OPEN_EDITOR"));
 
         openModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
             event.preventDefault();
@@ -282,7 +282,7 @@ function appendModalVisibilityEvents() {
     }
 
     function generateCloseModalEvents() {
-        const closeModalBtnElements = document.querySelectorAll('.close-editor');
+        const closeModalBtnElements = document.querySelectorAll(getSelector("CLOSE_EDITOR"));
 
         closeModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
             event.preventDefault();
@@ -291,17 +291,17 @@ function appendModalVisibilityEvents() {
     }
 
     function generateGoBackEvent() {
-        const goBackBtnElement = document.querySelector(".go-back-editor");
+        const goBackBtnElement = document.querySelector(getSelector("MODAL_GO_BACK_EDITOR"));
         goBackBtnElement.addEventListener("click", () => {
             modalSetState(1);
         });
     }
 
     function generateEditorBannerFocusRescue(modalElement) {
-        const bannerElement = document.querySelector('.editor-banner');
+        const bannerElement = document.querySelector(getSelector("EDITOR_BANNER"));
 
         bannerElement.addEventListener("transitionend", () => {
-            const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
+            const outOfScopeElementCurrentlyFocused = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
             if (outOfScopeElementCurrentlyFocused !== null) {
                 const focusElement = galleryConditionalFocus(shiftkeyPressed = false, modalElement);
                 if (focusElement !== null) {
@@ -317,7 +317,7 @@ function appendModalVisibilityEvents() {
                 closeEditorModal(modalElement);
             } else {
                 modalElement.addEventListener("transitionend", () => {
-                    const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
+                    const outOfScopeElementCurrentlyFocused = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
                     if (outOfScopeElementCurrentlyFocused !== null) {
                         const focusElement = galleryConditionalFocus(event.shiftKey, modalElement);
                         if (focusElement !== null) {
@@ -329,7 +329,7 @@ function appendModalVisibilityEvents() {
         });
     }
 
-    const modalElement = document.querySelector('#editor-component');
+    const modalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
 
     generateEditorBannerFocusRescue(modalElement);
     generateKeyboardEvents(modalElement);
@@ -359,7 +359,7 @@ function generateModalEvents() {
 }
 
 function hideModals() {
-    const modals = document.querySelectorAll('.modal-wrapper');
+    const modals = document.querySelectorAll(getSelector("MODAL_WRAPPER"));
 
     if (modals === null) {
         return;
