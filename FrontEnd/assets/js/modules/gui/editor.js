@@ -63,7 +63,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
                 updateModalGalleryContent();
                 drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = false);
                 const triggerCacheUpdateSideEffect = null;
-                updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
+                await updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
             } else {
                 response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
                     drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq = false) :
