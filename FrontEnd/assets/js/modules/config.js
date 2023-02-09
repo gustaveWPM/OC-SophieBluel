@@ -119,7 +119,8 @@ let __GLOBALS = {
         "FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST": 'failed-to-open-gallery-editor-modal-toast',
         "FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'failed-to-load-gallery-figures-toast',
         "FAILED_TO_LOGIN_TOAST": 'failed-to-login-toast',
-        "CANT_LOGIN_TOAST": 'cant-login-toast',
+        "FAILED_TO_DELETE_TOAST": 'failed-to-login-toast',
+        "CANT_CONNECT_TOAST": 'cant-login-toast',
         "LOGGED_OUT_SUCCESS_TOAST": 'logged-out-success-toast',
         "TOASTS_COMPONENT": 'toasts-component'
     },
@@ -166,7 +167,8 @@ __GLOBALS["SELECTORS"] = {
     [`${getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST")}`]: `#${getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOGIN_TOAST")}`,
-    [`${getDynamicId("CANT_LOGIN_TOAST")}`]: `#${getDynamicId("CANT_LOGIN_TOAST")}`,
+    [`${getDynamicId("FAILED_TO_DELETE_TOAST")}`]: `#${getDynamicId("FAILED_TO_DELETE_TOAST")}`,
+    [`${getDynamicId("CANT_CONNECT_TOAST")}`]: `#${getDynamicId("CANT_CONNECT_TOAST")}`,
     [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: `#${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`
 }
 
@@ -181,8 +183,9 @@ __GLOBALS["VOCAB"] = {
     "CRASH": 'La galerie n’a pas pu être affichée. Veuillez réessayer.',
     [`${getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST")}`]: 'Échec de connexion',
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion. Merci de réessayer plus tard.',
+    [`${getDynamicId("FAILED_TO_DELETE_TOAST")}`]: 'Impossible de supprimer cet élément.',
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: 'Erreur dans l’identifiant ou le mot de passe.',
-    [`${getDynamicId("CANT_LOGIN_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.',
+    [`${getDynamicId("CANT_CONNECT_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.',
     [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: 'Vous avez bien été déconnecté !'
 }
 
@@ -199,7 +202,8 @@ __GLOBALS["CACHE_KEYS"] = {
 
 /* [§ Misc] */
 __GLOBALS["MISC"] = {
-    "MAX_TOASTS": 5
+    "MAX_TOASTS": 5,
+    "UNAUTHORIZED_CODE": 401
 }
 
 Object.freeze(__GLOBALS);

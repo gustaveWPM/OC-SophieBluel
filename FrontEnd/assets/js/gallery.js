@@ -33,16 +33,14 @@ function cacheWorks(worksCollection) {
 
 /* [§ Fetch Data] */
 async function fetchWorksCollection() {
-    const worksRoute = getRoute("WORKS");
-    const worksCollection = await getCollectionFromDatabase(worksRoute);
+    const worksCollection = await getCategoriesFromDatabase();
 
     cacheWorks(worksCollection);
     return worksCollection;
 }
 
 async function fetchCategoriesCollection() {
-    const categoriesRoute = getRoute("CATEGORIES");
-    const categoriesCollection = await getCollectionFromDatabase(categoriesRoute);
+    const categoriesCollection = await getCategoriesFromDatabase();
 
     if (failedToGetFromApi(categoriesCollection)) {
         return false;
@@ -60,11 +58,11 @@ function setLoginButtonCtx(isLoggedIn) {
     function setButtonToLogout(rootNode) {
         rootNode.innerHTML = getVocab("LOGOUT");
 
-        rootNode.addEventListener('click', function doLogOut(event) {
+        rootNode.addEventListener("click", function doLogOut(event) {
             event.preventDefault();
             deleteLocalStorageUserInfos();
             isLoggedIn = false;
-            rootNode.removeEventListener('click', doLogOut);
+            rootNode.removeEventListener("click", doLogOut);
             drawSuccessToast(getDynamicId("LOGGED_OUT_SUCCESS_TOAST"));
             appendEditor();
             setLoginButtonCtx(isLoggedIn);
@@ -107,7 +105,7 @@ function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
     if (failedToGetFromApi(worksCollection)) {
         return false;
     }
-    return new Set(worksCollection.filter(item => item.categoryId == id));
+    return new Set(worksCollection.filter(({categoryId}) => categoryId === id));
 }
 
 function getWorksCollectionToDispose(worksCollection, worksCategoryId) {
@@ -303,7 +301,7 @@ function handleContactHash() {
     const curHash = window.location.hash;
     const expectedHash = getSideEffectConf("SCROLL_DOWN_TRIGGER_HASH");
 
-    if (curHash == expectedHash) {
+    if (curHash === expectedHash) {
         scrollToFooter();
     }
 }

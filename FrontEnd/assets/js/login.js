@@ -32,7 +32,7 @@ async function processLogin(payload) {
             drawErrorToast(getDynamicId("FAILED_TO_LOGIN_TOAST"), uniq=false);
         }
     } catch (error) {
-        drawErrorToast(getDynamicId("CANT_LOGIN_TOAST"));
+        drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq=false);
     }
 }
 
@@ -41,7 +41,7 @@ async function generateEvents() {
     async function generateLoginButtonEvent() {
         const loginButton = loginButtonGetter();
 
-        loginButton.addEventListener('submit', (event) => {
+        loginButton.addEventListener("submit", (event) => {
             event.preventDefault();
             const email = event.target.querySelector("[name=email]").value;
             const password = event.target.querySelector("[name=password]").value;

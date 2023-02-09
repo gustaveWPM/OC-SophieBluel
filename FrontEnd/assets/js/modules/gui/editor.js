@@ -40,8 +40,27 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         return img;
     }
 
+    async function deleteWorkElementById(id) {
+        try {
+            const response = await getCollectionFromDatabase()
+//            const response = await deleteWorkById(id);
+
+            if (response?.ok) {
+                deleteCacheWorkElementById(id);
+                updateModalGalleryContent();    
+            } else {
+                drawErrorToast(getDynamicId("FAILED_TO_DELETE_TOAST", uniq = false));
+            }
+        } catch {
+            drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq = false);
+        }
+    }
+
     function generateGalleryElementDeleteBtnEvent(element, id) {
-        element.addEventListener('click', () => console.log(`{ToDo} Tentative de suppression de l'éditeur pour l'élément ayant comme id ${id}`));
+        element.addEventListener("click", (event) => {
+            event.preventDefault();
+            deleteWorkElementById(id);
+        });
     }
 
     function generateGalleryElementButtons(firstElement = false, elementId) {
@@ -73,7 +92,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
     }
 
     function generateGalleryElementEditBtnEvent(element, id) {
-        element.addEventListener('click', () => console.log(`{ToDo} Ouverture de l'éditeur pour l'élément ayant comme id ${id}`));
+        element.addEventListener("click", () => console.log(`{ToDo} Ouverture de l'éditeur pour l'élément ayant comme id ${id}. N'est pas dans le périmètre de l'itération concernée par le projet.`));
     }
 
     function generateGalleryElement(galleryElementImg, elementId, isFirst = false) {
@@ -172,8 +191,8 @@ function appendModalVisibilityEvents() {
     const openModalBtnElements = document.querySelectorAll('.open-editor');
     const closeModalBtnElements = document.querySelectorAll('.close-editor');
 
-    openModalBtnElements.forEach(element => element.addEventListener('click', () => openModal(modalElement)));
-    closeModalBtnElements.forEach(element => element.addEventListener('click', () => closeModal(modalElement)));
+    openModalBtnElements.forEach(element => element.addEventListener("click", () => openModal(modalElement)));
+    closeModalBtnElements.forEach(element => element.addEventListener("click", () => closeModal(modalElement)));
 }
 
 function generateModalEvents() {

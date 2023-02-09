@@ -19,7 +19,7 @@ async function tokenValidator() {
     }
 
     async function isValidUserIdAndTokenPair() {
-        const unauthorizedCode = 401;
+        const unauthorizedCode = getMiscConf("UNAUTHORIZED_CODE");
         const response = await createWork('', '', '');
 
         return response.status !== unauthorizedCode;
