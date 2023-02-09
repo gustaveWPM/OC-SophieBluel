@@ -188,7 +188,7 @@ __GLOBALS["SELECTORS"] = {
     "MODAL_GO_BACK_EDITOR": `.${getDynamicClass("MODAL_GO_BACK_EDITOR")}`,
     "MODAL_GALLERY": `.${getDynamicClass("MODAL_GALLERY")}`,
     "MODAL_GALLERY_DELETE_ALL_BUTTON": `.${getDynamicClass("MODAL_GALLERY_DELETE_ALL_BUTTON")}`,
-    "MODAL_FOCUSABLES": 'a:not(.hidden-editor-element)',
+    "MODAL_FOCUSABLES": `a:not(.hidden-editor-element), button:not(.hidden-editor-element)`,
     "HIDE_WHEN_EDITOR_ENABLED": `.${getDynamicClass("HIDE_WHEN_EDITOR_ENABLED")}`,
     "ERROR_BOXES": `.${getDynamicClass("ERROR_BOX")}`,
     "LOG_USER_BTN": `#${getDynamicId("LOG_USER_BTN")}`,

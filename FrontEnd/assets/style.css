@@ -716,6 +716,15 @@ a:hover {
     border-radius: 10px;
 }
 
+.editor-head-gui-element {
+    background: transparent;
+    border: none;
+}
+
+.editor-head-gui-element:hover {
+    cursor: pointer;
+}
+
 .modal h1 {
     font-size: 1.85em;
     color: inherit;

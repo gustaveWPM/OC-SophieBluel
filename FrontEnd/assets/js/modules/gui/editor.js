@@ -209,10 +209,13 @@ function modalSetState(stateId) {
         if (!curModalState) {
             continue;
         }
+        let curModalStateFocusables = document.querySelectorAll(`${curModalStateSelector} a, ${curModalStateSelector} button`);
         if (curStateId !== stateId) {
             curModalState.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
+            curModalStateFocusables.forEach(element => element.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT")));
         } else {
             curModalState.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
+            curModalStateFocusables.forEach(element => element.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT")));
         }
     }
     updateModal(stateId);
@@ -261,6 +264,7 @@ function appendModalVisibilityEvents() {
         if (shiftkeyPressed) {
             const lastFocusableElement = [...modalElement.querySelectorAll(selector)].at(-1);
             focusElement = (lastFocusableElement) ? lastFocusableElement : null;
+            console.log(lastFocusableElement);
         } else {
             focusElement = modalElement.querySelector(selector);
         }
