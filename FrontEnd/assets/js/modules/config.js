@@ -116,7 +116,6 @@ let __GLOBALS = {
 
     "DYN_IDS": {
         "LOG_USER_BTN": 'log-user-btn',
-        "TRYING_TO_RELOAD_TOAST": 'trying-to-reload-toast',
         "FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST": 'failed-to-open-gallery-editor-modal-toast',
         "FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'failed-to-load-gallery-figures-toast',
         "FAILED_TO_LOGIN_TOAST": 'failed-to-login-toast',
@@ -165,7 +164,6 @@ __GLOBALS["SELECTORS"] = {
     "LOG_USER_BTN": `#${getDynamicId("LOG_USER_BTN")}`,
     "TOASTS_COMPONENT": `#${getDynamicId("TOASTS_COMPONENT")}`,
     [`${getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST")}`]: `#${getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST")}`,
-    [`${getDynamicId("TRYING_TO_RELOAD_TOAST")}`]: `#${getDynamicId("TRYING_TO_RELOAD_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOGIN_TOAST")}`,
     [`${getDynamicId("CANT_LOGIN_TOAST")}`]: `#${getDynamicId("CANT_LOGIN_TOAST")}`,
@@ -182,7 +180,6 @@ __GLOBALS["VOCAB"] = {
     "RETRY_TO_LOAD_GALLERY_FIGURES": 'Afficher les images',
     "CRASH": 'La galerie n’a pas pu être affichée. Veuillez réessayer.',
     [`${getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST")}`]: 'Échec de connexion',
-    [`${getDynamicId("TRYING_TO_RELOAD_TOAST")}`]: 'Tentative de reconnexion...',
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion. Merci de réessayer plus tard.',
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: 'Erreur dans l’identifiant ou le mot de passe.',
     [`${getDynamicId("CANT_LOGIN_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.',
