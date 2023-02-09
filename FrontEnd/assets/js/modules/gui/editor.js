@@ -239,7 +239,6 @@ function appendModalVisibilityEvents() {
             if (event.shiftKey) {
                 const lastFocusableElement = [...modalElement.querySelectorAll('a')].at(-1);
                 focusElement = (lastFocusableElement) ? lastFocusableElement : null;
-                console.log(focusElement);
             } else {
                 focusElement = modalElement.querySelector('a');
             }
