@@ -15,7 +15,7 @@ function drawToast(id, msg, uniq = true) {
         setTimeout(() => toast.remove(), 2800);
     }
 
-    function generateToast() {
+    function generateToast(rootNode) {
         const toast = document.createElement('div');
         const toastTxt = document.createTextNode(msg);
     
@@ -43,7 +43,7 @@ function drawToast(id, msg, uniq = true) {
             return null;
         }
 
-        const toast = generateToast();
+        const toast = generateToast(rootNode);
         return toast;
     }
 

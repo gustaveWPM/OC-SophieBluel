@@ -91,7 +91,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         element.addEventListener("click", () => behaviourPlaceholder(id));
     }
 
-    function generateGalleryElementButtons(firstElement = false, elementId) {
+    function generateGalleryElementButtons(isFirstElement = false, elementId) {
         function generateGalleryMoveButton() {
             const galleryElementMoveButtonItem = document.createElement('a');
             const galleryElementMoveButtonImg = generateImg('Bouton déplacer', './assets/icons/button-move.svg');
@@ -114,8 +114,8 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
             return galleryElementDeleteButtonItem;
         }
 
-        function appendMoveButton(firstElement, galleryElementMoveButtonItem, elementId) {
-            if (!firstElement) {
+        function appendMoveButton(isFirstElement, galleryElementButtonsWrapper, galleryElementMoveButtonItem, elementId) {
+            if (!isFirstElement) {
                 return;
             }
 
@@ -131,7 +131,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
             galleryElementButtonsWrapper.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT_BTNS"));
 
             generateGalleryElementDeleteBtnEvent(galleryElementDeleteButtonItem, elementId);
-            appendMoveButton(firstElement, galleryElementMoveButtonItem, elementId);
+            appendMoveButton(isFirstElement, galleryElementButtonsWrapper, galleryElementMoveButtonItem, elementId);
             galleryElementButtonsWrapper.append(galleryElementDeleteButtonItem);
 
             return galleryElementButtonsWrapper;
@@ -359,7 +359,7 @@ function appendModalVisibilityEvents() {
         deleteTheWholeGalleryBtn.addEventListener("click", () => behaviourPlaceholder());
     }
 
-    function generateOpenModalEvents() {
+    function generateOpenModalEvents(modalElement) {
         const openModalBtnElements = document.querySelectorAll(getSelector("OPEN_EDITOR"));
 
         openModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
@@ -368,7 +368,7 @@ function appendModalVisibilityEvents() {
         }));
     }
 
-    function generateCloseModalEvents() {
+    function generateCloseModalEvents(modalElement) {
         const closeModalBtnElements = document.querySelectorAll(getSelector("CLOSE_EDITOR"));
 
         closeModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
@@ -428,8 +428,8 @@ function appendModalVisibilityEvents() {
 
         generateEditorBannerFocusRescue(modalElement);
         generateKeyboardEvents(modalElement);
-        generateOpenModalEvents();
-        generateCloseModalEvents();
+        generateOpenModalEvents(modalElement);
+        generateCloseModalEvents(modalElement);
         generateDeleteTheWholeGalleryEvent();
         generateGoBackEvent();
         generateAddWorkButtonEvent();
