@@ -59,11 +59,10 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
             const response = await deleteWorkById(id);
 
             if (response.ok) {
-                deleteCacheWorkElementById(id);
-                updateModalGalleryContent();
-                drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = false);
                 const triggerCacheUpdateSideEffect = null;
                 await updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
+                updateModalGalleryContent();
+                drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = false);
             } else {
                 response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
                     drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq = false) :

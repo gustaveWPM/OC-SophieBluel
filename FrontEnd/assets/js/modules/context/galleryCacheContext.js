@@ -32,9 +32,3 @@ function getCacheValue(key) {
     }
     return value;
 }
-
-function deleteCacheWorkElementById(elementId) {
-    const obj = __GALLERY_CACHE.WORKS;
-    const filteredObj = obj.filter(({id}) => id !== elementId);
-    __GALLERY_CACHE.WORKS = filteredObj;
-}
