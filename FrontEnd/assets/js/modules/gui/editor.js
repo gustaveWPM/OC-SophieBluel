@@ -239,11 +239,12 @@ function closeEditorModal(modalElement) {
 function appendModalVisibilityEvents() {
     function galleryConditionalFocus(shiftkeyPressed, modalElement) {
         let focusElement = null;
+        const selector = "a:not(.hidden-editor-element)";
         if (shiftkeyPressed) {
-            const lastFocusableElement = [...modalElement.querySelectorAll('a')].at(-1);
+            const lastFocusableElement = [...modalElement.querySelectorAll(selector)].at(-1);
             focusElement = (lastFocusableElement) ? lastFocusableElement : null;
         } else {
-            focusElement = modalElement.querySelector('a');
+            focusElement = modalElement.querySelector(selector);
         }
         return focusElement;
     }
