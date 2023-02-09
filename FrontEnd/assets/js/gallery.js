@@ -196,6 +196,7 @@ function drawGalleryFigures(worksCollection, noFadeIn = false) {
     const worksToDisplayAmount = worksCollection.length ?? worksCollection.size;
     if (worksToDisplayAmount === 0) {
         drawNothingToShowBox(rootNode);
+        drawRetryButton(rootNode);
         return true;
     }
     worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element, noFadeIn));

@@ -141,10 +141,21 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
 }
 
 function drawModalGalleryContent(worksCollection) {
+    function drawNothingToShowBox(rootNode) {
+        drawWarningBox(rootNode, `${getVocab("GALLERY_NO_FIGURES_HERE")}`);
+        rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
+    }
+
     const rootNode = document.querySelector(".modal-gallery");
     let firstIteration = true;
     rootNode.innerHTML = '';
 
+    const worksToDisplayAmount = worksCollection.length ?? worksCollection.size;
+    if (worksToDisplayAmount === 0) {
+        drawNothingToShowBox(rootNode);
+        return;
+    }
+    rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
     worksCollection.forEach(element => {
         doDrawModalGalleryContent(rootNode, element, firstIteration);
         firstIteration = false;
