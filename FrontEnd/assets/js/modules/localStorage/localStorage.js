@@ -22,12 +22,18 @@ function localStorageUserInfos(userInfos = null) {
 
 function getLocalStorageUserId() {
     const userInfos = localStorageUserInfos();
-    return userInfos.userId;
+    if (userInfos !== null && userInfos.userId) {
+        return userInfos.userId;
+    }
+    return -1;
 }
 
 function getLocalStorageUserToken() {
     const userInfos = localStorageUserInfos();
-    return userInfos.token;
+    if (userInfos !== null && userInfos.token) {
+        return userInfos.token;
+    }
+    return '';
 }
 
 function deleteLocalStorageUserInfos() {
