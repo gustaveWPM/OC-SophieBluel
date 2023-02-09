@@ -27,7 +27,8 @@ function cacheWorks(worksCollection) {
     if (failedToGetFromApi(worksCollection)) {
         return;
     }
-    __GALLERY_CACHE.WORKS = newWorksCollectionWithStaticRoutes(worksCollection);
+    const worksCollectionConvertedToCacheData = newWorksCollectionWithStaticRoutes(worksCollection);
+    updateCacheValue("WORKS", worksCollectionConvertedToCacheData);
 }
 
 /*** 🔨 [§ Collection from API] */
@@ -282,7 +283,7 @@ async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1
             drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), uniq = false);
             return false;
         } else {
-            worksCollection = __GALLERY_CACHE.WORKS;
+            worksCollection = getCacheValue("WORKS");
         }
     }
     const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection, worksCategoryId);
