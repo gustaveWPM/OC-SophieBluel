@@ -33,7 +33,7 @@ function cacheWorks(worksCollection) {
 
 /* [§ Fetch Data] */
 async function fetchWorksCollection() {
-    const worksCollection = await getCategoriesFromDatabase();
+    const worksCollection = await getWorksFromDatabase();
 
     cacheWorks(worksCollection);
     return worksCollection;

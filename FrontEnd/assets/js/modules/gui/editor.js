@@ -42,8 +42,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
 
     async function deleteWorkElementById(id) {
         try {
-            const response = await getCollectionFromDatabase()
-//            const response = await deleteWorkById(id);
+            const response = await deleteWorkById(id);
 
             if (response?.ok) {
                 deleteCacheWorkElementById(id);
