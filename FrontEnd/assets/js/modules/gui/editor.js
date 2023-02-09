@@ -237,12 +237,15 @@ function appendModalVisibilityEvents() {
         modalElement.addEventListener('transitionend', () => {
             let focusElement = null;
             if (event.shiftKey) {
-                const lastFocusableElement = [...modalElement.querySelectorAll('a')].at(-1); 
-                focusElement = lastFocusableElement;
+                const lastFocusableElement = [...modalElement.querySelectorAll('a')].at(-1);
+                focusElement = (lastFocusableElement) ? lastFocusableElement : null;
+                console.log(focusElement);
             } else {
                 focusElement = modalElement.querySelector('a');
             }
-            focusElement.focus();
+            if (focusElement !== null) {
+                focusElement.focus();
+            }
         });
     });
 }
