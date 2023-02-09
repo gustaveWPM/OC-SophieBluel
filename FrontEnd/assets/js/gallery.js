@@ -175,6 +175,11 @@ function drawGalleryFigures(worksCollection, noFadeIn = false) {
         rootNode.classList.add(getDynamicClass("FORCE_FLEX_COLUMN"));
     }
 
+    function drawNothingToShowBox(rootNode) {
+        drawWarningBox(rootNode, `${getVocab("GALLERY_NO_FIGURES_HERE")}`);
+        rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
+    }
+
     const rootNode = galleryComponentRootNodeGetter();
     rootNode.innerHTML = '';
 
@@ -188,6 +193,11 @@ function drawGalleryFigures(worksCollection, noFadeIn = false) {
     rootNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
     rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
     rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
+    const worksToDisplayAmount = worksCollection.length || worksCollection.size;
+    if (worksToDisplayAmount === 0) {
+        drawNothingToShowBox(rootNode);
+        return true;
+    }
     worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element, noFadeIn));
     return true;
 }

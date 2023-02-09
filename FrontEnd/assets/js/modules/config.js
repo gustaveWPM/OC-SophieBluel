@@ -181,6 +181,7 @@ __GLOBALS["VOCAB"] = {
     "LOGIN": 'login',
     "LOGOUT": 'logout',
     "GALLERY_FIGURES_UNAVAILABLE": 'Les images de la galerie sont indisponibles.',
+    "GALLERY_NO_FIGURES_HERE": 'Il n’y a rien à afficher ici pour le moment.',
     "UNKNOWN_ERROR": 'Erreur inconnue',
     "RETRY_TO_LOAD_GALLERY": 'Afficher la galerie',
     "RETRY_TO_LOAD_GALLERY_FIGURES": 'Afficher les images',
