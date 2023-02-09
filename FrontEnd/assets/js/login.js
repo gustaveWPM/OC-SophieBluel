@@ -17,6 +17,7 @@ function loginButtonGetter() {
 async function processLogin(payload) {
     const body = JSON.stringify(payload);
     const loginRoute = getRoute("LOGIN");
+ 
     try {
         const response = await fetch(loginRoute, {
             method: "POST",

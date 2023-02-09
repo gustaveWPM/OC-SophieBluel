@@ -18,6 +18,7 @@ function disableEditor() {
         element.setAttribute("aria-hidden", "true");
         element.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
     });
+
     hiddenElements.forEach(element => {
         element.removeAttribute("aria-hidden");
         element.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
@@ -32,6 +33,7 @@ function enableEditor() {
         element.removeAttribute("aria-hidden");
         element.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
     });
+
     hiddenElements.forEach(element => {
         element.setAttribute("aria-hidden", "true");
         element.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
@@ -47,6 +49,7 @@ function setEditorVisibility(isLoggedIn) {
 function doDrawModalGalleryContent(rootNode, element, isFirst) {
     function generateImg(alt, url) {
         const img = document.createElement('img');
+
         img.setAttribute('src', url);
         img.setAttribute('alt', alt);
         img.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT_IMG"));
@@ -84,38 +87,64 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         function behaviourPlaceholder(id) {
             console.log(`{ToDo} Déplacement de l'élément ayant comme id ${id}. N'est pas dans le périmètre de l'itération concernée par le projet.`);
         }
+
         element.addEventListener("click", () => behaviourPlaceholder(id));
     }
 
     function generateGalleryElementButtons(firstElement = false, elementId) {
-        const galleryElementButtonsWrapper = document.createElement('div');
-        galleryElementButtonsWrapper.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT_BTNS"));
-        const galleryElementMoveButtonItem = document.createElement('a');
-        galleryElementMoveButtonItem.href = "#";
-        const galleryElementMoveButtonImg = generateImg('Bouton déplacer', './assets/icons/button-move.svg');
+        function generateGalleryMoveButton() {
+            const galleryElementMoveButtonItem = document.createElement('a');
+            const galleryElementMoveButtonImg = generateImg('Bouton déplacer', './assets/icons/button-move.svg');
 
-        const galleryElementDeleteButtonItem = document.createElement('a');
-        galleryElementDeleteButtonItem.href = "#";
-        const galleryElementDeleteButtonImg = generateImg('Bouton supprimer', './assets/icons/button-trash.svg');
+            galleryElementMoveButtonItem.href = "#";
+            galleryElementMoveButtonItem.append(galleryElementMoveButtonImg);
+            galleryElementMoveButtonItem.classList.add(getDynamicClass("MODAL_GALLERY_MOVE_BTN"));
 
-        galleryElementMoveButtonItem.append(galleryElementMoveButtonImg);
-        galleryElementDeleteButtonItem.append(galleryElementDeleteButtonImg);
-        galleryElementMoveButtonItem.classList.add(getDynamicClass("MODAL_GALLERY_MOVE_BTN"));
-        galleryElementDeleteButtonItem.classList.add(getDynamicClass("MODAL_GALLERY_TRASH_BTN"));
+            return galleryElementMoveButtonItem;
+        }
 
-        generateGalleryElementDeleteBtnEvent(galleryElementDeleteButtonItem, elementId);
-        if (firstElement) {
+        function generateGalleryDeleteButton() {
+            const galleryElementDeleteButtonItem = document.createElement('a');
+            const galleryElementDeleteButtonImg = generateImg('Bouton supprimer', './assets/icons/button-trash.svg');
+
+            galleryElementDeleteButtonItem.href = "#";
+            galleryElementDeleteButtonItem.append(galleryElementDeleteButtonImg);
+            galleryElementDeleteButtonItem.classList.add(getDynamicClass("MODAL_GALLERY_TRASH_BTN"));
+
+            return galleryElementDeleteButtonItem;
+        }
+
+        function appendMoveButton(firstElement, galleryElementMoveButtonItem, elementId) {
+            if (!firstElement) {
+                return;
+            }
+
             generateGalleryElementMoveBtnEvent(galleryElementMoveButtonItem, elementId);
             galleryElementButtonsWrapper.append(galleryElementMoveButtonItem);
         }
-        galleryElementButtonsWrapper.append(galleryElementDeleteButtonItem);
-        return galleryElementButtonsWrapper;
+
+        function process() {
+            const galleryElementButtonsWrapper = document.createElement('div');
+            const galleryElementMoveButtonItem = generateGalleryMoveButton();
+            const galleryElementDeleteButtonItem = generateGalleryDeleteButton();
+
+            galleryElementButtonsWrapper.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT_BTNS"));
+
+            generateGalleryElementDeleteBtnEvent(galleryElementDeleteButtonItem, elementId);
+            appendMoveButton(firstElement, galleryElementMoveButtonItem, elementId);
+            galleryElementButtonsWrapper.append(galleryElementDeleteButtonItem);
+
+            return galleryElementButtonsWrapper;
+        }
+
+        return process();
     }
 
     function generateGalleryElementEditBtn() {
         const editBtnWrapper = document.createElement('div');
         const editBtn = document.createElement('a');
         const editBtnTxt = document.createTextNode(getVocab("EDIT"));
+
         editBtn.href = "#";
         editBtn.appendChild(editBtnTxt);
         editBtnWrapper.append(editBtn);
@@ -135,6 +164,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         const galleryElementWrapper = document.createElement('div');
         const galleryElementButtons = generateGalleryElementButtons(isFirst, elementId);
         const galleryElementEditBtn = generateGalleryElementEditBtn();
+
         generateGalleryElementEditBtnEvent(galleryElementEditBtn, elementId);
 
         galleryElementWrapper.append(galleryElementButtons);
@@ -158,20 +188,35 @@ function drawModalGalleryContent(worksCollection) {
         rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
     }
 
-    const rootNode = document.querySelector(getSelector("MODAL_GALLERY"));
-    let firstIteration = true;
-    rootNode.innerHTML = '';
+    function doHandleNothingToShow(rootNode, worksCollection) {
+        const worksToDisplayAmount = worksCollection.length ?? worksCollection.size;
 
-    const worksToDisplayAmount = worksCollection.length ?? worksCollection.size;
-    if (worksToDisplayAmount === 0) {
-        drawNothingToShowBox(rootNode);
-        return;
+        if (worksToDisplayAmount === 0) {
+            drawNothingToShowBox(rootNode);
+
+            return true;
+        }
+        return false;
     }
-    rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
-    worksCollection.forEach(element => {
-        doDrawModalGalleryContent(rootNode, element, firstIteration);
-        firstIteration = false;
-    });
+
+    function process() {
+        const rootNode = document.querySelector(getSelector("MODAL_GALLERY"));
+        let firstIteration = true;
+        rootNode.innerHTML = '';
+
+        if (doHandleNothingToShow(rootNode, worksCollection)) {
+            return;
+        }
+
+        rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
+
+        worksCollection.forEach(element => {
+            doDrawModalGalleryContent(rootNode, element, firstIteration);
+            firstIteration = false;
+        });
+    }
+
+    process();
 }
 
 /* 🔄 [§ Modal -> Updates] */
@@ -230,6 +275,7 @@ function modalSetState(stateId) {
             curModalStateFocusables.forEach(element => element.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT")));
         }
     }
+
     updateModal(stateId);
 }
 
@@ -239,24 +285,43 @@ function setDefaultModalState() {
 
 /* 👁️ [§ Modal -> Open/Close State] */
 function openEditorModal(modalElement) {
-    if (cacheIsNotInitialized()) {
-        drawErrorToast(getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST"), uniq = false);
-        return;
+    function skipOpenEditorModal() {
+        if (cacheIsNotInitialized()) {
+            drawErrorToast(getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST"), uniq = false);
+            return true;
+        }
+        return false;
     }
 
-    __MEMO_FOCUS = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
-    const editorModalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
-    editorModalElement.removeAttribute("aria-hidden");
-    editorModalElement.setAttribute("aria-modal", "true");
-    editorModalElement.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
-
-    const selector = getSelector("MODAL_FOCUSABLES");
-    const firstFocusableElement = [...modalElement.querySelectorAll(selector)].at(0);
-    if (firstFocusableElement) {
-        firstFocusableElement.focus();
+    function updateAttributes() {
+        const editorModalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
+        editorModalElement.removeAttribute("aria-hidden");
+        editorModalElement.setAttribute("aria-modal", "true");
+        editorModalElement.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));    
     }
-    disableScroll();
-    setDefaultModalState();
+
+    function forceFocus() {
+        const selector = getSelector("MODAL_FOCUSABLES");
+        const firstFocusableElement = [...modalElement.querySelectorAll(selector)].at(0);
+        if (firstFocusableElement) {
+            firstFocusableElement.focus();
+        }    
+    }
+
+    function process() {
+        if (skipOpenEditorModal()) {
+            return;
+        }
+
+        __MEMO_FOCUS = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
+        updateAttributes();
+
+        forceFocus();
+        disableScroll();
+        setDefaultModalState();
+    }
+
+    process();
 }
 
 function closeEditorModal(modalElement) {
@@ -358,15 +423,19 @@ function appendModalVisibilityEvents() {
         });
     }
 
-    const modalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
+    function process() {
+        const modalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
 
-    generateEditorBannerFocusRescue(modalElement);
-    generateKeyboardEvents(modalElement);
-    generateOpenModalEvents();
-    generateCloseModalEvents();
-    generateDeleteTheWholeGalleryEvent();
-    generateGoBackEvent();
-    generateAddWorkButtonEvent();
+        generateEditorBannerFocusRescue(modalElement);
+        generateKeyboardEvents(modalElement);
+        generateOpenModalEvents();
+        generateCloseModalEvents();
+        generateDeleteTheWholeGalleryEvent();
+        generateGoBackEvent();
+        generateAddWorkButtonEvent();
+    }
+
+    process();
 }
 
 /*** ✨ [§ Side Effects] */

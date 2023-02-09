@@ -23,6 +23,7 @@ function drawErrorBox(node, errorMessage) {
 
         return box;
     }
+
     const errorBox = generateErrorBox(errorMessage);
     node.appendChild(errorBox);
 }
@@ -34,6 +35,7 @@ function drawWarningBox(node, warningMessage) {
 
         return box;
     }
+
     const warningBox = generateWarningBox(warningMessage);
     node.appendChild(warningBox);
 }

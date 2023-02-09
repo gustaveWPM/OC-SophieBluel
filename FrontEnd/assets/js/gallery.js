@@ -24,9 +24,11 @@ function cacheWorks(worksCollection) {
         const newCollection = worksCollection.map(element => dynamicRouteToStaticRoute(element));
         return newCollection;
     }
+
     if (failedToGetFromApi(worksCollection)) {
         return;
     }
+
     const worksCollectionConvertedToCacheData = newWorksCollectionWithStaticRoutes(worksCollection);
     updateCacheValue("WORKS", worksCollectionConvertedToCacheData);
 }
@@ -45,6 +47,7 @@ async function fetchCategoriesCollection() {
     if (failedToGetFromApi(categoriesCollection)) {
         return false;
     }
+
     const categoriesSet = new Set(categoriesCollection);
     return categoriesSet;
 }
@@ -109,6 +112,7 @@ function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
     if (failedToGetFromApi(worksCollection)) {
         return false;
     }
+
     return new Set(worksCollection.filter(({categoryId}) => categoryId === id));
 }
 
@@ -123,6 +127,7 @@ function getWorksCollectionToDispose(worksCollection, worksCategoryId) {
     if (mutateCollection) {
         return getGalleryWorksCollectionSortedByCategory(worksCollection, worksCategoryId);
     }
+
     return worksCollection;
 }
 
@@ -131,6 +136,7 @@ function getWorksCollectionToDispose(worksCollection, worksCategoryId) {
 function doDrawGalleryFigures(node, element, noFadeIn = false) {
     function generateImg(alt, url) {
         const img = document.createElement('img');
+
         img.setAttribute('src', url);
         img.setAttribute('alt', alt);
 
@@ -141,6 +147,7 @@ function doDrawGalleryFigures(node, element, noFadeIn = false) {
         const figure = document.createElement('figure');
         const figcaptionTxt = document.createTextNode(caption);
         const figcaption = document.createElement('figcaption');
+
         figcaption.appendChild(figcaptionTxt);
         figure.append(img);
         figure.append(figcaption);
@@ -156,6 +163,7 @@ function doDrawGalleryFigures(node, element, noFadeIn = false) {
     if (noFadeIn) {
         figure.classList.add(getDynamicClass("FORCE_NO_ANIMATION"));
     }
+
     figure.classList.add(getDynamicClass("GALLERY_FIGURE"));
     node.appendChild(figure);
 }
@@ -180,25 +188,47 @@ function drawGalleryFigures(worksCollection, noFadeIn = false) {
         rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
     }
 
-    const rootNode = galleryComponentRootNodeGetter();
-    rootNode.innerHTML = '';
+    function doHandleNothingToShow(rootNode, worksCollection) {
+        const worksToDisplayAmount = worksCollection.length ?? worksCollection.size;
 
-    if (failedToGetFromApi(worksCollection)) {
-        drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")}`);
-        rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
-        drawRetryButton(rootNode);
+        if (worksToDisplayAmount === 0) {
+            drawNothingToShowBox(rootNode);
+            drawRetryButton(rootNode);
+
+            return true;
+        }
         return false;
     }
 
-    rootNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
-    rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
-    rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
-    const worksToDisplayAmount = worksCollection.length ?? worksCollection.size;
-    if (worksToDisplayAmount === 0) {
-        drawNothingToShowBox(rootNode);
-        drawRetryButton(rootNode);
+    function doHandleFailedToGetFromApi(rootNode, worksCollection) {
+        if (failedToGetFromApi(worksCollection)) {
+            drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")}`);
+            rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
+            drawRetryButton(rootNode);
+            return true;
+        }
+        return false;
+    }
+
+    function freeRetryStateClasses(rootNode) {
+        rootNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
+        rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
+        rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));    
+    }
+
+    const rootNode = galleryComponentRootNodeGetter();
+    rootNode.innerHTML = '';
+
+    if (doHandleFailedToGetFromApi(rootNode, worksCollection)) {
+        return false;
+    }
+
+    freeRetryStateClasses(rootNode);
+
+    if (doHandleNothingToShow(rootNode, worksCollection)) {
         return true;
     }
+
     worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element, noFadeIn));
     return true;
 }
@@ -233,6 +263,19 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
 }
 
 function drawGalleryFilters(categoriesCollection) {
+    function freeRetryStateClasses(rootNode) {
+        rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
+    }
+
+    function drawDefaultFilterButton(rootNode) {
+        doDrawGalleryFilters(rootNode, {
+            "id": 0,
+            "name": 'Tous'
+        }, {
+            classList: ['by-default', 'is-active']
+        });
+    }
+
     const rootNode = filtersComponentRootNodeGetter();
     rootNode.innerHTML = '';
 
@@ -240,13 +283,10 @@ function drawGalleryFilters(categoriesCollection) {
         rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
     }
-    rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
-    doDrawGalleryFilters(rootNode, {
-        "id": 0,
-        "name": 'Tous'
-    }, {
-        classList: ['by-default', 'is-active']
-    });
+
+    freeRetryStateClasses(rootNode);
+    drawDefaultFilterButton(rootNode);
+
     categoriesCollection.forEach(element => doDrawGalleryFilters(rootNode, element));
     return true;
 }
@@ -271,9 +311,11 @@ function updateActiveFilterBtn(element) {
 async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1, noFadeIn = false) {
     const rootNode = galleryComponentRootNodeGetter();
     rootNode.classList.add(getDynamicClass("FORCE_LOADING_ANIMATION"));
+
     if (worksCollection === null) {
         worksCollection = await fetchWorksCollection();
     }
+
     if (failedToGetFromApi(worksCollection) && worksCategoryId !== -1) {
         if (cacheIsNotInitialized()) {
             drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), uniq = false);
@@ -282,6 +324,7 @@ async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1
             worksCollection = getCacheValue("WORKS");
         }
     }
+
     const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection, worksCategoryId);
 
     rootNode.classList.remove(getDynamicClass("FORCE_LOADING_ANIMATION"));
@@ -331,11 +374,13 @@ async function appendEditor() {
 
 async function appendDynamicCategories() {
     const categoriesCollection = await fetchCategoriesCollection();
+
     if (failedToGetFromApi(categoriesCollection)) {
         const rootNode = galleryComponentRootNodeGetter();
         rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
         return false;
     }
+
     drawGalleryFilters(categoriesCollection);
     return categoriesCollection;
 }
@@ -380,6 +425,7 @@ async function run(retryContext = false) {
     const filtersComponentNode = filtersComponentRootNodeGetter();
 
     await appendEditor();
+
     if (failedToGetFromApi(dynamicCategories)) {
         crash(filtersComponentNode, retryContext);
         if (!retryContext) {
@@ -389,9 +435,11 @@ async function run(retryContext = false) {
         }
         return;
     }
+
     if (retryContext) {
         filtersComponentNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
     }
+
     await appendDynamicWorks();
 }
 

@@ -19,10 +19,12 @@ function cacheIsNotInitialized() {
 /* 🔄 [§ Cache -> Update functions] */
 function updateCacheValue(key, value) {
     const currentValue = __GALLERY_CACHE[key];
+
     if (currentValue === undefined) {
         console.error(`No configured cache value found with this key: ${key}`)
         return false;
     }
+
     __GALLERY_CACHE[key] = value;
     return true;
 }
@@ -30,8 +32,10 @@ function updateCacheValue(key, value) {
 /* 🎣 [§ Cache -> Getters functions] */
 function getCacheValue(key) {
     const value = __GALLERY_CACHE[key];
+
     if (value === undefined) {
         console.error(`No configured cache value found with this key: ${key}`)
     }
+
     return value;
 }

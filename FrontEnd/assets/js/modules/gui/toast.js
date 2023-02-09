@@ -15,23 +15,39 @@ function drawToast(id, msg, uniq = true) {
         setTimeout(() => toast.remove(), 2800);
     }
 
-    const rootNode = document.querySelector(getSelector("TOASTS_COMPONENT"));
-    const curToastsAmount = rootNode.getElementsByTagName('*').length;
-    if (document.querySelector(getSelector(id)) !== null && uniq) {
-        return null;
+    function generateToast() {
+        const toast = document.createElement('div');
+        const toastTxt = document.createTextNode(msg);
+    
+        toast.id = id;
+        toast.classList.add(getDynamicClass("PREVENT_SELECT"));
+        toast.classList.add(getDynamicClass("TOAST"));
+        toast.appendChild(toastTxt);
+    
+        createToastThread(toast, rootNode);
+        return toast;
     }
-    if (curToastsAmount >= getMiscConf("MAX_TOASTS")) {
-        return null;
-    }
-    const toast = document.createElement('div');
-    const toastTxt = document.createTextNode(msg);
-    toast.id = id;
-    toast.classList.add(getDynamicClass("PREVENT_SELECT"));
-    toast.classList.add(getDynamicClass("TOAST"));
-    toast.appendChild(toastTxt);
 
-    createToastThread(toast, rootNode);
-    return toast;
+    function process() {
+        const rootNode = document.querySelector(getSelector("TOASTS_COMPONENT"));
+
+        const curToastsAmount = rootNode.getElementsByTagName('*').length;
+        const maxToastAmountReached = curToastsAmount >= getMiscConf("MAX_TOASTS");
+
+        const toastAlreadyInstantiated = document.querySelector(getSelector(id)) !== null;
+        const alreadyInstantiatedUniqToast = toastAlreadyInstantiated && uniq;
+
+        const doNotAppendToast = maxToastAmountReached || alreadyInstantiatedUniqToast;
+
+        if (doNotAppendToast) {
+            return null;
+        }
+
+        const toast = generateToast();
+        return toast;
+    }
+
+    return process();
 }
 
 function drawErrorToast(id, uniq = true) {
@@ -56,12 +72,13 @@ function drawWarningToast(id, uniq = true) {
 
 function drawInfoToast(id, uniq = true) {
     const msg = getVocab(id) ?? null;
+
     if (msg === null) {
         console.error('Failed to create info toast: invalid id argument.');
         return;
     }
-    const toast = drawToast(id, msg, uniq);
 
+    const toast = drawToast(id, msg, uniq);
     if (toast !== null) {
         toast.classList.add(getDynamicClass("INFO_BOX"));
     }
@@ -70,11 +87,12 @@ function drawInfoToast(id, uniq = true) {
 
 function drawSuccessToast(id, uniq = true) {
     const msg = getVocab(id) ?? null;
+
     if (msg === null) {
         console.error('Failed to create success toast: invalid id argument.');
         return;
     }
-    const toast = drawToast(id, msg, uniq);
 
+    const toast = drawToast(id, msg, uniq);
     return toast;
 }

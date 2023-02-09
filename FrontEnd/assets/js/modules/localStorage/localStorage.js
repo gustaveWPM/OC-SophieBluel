@@ -22,6 +22,7 @@ function localStorageUserInfos(userInfos = null) {
 
 function getLocalStorageUserId() {
     const userInfos = localStorageUserInfos();
+
     if (userInfos !== null && userInfos.userId) {
         return userInfos.userId;
     }
@@ -30,6 +31,7 @@ function getLocalStorageUserId() {
 
 function getLocalStorageUserToken() {
     const userInfos = localStorageUserInfos();
+
     if (userInfos !== null && userInfos.token) {
         return userInfos.token;
     }
