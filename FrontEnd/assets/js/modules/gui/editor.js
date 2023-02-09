@@ -235,7 +235,7 @@ function updateModalGalleryContent() {
         return;
     }
 
-    const worksCollection = __GALLERY_CACHE.WORKS;
+    const worksCollection = getCacheValue("WORKS");
     hideModalGoBackButton();
     drawModalGalleryContent(worksCollection);
 }
