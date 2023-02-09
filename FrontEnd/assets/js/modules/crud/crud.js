@@ -61,7 +61,6 @@ async function createWork(image, title, category) {
 }
 
 /* [§ Delete -> work] */
-// {ToDo}
 async function deleteWorkById(id) {
     const worksRoute = getRoute("WORKS");
     const deleteWorkByIdRoute = `${worksRoute}/${id}`;

@@ -12,16 +12,28 @@ function disableEditor() {
     const editorElements = document.querySelectorAll(getSelector("EDITOR_ELEMENT"));
     const hiddenElements = document.querySelectorAll(getSelector("HIDE_WHEN_EDITOR_ENABLED"));
 
-    editorElements.forEach(element => element.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT")));
-    hiddenElements.forEach(element => element.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT")));
+    editorElements.forEach(element => {
+        element.setAttribute("aria-hidden", "true");
+        element.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
+    });
+    hiddenElements.forEach(element => {
+        element.removeAttribute("aria-hidden");
+        element.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
+    });
 }
 
 function enableEditor() {
     const editorElements = document.querySelectorAll(getSelector("EDITOR_ELEMENT"));
     const hiddenElements = document.querySelectorAll(getSelector("HIDE_WHEN_EDITOR_ENABLED"));
 
-    editorElements.forEach(element => element.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT")));
-    hiddenElements.forEach(element => element.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT")));
+    editorElements.forEach(element => {
+        element.removeAttribute("aria-hidden");
+        element.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
+    });
+    hiddenElements.forEach(element => {
+        element.setAttribute("aria-hidden", "true");
+        element.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
+    });
 }
 
 function setEditorVisibility(isLoggedIn) {
@@ -48,7 +60,8 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
                 deleteCacheWorkElementById(id);
                 updateModalGalleryContent();    
             } else {
-                drawErrorToast(getDynamicId("FAILED_TO_DELETE_TOAST", uniq = false));
+                drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
+//                drawErrorToast(getDynamicId("FAILED_TO_DELETE_TOAST", uniq = false));
             }
         } catch {
             drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq = false);
@@ -171,35 +184,58 @@ function setDefaultModalState() {
 }
 
 /* 👁️ [§ Modal -> Open/Close State] */
-function openModal(modalElement) {
+function openEditorModal(modalElement) {
     if (cacheIsEmpty()) {
         drawErrorToast(getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST"), uniq = false);
         return;
     }
-    modalElement.showModal(modalElement);
+
+    const editorModalElement = document.querySelector("#editor-component");
+    editorModalElement.removeAttribute("aria-hidden");
+    editorModalElement.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
     setDefaultModalState();
 }
 
-function closeModal(modalElement) {
-    modalElement.close(modalElement);
+function closeEditorModal(modalElement) {
+    const editorModalElement = document.querySelector("#editor-component");
+    editorModalElement.setAttribute("aria-hidden", "true");
+    editorModalElement.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
 }
 
 /* 📐 [§ Modal -> Events Generator] */
 function appendModalVisibilityEvents() {
-    const modalElement = document.querySelector('#editor');
+    const modalElement = document.querySelector('#editor-component');
     const openModalBtnElements = document.querySelectorAll('.open-editor');
     const closeModalBtnElements = document.querySelectorAll('.close-editor');
 
-    openModalBtnElements.forEach(element => element.addEventListener("click", () => openModal(modalElement)));
-    closeModalBtnElements.forEach(element => element.addEventListener("click", () => closeModal(modalElement)));
+    openModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
+        event.preventDefault();
+        openEditorModal(modalElement);
+    }));
+    closeModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
+        event.preventDefault();
+        closeEditorModal(modalElement);
+    }));
 }
 
 function generateModalEvents() {
     appendModalVisibilityEvents();
 }
 
+function hideModals() {
+    const modals = document.querySelectorAll('.modal');
+
+    if (modals === null) {
+        return;
+    }
+    modals.forEach(element => {
+        element.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"))
+    });
+}
+
 function setupModal() {
     generateModalEvents();
+    hideModals();
 }
 
 setupModal();
