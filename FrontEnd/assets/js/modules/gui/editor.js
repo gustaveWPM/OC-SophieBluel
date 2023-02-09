@@ -83,13 +83,20 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
     function generateGalleryElementButtons(firstElement = false, elementId) {
         const galleryElementButtonsWrapper = document.createElement('div');
         galleryElementButtonsWrapper.classList.add('gallery-element-btns');
-        const galleryElementMoveButtonItem = generateImg('Bouton déplacer', './assets/icons/button-move.svg');
-        const galleryElementDeleteButtonItem = generateImg('Bouton supprimer', './assets/icons/button-trash.svg');
+        const galleryElementMoveButtonItem = document.createElement('a');
+        galleryElementMoveButtonItem.href = "#";
+        const galleryElementMoveButtonImg = generateImg('Bouton déplacer', './assets/icons/button-move.svg');
 
+        const galleryElementDeleteButtonItem = document.createElement('a');
+        galleryElementDeleteButtonItem.href = "#";
+        const galleryElementDeleteButtonImg = generateImg('Bouton supprimer', './assets/icons/button-trash.svg');
+
+        galleryElementMoveButtonItem.append(galleryElementMoveButtonImg);
+        galleryElementDeleteButtonItem.append(galleryElementDeleteButtonImg);
         galleryElementMoveButtonItem.classList.add('gallery-move-btn');
         galleryElementDeleteButtonItem.classList.add('gallery-trash-btn');
 
-        generateGalleryElementDeleteBtnEvent(galleryElementDeleteButtonItem, elementId);
+        generateGalleryElementDeleteBtnEvent(galleryElementDeleteButtonImg, elementId);
         if (firstElement) {
             galleryElementButtonsWrapper.append(galleryElementMoveButtonItem);
         }

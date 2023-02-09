@@ -773,13 +773,18 @@ a:hover {
     flex-wrap: wrap;
 }
 
-.modal .gallery-element-btns img {
+.modal .gallery-element-btns a {
     background: var(--portfolio-editorbanner-bg-color);
-    border-radius: 2px;
-    height: auto;
-    width: 20px;
-    margin-right: 5px;
+    border-radius: 3px;
+    margin-right: 3px;
     margin-top: 5px;
+    height: 20px;
+    width: 20px;
+}
+
+.modal .gallery-element-btns img {
+    height: 100%;
+    width: 100%;
     object-fit: cover;
 }
 

@@ -193,7 +193,7 @@ function drawGalleryFigures(worksCollection, noFadeIn = false) {
     rootNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
     rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
     rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
-    const worksToDisplayAmount = worksCollection.length || worksCollection.size;
+    const worksToDisplayAmount = worksCollection.length ?? worksCollection.size;
     if (worksToDisplayAmount === 0) {
         drawNothingToShowBox(rootNode);
         return true;
