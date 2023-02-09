@@ -237,8 +237,12 @@ function openEditorModal(modalElement) {
     editorModalElement.removeAttribute("aria-hidden");
     editorModalElement.setAttribute("aria-modal", "true");
     editorModalElement.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
-    focusElement = modalElement.querySelector('button');
-    focusElement.focus();
+
+    const selector = getSelector("MODAL_FOCUSABLES");
+    const firstFocusableElement = [...modalElement.querySelectorAll(selector)].at(0);
+    if (firstFocusableElement) {
+        firstFocusableElement.focus();
+    }
     disableScroll();
     setDefaultModalState();
 }
