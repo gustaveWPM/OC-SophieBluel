@@ -80,6 +80,13 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         });
     }
 
+    function generateGalleryElementMoveBtnEvent(element, id) {
+        function behaviourPlaceholder(id) {
+            console.log(`{ToDo} Déplacement de l'élément ayant comme id ${id}. N'est pas dans le périmètre de l'itération concernée par le projet.`);
+        }
+        element.addEventListener("click", () => behaviourPlaceholder(id));
+    }
+
     function generateGalleryElementButtons(firstElement = false, elementId) {
         const galleryElementButtonsWrapper = document.createElement('div');
         galleryElementButtonsWrapper.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT_BTNS"));
@@ -96,8 +103,9 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         galleryElementMoveButtonItem.classList.add(getDynamicClass("MODAL_GALLERY_MOVE_BTN"));
         galleryElementDeleteButtonItem.classList.add(getDynamicClass("MODAL_GALLERY_TRASH_BTN"));
 
-        generateGalleryElementDeleteBtnEvent(galleryElementDeleteButtonImg, elementId);
+        generateGalleryElementDeleteBtnEvent(galleryElementDeleteButtonItem, elementId);
         if (firstElement) {
+            generateGalleryElementMoveBtnEvent(galleryElementMoveButtonItem, elementId);
             galleryElementButtonsWrapper.append(galleryElementMoveButtonItem);
         }
         galleryElementButtonsWrapper.append(galleryElementDeleteButtonItem);
@@ -116,7 +124,11 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
     }
 
     function generateGalleryElementEditBtnEvent(element, id) {
-        element.addEventListener("click", () => console.log(`{ToDo} Ouverture de l'éditeur pour l'élément ayant comme id ${id}. N'est pas dans le périmètre de l'itération concernée par le projet.`));
+        function behaviourPlaceholder(id) {
+            console.log(`{ToDo} Ouverture de l'éditeur pour l'élément ayant comme id ${id}. N'est pas dans le périmètre de l'itération concernée par le projet.`);
+        }
+
+        element.addEventListener("click", () => behaviourPlaceholder(id));
     }
 
     function generateGalleryElement(galleryElementImg, elementId, isFirst = false) {
@@ -268,7 +280,6 @@ function appendModalVisibilityEvents() {
         if (shiftkeyPressed) {
             const lastFocusableElement = [...modalElement.querySelectorAll(selector)].at(-1);
             focusElement = (lastFocusableElement) ? lastFocusableElement : null;
-            console.log(lastFocusableElement);
         } else {
             focusElement = modalElement.querySelector(selector);
         }
@@ -276,8 +287,11 @@ function appendModalVisibilityEvents() {
     }
 
     function generateDeleteTheWholeGalleryEvent() {
+        function behaviourPlaceholder() {
+            console.log(`{ToDo} Réinitialiser la galerie. N'est pas dans le périmètre de l'itération concernée par le projet.`);
+        }
         const deleteTheWholeGalleryBtn = document.querySelector(getSelector("MODAL_GALLERY_DELETE_ALL_BUTTON"));
-        deleteTheWholeGalleryBtn.addEventListener("click", () => console.log(`{ToDo} Réinitialiser la galerie. N'est pas dans le périmètre de l'itération concernée par le projet.`));
+        deleteTheWholeGalleryBtn.addEventListener("click", () => behaviourPlaceholder());
     }
 
     function generateOpenModalEvents() {
