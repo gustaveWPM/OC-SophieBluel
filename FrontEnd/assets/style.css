@@ -619,15 +619,6 @@ a:hover {
     color: var(--portfolio-editorbanner-confirm-changes-btn-font-color-hover);
 }
 
-.close-editor {
-    align-self: flex-start;
-}
-
-.close-editor:hover,
-.go-back-editor:hover {
-    cursor: pointer;
-}
-
 /* 👁️ [§ F. 2) Visibility default state] */
 .hidden-editor-element {
     visibility: hidden !important;
@@ -748,6 +739,7 @@ a:hover {
 
 .modal-dynamic-content-main {
     flex-basis: 100%;
+    width: 100%;
     align-self: flex-start;
 }
 

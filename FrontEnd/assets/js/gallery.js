@@ -260,7 +260,7 @@ async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1
         worksCollection = await fetchWorksCollection();
     }
     if (failedToGetFromApi(worksCollection) && worksCategoryId !== -1) {
-        if (cacheIsEmpty()) {
+        if (cacheIsNotInitialized()) {
             drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), uniq = false);
             return false;
         } else {

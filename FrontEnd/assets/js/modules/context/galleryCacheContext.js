@@ -11,7 +11,7 @@ const __GALLERY_CACHE = {
     "WORKS": null
 }
 
-function cacheIsEmpty() {
+function cacheIsNotInitialized() {
     return __GALLERY_CACHE.WORKS === null;
 }
 

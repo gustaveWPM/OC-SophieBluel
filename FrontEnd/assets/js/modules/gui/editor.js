@@ -43,7 +43,7 @@ function setEditorVisibility(isLoggedIn) {
 }
 
 /*** 🪟 Modal */
-/* 🎨 [§ Modal -> Drawers] */
+/* 🎨 [§ Modal -> State 1 Drawers] */
 function doDrawModalGalleryContent(rootNode, element, isFirst) {
     function generateImg(alt, url) {
         const img = document.createElement('img');
@@ -145,13 +145,28 @@ function drawModalGalleryContent(worksCollection) {
 }
 
 /* 🔄 [§ Modal -> Updates] */
+function hideModalGoBackButton() {
+    const goBackBtnElement = document.querySelector(".go-back-editor");
+    goBackBtnElement.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
+}
+
+function showModalGoBackButton() {
+    const goBackBtnElement = document.querySelector(".go-back-editor");
+    goBackBtnElement.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
+}
+
 function updateModalGalleryContent() {
-    if (cacheIsEmpty()) {
+    if (cacheIsNotInitialized()) {
         return;
     }
 
     const worksCollection = __GALLERY_CACHE.WORKS;
+    hideModalGoBackButton();
     drawModalGalleryContent(worksCollection);
+}
+
+function updateModalAddPictureContent() {
+    showModalGoBackButton();
 }
 
 function updateModal(stateId) {
@@ -160,6 +175,7 @@ function updateModal(stateId) {
             updateModalGalleryContent();
             break;
         case 2:
+            updateModalAddPictureContent();
             break;
     }
 }
@@ -190,7 +206,7 @@ function setDefaultModalState() {
 
 /* 👁️ [§ Modal -> Open/Close State] */
 function openEditorModal(modalElement) {
-    if (cacheIsEmpty()) {
+    if (cacheIsNotInitialized()) {
         drawErrorToast(getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST"), uniq = false);
         return;
     }
@@ -231,49 +247,77 @@ function appendModalVisibilityEvents() {
         }
         return focusElement;
     }
-    const bannerElement = document.querySelector('.editor-banner');
-    const modalElement = document.querySelector('#editor-component');
-    const openModalBtnElements = document.querySelectorAll('.open-editor');
-    const closeModalBtnElements = document.querySelectorAll('.close-editor');
 
-    openModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
-        event.preventDefault();
-        openEditorModal(modalElement);
-    }));
+    function generateDeleteTheWholeGalleryEvent() {
+        const deleteTheWholeGalleryBtn = document.querySelector(".modal-gallery-delete-all-button");
+        deleteTheWholeGalleryBtn.addEventListener("click", () => console.log(`{ToDo} Réinitialiser la galerie. N'est pas dans le périmètre de l'itération concernée par le projet.`));
+    }
 
-    closeModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
-        event.preventDefault();
-        closeEditorModal(modalElement);
-    }));
+    function generateOpenModalEvents() {
+        const openModalBtnElements = document.querySelectorAll('.open-editor');
 
-    bannerElement.addEventListener("transitionend", () => {
-        const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
-        if (outOfScopeElementCurrentlyFocused !== null) {
-            const focusElement = galleryConditionalFocus(shiftkeyPressed = false, modalElement);
-            if (focusElement !== null) {
-                focusElement.focus();
-            }
-        }
-    });
+        openModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
+            event.preventDefault();
+            openEditorModal(modalElement);
+        }));
+    }
 
-    window.addEventListener("keydown", (event) => {
-        if (event.key == "Escape" || event.key == "Esc") {
+    function generateCloseModalEvents() {
+        const closeModalBtnElements = document.querySelectorAll('.close-editor');
+
+        closeModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
+            event.preventDefault();
             closeEditorModal(modalElement);
-        } else {
-            modalElement.addEventListener("transitionend", () => {
-                const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
-                if (outOfScopeElementCurrentlyFocused !== null) {
-                    const focusElement = galleryConditionalFocus(event.shiftKey, modalElement);
-                    if (focusElement !== null) {
-                        focusElement.focus();
-                    }
-                }
-            });
-        }
-    });
+        }));
+    }
 
-    const deleteTheWholeGalleryBtn = document.querySelector(".modal-gallery-delete-all-button");
-    deleteTheWholeGalleryBtn.addEventListener("click", () => console.log(`{ToDo} Réinitialiser la galerie. N'est pas dans le périmètre de l'itération concernée par le projet.`));
+    function generateGoBackEvent() {
+        const goBackBtnElement = document.querySelector(".go-back-editor");
+        goBackBtnElement.addEventListener("click", () => {
+            modalSetState(1);
+        });
+    }
+
+    function generateEditorBannerFocusRescue(modalElement) {
+        const bannerElement = document.querySelector('.editor-banner');
+
+        bannerElement.addEventListener("transitionend", () => {
+            const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
+            if (outOfScopeElementCurrentlyFocused !== null) {
+                const focusElement = galleryConditionalFocus(shiftkeyPressed = false, modalElement);
+                if (focusElement !== null) {
+                    focusElement.focus();
+                }
+            }
+        });
+    }
+
+    function generateKeyboardEvents(modalElement) {
+        window.addEventListener("keydown", (event) => {
+            if (event.key == "Escape" || event.key == "Esc") {
+                closeEditorModal(modalElement);
+            } else {
+                modalElement.addEventListener("transitionend", () => {
+                    const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
+                    if (outOfScopeElementCurrentlyFocused !== null) {
+                        const focusElement = galleryConditionalFocus(event.shiftKey, modalElement);
+                        if (focusElement !== null) {
+                            focusElement.focus();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    const modalElement = document.querySelector('#editor-component');
+
+    generateEditorBannerFocusRescue(modalElement);
+    generateKeyboardEvents(modalElement);
+    generateOpenModalEvents();
+    generateCloseModalEvents();
+    generateDeleteTheWholeGalleryEvent();
+    generateGoBackEvent();
 }
 
 /*** ✨ [§ Side Effects] */
