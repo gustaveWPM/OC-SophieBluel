@@ -163,7 +163,7 @@ function doDrawGalleryFigures(node, element, noFadeIn = false) {
 function drawGalleryFigures(worksCollection, noFadeIn = false) {
     function drawRetryButton(rootNode) {
         const retryButton = document.createElement('button');
-        const retryButtonTxt = document.createTextNode(getVocab("RETRY_TO_LOAD_GALLERY_FIGURES"));
+        const retryButtonTxt = document.createTextNode(getVocab("RETRY_TO_LOAD_GALLERY"));
 
         retryButton.classList.add(getDynamicClass("BTN"));
         retryButton.appendChild(retryButtonTxt);
