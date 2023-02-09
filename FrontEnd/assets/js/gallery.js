@@ -153,10 +153,10 @@ function doDrawGalleryFigures(node, element, noFadeIn = false) {
     const img = generateImg(alt, url);
     const figure = generateFigure(img, title);
 
-    figure.classList.add(getDynamicClass("GALLERY_FIGURE"));
     if (noFadeIn) {
         figure.classList.add(getDynamicClass("FORCE_NO_ANIMATION"));
     }
+    figure.classList.add(getDynamicClass("GALLERY_FIGURE"));
     node.appendChild(figure);
 }
 
