@@ -329,6 +329,13 @@ function appendModalVisibilityEvents() {
         });
     }
 
+    function generateAddWorkButtonEvent() {
+        const addWorkButtonElement = document.querySelector(getSelector("MODAL_ADD_WORK_BUTTON"));
+        addWorkButtonElement.addEventListener("click", () => {
+            modalSetState(2);
+        });
+    }
+
     const modalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
 
     generateEditorBannerFocusRescue(modalElement);
@@ -337,6 +344,7 @@ function appendModalVisibilityEvents() {
     generateCloseModalEvents();
     generateDeleteTheWholeGalleryEvent();
     generateGoBackEvent();
+    generateAddWorkButtonEvent();
 }
 
 /*** ✨ [§ Side Effects] */

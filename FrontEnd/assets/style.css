@@ -709,6 +709,7 @@ a:hover {
     position: relative;
     overflow: auto;
     width: 43.75vw;
+    min-height: 74vh;
     max-height: calc(100vh - 95px);
     padding: 20px;
     background-color: #FFF;
