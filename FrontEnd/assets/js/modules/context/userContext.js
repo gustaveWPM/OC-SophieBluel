@@ -19,10 +19,10 @@ async function tokenValidator() {
     }
 
     async function isValidUserIdAndTokenPair() {
-        const unauthorizedCode = getMiscConf("UNAUTHORIZED_CODE");
+        const invalidStatusCode = [getMiscConf("UNAUTHORIZED_CODE"), getMiscConf("SERVICE_UNAVAILABLE_CODE")];
         const response = await createWork('', '', '');
 
-        return response.status !== unauthorizedCode;
+        return !invalidStatusCode.includes(response.status);
     }
 
     async function isValidToken(userInfos) {

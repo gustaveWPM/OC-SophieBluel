@@ -23,7 +23,7 @@ async function processLogin(payload) {
             headers: { "Content-Type": 'application/json' },
             body
         });
-        if (response?.ok) {
+        if (response.ok) {
             const responseBody = await response.json();
             const userInfos = JSON.stringify(responseBody);
             localStorageUserInfos(userInfos);

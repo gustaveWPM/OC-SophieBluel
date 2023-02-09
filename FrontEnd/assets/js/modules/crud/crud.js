@@ -35,7 +35,7 @@ async function getCategoriesFromDatabase() {
 async function processCreateWork(payload) {
     const body = JSON.stringify(payload);
     const worksRoute = getRoute("WORKS");
-    const offlineReturnValue = {"status": getMiscConf("UNAUTHORIZED_CODE")};
+    const offlineReturnValue = {"status": getMiscConf("SERVICE_UNAVAILABLE_CODE")};
     const token = getLocalStorageUserToken();
 
     try {
@@ -64,7 +64,7 @@ async function createWork(image, title, category) {
 async function deleteWorkById(id) {
     const worksRoute = getRoute("WORKS");
     const deleteWorkByIdRoute = `${worksRoute}/${id}`;
-    const offlineReturnValue = {"status": getMiscConf("UNAUTHORIZED_CODE")};
+    const offlineReturnValue = {"status": getMiscConf("SERVICE_UNAVAILABLE_CODE")};
     const token = getLocalStorageUserToken();
 
     try {

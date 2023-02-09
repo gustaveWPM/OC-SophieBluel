@@ -185,7 +185,7 @@ ul {
     animation: galleryFadeIn calc(.4s * var(--nth-child)) ease-in;
 }
 
-body > *:not(header, .modal) {
+body > *:not(header, .modal-wrapper) {
     animation: galleryFadeIn .7s ease-in-out;
 }
 
@@ -699,31 +699,223 @@ a:hover {
 }
 
 /*** H. Modal box */
-.modal {
+.modal-wrapper {
+    --_padding: 20px;
+
     position: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
-    top: 0;
+    top: var(--portfolio-editorbanner-min-height);
     left: 0;
     width: 100%;
-    height: 100%;
+    height: calc(100vh - var(--portfolio-editorbanner-min-height));
     background: rgba(0, 0, 0, .8);
 }
 
-/* Focus trap */
-.modal[aria-modal="true"]:not(:focus-within) {
-    background: rgba(0, 0, 1, .8);
+.modal {
+    position: relative;
+    overflow: auto;
+    width: 43.75vw;
+    max-height: calc(100vh - 95px);
+    padding: 20px;
+    background-color: #FFF;
+    border-radius: 10px;
+}
+
+.modal h1 {
+    font-size: 1.85em;
+    color: inherit;
+    font-family: var(--portfolio-body-font);
+    font-weight: var(--portfolio-fw-regular);
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.modal hr {
+    width: 100%;
+    margin-top: 50px;
+    opacity: .4;
+}
+
+.modal-dynamic-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.modal-dynamic-content-main {
+    flex-basis: 100%;
+    align-self: flex-start;
+}
+
+.modal .modal-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-column-gap: .9rem;
+    grid-row-gap: 20px;
+}
+
+.modal .modal-gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.modal .gallery-element {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 5vw;
+    min-height: 100px;
+}
+
+.modal .gallery-element-btns {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    align-self: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+}
+
+.modal .gallery-element-btns img {
+    background: var(--portfolio-editorbanner-bg-color);
+    border-radius: 2px;
+    height: auto;
+    width: 20px;
+    margin-right: 5px;
+    margin-top: 5px;
+    object-fit: cover;
+}
+
+.modal .gallery-element-img {
+    margin-bottom: 2px;
+}
+
+.modal-bottom {
+    width: 100%;
+}
+
+.gallery-trash-btn {
+    padding: 4px;
+}
+
+.gallery-move-btn {
+    padding: 2px;
+}
+
+.gallery-trash-btn:hover {
+    cursor: pointer;
+}
+
+.gallery-move-btn:hover {
+    cursor: pointer;
+}
+
+.modal-head {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.modal .editor-close-btn {
+    position: absolute;
+    align-self: flex-end;
+    right: 10px;
+    bottom: 10px;
+}
+
+.modal .modal-gallery-delete-all-button {
+    text-align: center;
+}
+
+.modal .modal-bottom button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 237px;
+    margin: 2.4em auto;
+    margin-bottom: 1.5em;
+}
+
+.modal .modal-bottom div {
+    margin: auto;
+    margin-bottom: 20px;
+}
+
+.modal .modal-gallery a {
+    text-decoration: none;
+    color: inherit;
+    margin-top: 3px;
+    font-size: .9em;
+}
+
+.modal .modal-gallery a:hover {
+    font-weight: var(--portfolio-navbar-item-hover-fw);
+}
+
+.modal .modal-bottom a {
+    text-decoration: none;
+    color: var(--portfolio-modal-delete-button-font-color);
+}
+
+.send-img {
+    display: flex;
+    align-self: stretch;
+    align-items: inherit;
+    margin: auto;
+}
+
+.modal .add-photo-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: #E8F1F6;
+    padding-bottom: 20px;
+}
+
+.modal .add-photo-box p {
+    margin-top: 5px;
+    font-size: .7em;
+}
+
+.modal .add-photo-box button {
+    padding: .7em 2.5em;
+    border: 0;
+    border-radius: 50px;
+    background-color: #CBD6DC;
+    color: #306685;
+}
+
+.modal .picture-placeholder {
+    object-fit: cover;
+    margin: 2em 0;
+    margin-bottom: 1em;
+}
+
+.modal .modal-content {
+    width: 76%;
+    height: calc(100% - 50px);
+    margin: 0 auto;
+}
+
+/* Focus trap (hack in the matrix) */
+.editor-banner:not(:focus-within) {
+    background: rgb(0, 0, 1);
     transition: background 0.01s;
 }
 
-.modal-wrapper {
-    overflow: auto;
-    width: 600px;
-    max-width: calc(100vw - 100px);
-    max-height: calc(100vh - 100px);
-    padding: 20px;
-    background-color: #FFF;
+/* Focus trap (hack in the matrix) */
+.modal-wrapper[aria-modal="true"]:not(:focus-within) {
+    background: rgba(0, 0, 1, .8);
+    transition: background 0.01s;
 }
 
 /*** I. Javascript patches, do NOT use it in your HTML */

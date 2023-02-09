@@ -8,7 +8,7 @@
 
 let __MEMO_FOCUS = null;
 
-/*** Editor */
+/*** 🖋️ [§ Editor] */
 /* 👁️ [§ Editor -> Visibility] */
 function disableEditor() {
     const editorElements = document.querySelectorAll(getSelector("EDITOR_ELEMENT"));
@@ -42,7 +42,7 @@ function setEditorVisibility(isLoggedIn) {
     isLoggedIn ? enableEditor() : disableEditor();
 }
 
-/*** Modal */
+/*** 🪟 Modal */
 /* 🎨 [§ Modal -> Drawers] */
 function doDrawModalGalleryContent(rootNode, element, isFirst) {
     function generateImg(alt, url) {
@@ -58,12 +58,15 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         try {
             const response = await deleteWorkById(id);
 
-            if (response?.ok) {
+            if (response.ok) {
                 deleteCacheWorkElementById(id);
-                updateModalGalleryContent();    
+                updateModalGalleryContent();
+                drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = false);
+                // ToDo: finish this (lol)
             } else {
-                drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
-//                drawErrorToast(getDynamicId("FAILED_TO_DELETE_TOAST", uniq = false));
+                response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
+                    drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq = false) :
+                    drawErrorToast(getDynamicId("FAILED_TO_DELETE_TOAST", uniq = false));
             }
         } catch {
             drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq = false);
@@ -197,8 +200,9 @@ function openEditorModal(modalElement) {
     editorModalElement.removeAttribute("aria-hidden");
     editorModalElement.setAttribute("aria-modal", "true");
     editorModalElement.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
-    focusElement = modalElement.querySelector('a');
+    focusElement = modalElement.querySelector('button');
     focusElement.focus();
+    disableScroll();
     setDefaultModalState();
 }
 
@@ -207,6 +211,7 @@ function closeEditorModal(modalElement) {
     editorModalElement.setAttribute("aria-hidden", "true");
     editorModalElement.removeAttribute("aria-modal");
     editorModalElement.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
+    enableScroll();
 
     if (__MEMO_FOCUS !== null) {
         __MEMO_FOCUS.focus();
@@ -216,6 +221,17 @@ function closeEditorModal(modalElement) {
 
 /* 📐 [§ Modal -> Events Generator] */
 function appendModalVisibilityEvents() {
+    function galleryConditionalFocus(condition, modalElement) {
+        let focusElement = null;
+        if (condition) {
+            const lastFocusableElement = [...modalElement.querySelectorAll('a')].at(-1);
+            focusElement = (lastFocusableElement) ? lastFocusableElement : null;
+        } else {
+            focusElement = modalElement.querySelector('a');
+        }
+        return focusElement;
+    }
+    const bannerElement = document.querySelector('.editor-banner');
     const modalElement = document.querySelector('#editor-component');
     const openModalBtnElements = document.querySelectorAll('.open-editor');
     const closeModalBtnElements = document.querySelectorAll('.close-editor');
@@ -224,37 +240,59 @@ function appendModalVisibilityEvents() {
         event.preventDefault();
         openEditorModal(modalElement);
     }));
+
     closeModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
         event.preventDefault();
         closeEditorModal(modalElement);
     }));
 
-    window.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" || event.key === "Esc") {
-            closeEditorModal(modalElement);
-        }
-
-        modalElement.addEventListener('transitionend', () => {
-            let focusElement = null;
-            if (event.shiftKey) {
-                const lastFocusableElement = [...modalElement.querySelectorAll('a')].at(-1);
-                focusElement = (lastFocusableElement) ? lastFocusableElement : null;
-            } else {
-                focusElement = modalElement.querySelector('a');
-            }
+    bannerElement.addEventListener("transitionend", () => {
+        const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
+        if (outOfScopeElementCurrentlyFocused !== null) {
+            const focusElement = galleryConditionalFocus(false, modalElement);
             if (focusElement !== null) {
                 focusElement.focus();
             }
+        }
+    });
+
+    window.addEventListener("keydown", (event) => {
+        modalElement.addEventListener("transitionend", () => {
+            const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
+            if (outOfScopeElementCurrentlyFocused !== null) {
+                const focusElement = galleryConditionalFocus(event.shiftKey, modalElement);
+                if (focusElement !== null) {
+                    focusElement.focus();
+                }
+            }
         });
     });
+
+    const deleteTheWholeGalleryBtn = document.querySelector(".modal-gallery-delete-all-button");
+    deleteTheWholeGalleryBtn.addEventListener("click", () => console.log(`{ToDo} Réinitialiser la galerie. N'est pas dans le périmètre de l'itération concernée par le projet.`));
 }
 
+/*** ✨ [§ Side Effects] */
+function disableScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+
+    window.onscroll = () => window.scrollTo(scrollLeft, scrollTop);
+    document.documentElement.style.overflow = 'hidden';
+}
+
+function enableScroll() {
+    window.onscroll = () => {};
+    document.documentElement.style.overflow = 'auto';
+}
+
+/*** 🚀 Run */
 function generateModalEvents() {
     appendModalVisibilityEvents();
 }
 
 function hideModals() {
-    const modals = document.querySelectorAll('.modal');
+    const modals = document.querySelectorAll('.modal-wrapper');
 
     if (modals === null) {
         return;
