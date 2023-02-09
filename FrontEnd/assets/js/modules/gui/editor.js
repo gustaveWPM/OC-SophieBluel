@@ -221,9 +221,9 @@ function closeEditorModal(modalElement) {
 
 /* 📐 [§ Modal -> Events Generator] */
 function appendModalVisibilityEvents() {
-    function galleryConditionalFocus(condition, modalElement) {
+    function galleryConditionalFocus(shiftkeyPressed, modalElement) {
         let focusElement = null;
-        if (condition) {
+        if (shiftkeyPressed) {
             const lastFocusableElement = [...modalElement.querySelectorAll('a')].at(-1);
             focusElement = (lastFocusableElement) ? lastFocusableElement : null;
         } else {
@@ -249,7 +249,7 @@ function appendModalVisibilityEvents() {
     bannerElement.addEventListener("transitionend", () => {
         const outOfScopeElementCurrentlyFocused = document.querySelector(':focus');
         if (outOfScopeElementCurrentlyFocused !== null) {
-            const focusElement = galleryConditionalFocus(false, modalElement);
+            const focusElement = galleryConditionalFocus(shiftkeyPressed = false, modalElement);
             if (focusElement !== null) {
                 focusElement.focus();
             }
