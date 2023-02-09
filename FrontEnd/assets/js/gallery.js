@@ -31,27 +31,10 @@ function cacheWorks(worksCollection) {
     updateCacheValue("WORKS", worksCollectionConvertedToCacheData);
 }
 
-/*** 🔨 [§ Collection from API] */
-/* [§ Builder] */
-async function collectionFromApiBuilder(req) {
-    async function request() {
-        try {
-            const response = await fetch(req);
-            const collection = await response.json();
-            return collection;
-        } catch {
-            return false;
-        }
-    }
-
-    const collection = await request();
-    return collection;
-}
-
 /* [§ Fetch Data] */
 async function fetchWorksCollection() {
     const worksRoute = getRoute("WORKS");
-    const worksCollection = await collectionFromApiBuilder(worksRoute);
+    const worksCollection = await getCollectionFromDatabase(worksRoute);
 
     cacheWorks(worksCollection);
     return worksCollection;
@@ -59,7 +42,7 @@ async function fetchWorksCollection() {
 
 async function fetchCategoriesCollection() {
     const categoriesRoute = getRoute("CATEGORIES");
-    const categoriesCollection = await collectionFromApiBuilder(categoriesRoute);
+    const categoriesCollection = await getCollectionFromDatabase(categoriesRoute);
 
     if (failedToGetFromApi(categoriesCollection)) {
         return false;

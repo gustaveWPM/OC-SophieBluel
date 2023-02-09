@@ -704,6 +704,8 @@ a:hover {
 
 /*** H. Modal box */
 .dialog {
+    --_padding: 20px;
+    --_delta: calc(var(--portfolio-editorbanner-min-height) + var(--_padding));
     position: fixed;
     margin: auto;
     top: var(--portfolio-editorbanner-min-height);
@@ -712,15 +714,15 @@ a:hover {
     padding: 1em;
     border: 0;
     border-radius: 10px;
-    height: calc(100vh - 100px);
+    height: calc(100vh - var(--_delta));
     overflow: auto;
+    padding: --_padding;
 }
 
 .modal {
     position: relative;
     width: 43.75vw;
     height: 100%;
-    padding: 20px;
 }
 
 .modal h1 {

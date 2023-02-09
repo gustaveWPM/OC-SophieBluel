@@ -100,6 +100,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
 function drawModalGalleryContent(worksCollection) {
     const rootNode = document.querySelector(".modal-gallery");
     let firstIteration = true;
+    rootNode.innerHTML = '';
 
     worksCollection.forEach(element => {
         doDrawModalGalleryContent(rootNode, element, firstIteration);
