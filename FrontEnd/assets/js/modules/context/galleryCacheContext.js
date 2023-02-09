@@ -7,6 +7,7 @@
 */
 
 /*** 📝 [§ Cache] */
+/* 📋 [§ Cache -> Context] */
 const __GALLERY_CACHE = {
     "WORKS": null
 }
@@ -15,6 +16,7 @@ function cacheIsNotInitialized() {
     return __GALLERY_CACHE.WORKS === null;
 }
 
+/* 🔄 [§ Cache -> Update functions] */
 function updateCacheValue(key, value) {
     const currentValue = __GALLERY_CACHE[key];
     if (currentValue === undefined) {
@@ -25,6 +27,7 @@ function updateCacheValue(key, value) {
     return true;
 }
 
+/* 🎣 [§ Cache -> Getters functions] */
 function getCacheValue(key) {
     const value = __GALLERY_CACHE[key];
     if (value === undefined) {
