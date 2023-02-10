@@ -302,7 +302,8 @@ function openEditorModal(modalElement) {
 
     function forceFocus() {
         const selector = getSelector("MODAL_FOCUSABLES");
-        const firstFocusableElement = [...modalElement.querySelectorAll(selector)].at(0);
+        const firstFocusableElement = modalElement.querySelector(selector);
+
         if (firstFocusableElement) {
             firstFocusableElement.focus();
         }    
@@ -324,7 +325,7 @@ function openEditorModal(modalElement) {
     process();
 }
 
-function closeEditorModal(modalElement) {
+function closeEditorModal() {
     const editorModalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
     editorModalElement.setAttribute("aria-hidden", "true");
     editorModalElement.removeAttribute("aria-modal");
@@ -351,6 +352,22 @@ function appendModalVisibilityEvents() {
         return focusElement;
     }
 
+    function generateCloseModalOnClick() {
+        function stopCloseModalOnClickPropagation(event) {
+            event.stopPropagation();
+        }
+
+        const modalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
+        const modalWindowElements = document.querySelectorAll(getSelector("MODAL"));
+
+        modalElement.addEventListener("click", () => {
+            closeEditorModal()
+        });
+        modalWindowElements.forEach(
+            element => element.addEventListener("click", (event) => stopCloseModalOnClickPropagation(event))
+        );
+    }
+
     function generateDeleteTheWholeGalleryEvent() {
         function behaviourPlaceholder() {
             console.log(`{ToDo} Réinitialiser la galerie. N'est pas dans le périmètre de l'itération concernée par le projet.`);
@@ -373,7 +390,7 @@ function appendModalVisibilityEvents() {
 
         closeModalBtnElements.forEach(element => element.addEventListener("click", (event) => {
             event.preventDefault();
-            closeEditorModal(modalElement);
+            closeEditorModal();
         }));
     }
 
@@ -401,7 +418,7 @@ function appendModalVisibilityEvents() {
     function generateKeyboardEvents(modalElement) {
         window.addEventListener("keydown", (event) => {
             if (event.key == "Escape" || event.key == "Esc") {
-                closeEditorModal(modalElement);
+                closeEditorModal();
             } else {
                 modalElement.addEventListener("transitionend", () => {
                     const outOfScopeElementCurrentlyFocused = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
@@ -433,6 +450,7 @@ function appendModalVisibilityEvents() {
         generateDeleteTheWholeGalleryEvent();
         generateGoBackEvent();
         generateAddWorkButtonEvent();
+        generateCloseModalOnClick();
     }
 
     process();
