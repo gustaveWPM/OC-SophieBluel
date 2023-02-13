@@ -950,15 +950,16 @@ a:hover {
     font-size: .7em;
 }
 
-.modal .add-photo-box .add-file-input {
+.modal .add-file-input {
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
+    z-index: 2;
 }
 
-.modal .add-photo-box .add-file-input:hover {
+.modal .add-file-input:hover {
     cursor: pointer;
 }
 
@@ -967,6 +968,21 @@ a:hover {
     margin: 0;
     margin-top: 1.5em;
     margin-bottom: 1em;
+}
+
+.modal .injected-picture {
+    position: absolute;
+    top: 0;
+    left: auto;
+    right: auto;
+    width: 30%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.modal .injected-picture:not(.is-active) {
+    display: none;
 }
 
 .modal .modal-content {

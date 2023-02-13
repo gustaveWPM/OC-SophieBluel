@@ -92,9 +92,9 @@ function getMiscConf(key) {
 let __GLOBALS = {
     "DYN_CLASSES": {
         "GALLERY_FIGURE": 'gallery-figure',
-        "FILTERS_BUTTONS_COMPONENT_IS_ACTIVE": 'is-active',
         "FILTERS_BUTTONS_COMPONENT_BY_DEFAULT": 'by-default',
         "FAILED_TO_FETCH": 'failed-to-fetch',
+        "IS_ACTIVE_STATE": 'is-active',
         "TOAST": 'is-toast',
         "SHOW_TOAST": 'show',
         "BOX": 'is-box',
@@ -127,7 +127,6 @@ let __GLOBALS = {
         "FORCE_FLEX_COLUMN": 'js-monkey-patch-flex-column',
         "FORCE_DISPLAY_FLEX": 'js-monkey-patch-display-flex',
         "FORCE_DISPLAY_NONE": 'js-monkey-patch-display-none',
-        "FILTERS_BUTTONS_CATEGORY_PREFIX": 'category-',
         "MODAL_STATE_PREFIX": 'modal-state-'
     },
 
@@ -240,7 +239,8 @@ __GLOBALS["CACHE_KEYS"] = {
 __GLOBALS["MISC"] = {
     "MAX_TOASTS": 5,
     "UNAUTHORIZED_CODE": 401,
-    "SERVICE_UNAVAILABLE_CODE": 503
+    "SERVICE_UNAVAILABLE_CODE": 503,
+    "SELECT_CATEGORY_ID_PREFIX": 'category-',
 }
 
 Object.freeze(__GLOBALS);

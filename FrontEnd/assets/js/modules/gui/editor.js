@@ -6,7 +6,18 @@
 #=================================================
 */
 
-let __MEMO_FOCUS = null;
+/*** 📝 [§ Cache] */
+function setEditorCachedValues() {
+    setCacheValue("GALLERY_EDITOR_MODAL_MEMO_FOCUS", null);
+}
+
+function cacheMemoFocus(value) {
+    updateCacheValue("GALLERY_EDITOR_MODAL_MEMO_FOCUS", value);    
+}
+
+function getMemoFocusCachedValue() {
+    return getCacheValue("GALLERY_EDITOR_MODAL_MEMO_FOCUS");
+}
 
 /*** 🖋️ [§ Editor] */
 /* 👁️ [§ Editor -> Visibility] */
@@ -171,8 +182,9 @@ function doDrawModalGalleryContent(rootNode, element) {
 
     function generateGalleryElementMoveButtonVisibilityEvent(element) {
         const moveBtn = element.querySelector(getSelector("MODAL_GALLERY_MOVE_BTN"));
-        element.addEventListener("mouseover", () => moveBtn.classList.add("is-active"));
-        element.addEventListener("mouseout", () => moveBtn.classList.remove("is-active"));
+        const isActiveStateClass = getDynamicClass("IS_ACTIVE_STATE");
+        element.addEventListener("mouseover", () => moveBtn.classList.add(isActiveStateClass));
+        element.addEventListener("mouseout", () => moveBtn.classList.remove(isActiveStateClass));
     }
 
     function process() {
@@ -225,21 +237,9 @@ function sendNewWorkForm(payload) {
     let formData = new FormData();
     console.log(payload);
 
+    // {ToDo} Faire marcher ce truc
 //    formData.append("", "");
 //    formData.append("", "");
-}
-
-function generateSubmitButtonEvent() {
-    const submitButton = document.querySelector(getSelector("SEND_IMG_FORM"));
-
-    submitButton.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const workTitle = event.target.querySelector("[name=title]").value;
-        const category = event.target.querySelector(".select").value;
-
-        const payload = {workTitle, category};
-        sendNewWorkForm(payload);
-    });
 }
 
 /* 🔄 [§ Modal -> Updates] */
@@ -264,6 +264,21 @@ function updateModalGalleryContent() {
 }
 
 function updateModalAddPictureContent() {
+    function resetModalAddPictureContent() {
+        const rootNode = document.querySelector(getSelector("EDITOR_COMPONENT"));
+        const injectedPicture = rootNode.querySelector(".injected-picture");
+        const addFileBtn = rootNode.querySelector(".add-file-btn");
+        const isActiveClass = getDynamicClass("IS_ACTIVE_STATE");
+
+        injectedPicture.src = "";
+        injectedPicture.alt = "";
+        injectedPicture.classList.remove(isActiveClass);
+        addFileBtn.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
+
+        rootNode.querySelector('.send-img.form').reset();
+    }
+
+    resetModalAddPictureContent();
     showModalGoBackButton();
 }
 
@@ -337,7 +352,8 @@ function openEditorModal(modalElement) {
             return;
         }
 
-        __MEMO_FOCUS = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
+        const currentFocusedElement = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
+        cacheMemoFocus(currentFocusedElement);
         updateAttributes();
 
         forceFocus();
@@ -350,14 +366,16 @@ function openEditorModal(modalElement) {
 
 function closeEditorModal() {
     const editorModalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
+    const memoFocus = getMemoFocusCachedValue();
+
     editorModalElement.setAttribute("aria-hidden", "true");
     editorModalElement.removeAttribute("aria-modal");
     editorModalElement.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
     enableScroll();
 
-    if (__MEMO_FOCUS !== null) {
-        __MEMO_FOCUS.focus();
-        __MEMO_FOCUS = null;
+    if (memoFocus !== null) {
+        memoFocus.focus();
+        cacheMemoFocus(null);
     }
 }
 
@@ -463,6 +481,39 @@ function appendModalVisibilityEvents() {
         });
     }
 
+    function generateSubmitButtonEvent() {
+        const submitButton = document.querySelector(getSelector("SEND_IMG_FORM"));
+    
+        submitButton.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const workFile = event.target.querySelector("[name=add-file-input]").files[0];
+            const workTitle = event.target.querySelector("[name=title]").value;
+            const workCategory = event.target.querySelector(".select").value;
+            const workCategoryIdValueIndex = getMiscConf("SELECT_CATEGORY_ID_PREFIX").length; 
+            const workCategoryId = workCategory.substring(workCategoryIdValueIndex);
+
+            const payload = {workFile, workTitle, workCategoryId};
+            sendNewWorkForm(payload);
+        });
+    }
+
+    function generateAddFileInputChangeEvent() {
+        const rootNode = document.querySelector(getSelector("EDITOR_COMPONENT"));
+        const addFileInput = rootNode.querySelector(".add-file-input"); // {ToDo} Push this into the Config module
+
+        addFileInput.addEventListener("change", () => {
+            const file = addFileInput.files[0];
+            const injectedPicture = rootNode.querySelector(".injected-picture");
+            const addFileBtn = rootNode.querySelector(".add-file-btn");
+            const isActiveClass = getDynamicClass("IS_ACTIVE_STATE");
+
+            injectedPicture.src = URL.createObjectURL(file);
+            injectedPicture.alt = file.name;
+            injectedPicture.classList.add(isActiveClass);
+            addFileBtn.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
+        });          
+    }
+
     function process() {
         const modalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
 
@@ -475,6 +526,7 @@ function appendModalVisibilityEvents() {
         generateAddWorkButtonEvent();
         generateCloseModalOnClick();
         generateSubmitButtonEvent();
+        generateAddFileInputChangeEvent();
     }
 
     process();
@@ -511,6 +563,7 @@ function hideModals() {
 }
 
 function setupModal() {
+    setEditorCachedValues();
     generateModalEvents();
     hideModals();
 }

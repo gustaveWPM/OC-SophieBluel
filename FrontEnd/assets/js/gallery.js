@@ -90,7 +90,7 @@ function galleryFiltersButtonsGetter() {
 }
 
 function activeBtnGetter() {
-    const activeBtnSelector = `${getSelector("FILTERS_BUTTONS_COMPONENT")}.${getDynamicClass("FILTERS_BUTTONS_COMPONENT_IS_ACTIVE")}`;
+    const activeBtnSelector = `${getSelector("FILTERS_BUTTONS_COMPONENT")}.${getDynamicClass("IS_ACTIVE_STATE")}`;
 
     return document.querySelector(activeBtnSelector);
 }
@@ -272,7 +272,10 @@ function drawGalleryFilters(categoriesCollection) {
             "id": 0,
             "name": 'Tous'
         }, {
-            classList: ['by-default', 'is-active']
+            classList: [
+                getDynamicClass("FILTERS_BUTTONS_COMPONENT_BY_DEFAULT"),
+                getDynamicClass("IS_ACTIVE_STATE")
+            ]
         });
     }
 
@@ -294,7 +297,7 @@ function drawGalleryFilters(categoriesCollection) {
 /*** 🔄 [§ Update] */
 /* [§ Update -> Active Filter Button] */
 function updateActiveFilterBtn(element) {
-    const activeClass = getDynamicClass("FILTERS_BUTTONS_COMPONENT_IS_ACTIVE");
+    const activeClass = getDynamicClass("IS_ACTIVE_STATE");
     const skipUpdate = element.classList.contains(activeClass);
 
     if (skipUpdate) {
