@@ -838,11 +838,10 @@ a:hover {
 
 .modal-gallery-move-btn {
     padding: 2px;
-    opacity: 0;
 }
 
-.modal-gallery-move-btn.is-active {
-    opacity: 1;
+.modal-gallery-move-btn:not(.is-active) {
+    display: none;
 }
 
 .modal-head {
@@ -953,8 +952,9 @@ a:hover {
 
 .modal .add-photo-box .add-file-input {
     position: absolute;
+    top: 0;
     width: 100%;
-    height: calc(100% + var(--_padding-bottom));
+    height: 100%;
     opacity: 0;
 }
 
