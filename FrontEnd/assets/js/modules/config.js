@@ -187,6 +187,7 @@ __GLOBALS["SELECTORS"] = {
     "EDITOR_ELEMENT": `.${getDynamicClass("EDITOR_ELEMENT")}`,
     "MODAL": `.${getDynamicClass("MODAL")}`,
     "MODAL_WRAPPER": `.${getDynamicClass("MODAL_WRAPPER")}`,
+    "MODAL_GALLERY_MOVE_BTN": `.${getDynamicClass("MODAL_GALLERY_MOVE_BTN")}`,
     "MODAL_ADD_WORK_BUTTON": `.${getDynamicClass("MODAL_ADD_WORK_BUTTON")}`,
     "MODAL_GO_BACK_EDITOR": `.${getDynamicClass("MODAL_GO_BACK_EDITOR")}`,
     "MODAL_GALLERY": `.${getDynamicClass("MODAL_GALLERY")}`,

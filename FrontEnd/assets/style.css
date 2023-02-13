@@ -838,6 +838,11 @@ a:hover {
 
 .modal-gallery-move-btn {
     padding: 2px;
+    opacity: 0;
+}
+
+.modal-gallery-move-btn.is-active {
+    opacity: 1;
 }
 
 .modal-head {

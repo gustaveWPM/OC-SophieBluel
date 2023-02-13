@@ -46,7 +46,7 @@ function setEditorVisibility(isLoggedIn) {
 
 /*** 🪟 Modal */
 /* 🎨 [§ Modal -> State 1 Drawers] */
-function doDrawModalGalleryContent(rootNode, element, isFirst) {
+function doDrawModalGalleryContent(rootNode, element) {
     function generateImg(alt, url) {
         const img = document.createElement('img');
 
@@ -91,7 +91,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         element.addEventListener("click", () => behaviourPlaceholder(id));
     }
 
-    function generateGalleryElementButtons(isFirstElement = false, elementId) {
+    function generateGalleryElementButtons(elementId) {
         function generateGalleryMoveButton() {
             const galleryElementMoveButtonItem = document.createElement('a');
             const galleryElementMoveButtonImg = generateImg('Bouton déplacer', './assets/icons/button-move.svg');
@@ -114,11 +114,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
             return galleryElementDeleteButtonItem;
         }
 
-        function appendMoveButton(isFirstElement, galleryElementButtonsWrapper, galleryElementMoveButtonItem, elementId) {
-            if (!isFirstElement) {
-                return;
-            }
-
+        function appendMoveButton(galleryElementButtonsWrapper, galleryElementMoveButtonItem, elementId) {
             generateGalleryElementMoveBtnEvent(galleryElementMoveButtonItem, elementId);
             galleryElementButtonsWrapper.append(galleryElementMoveButtonItem);
         }
@@ -131,7 +127,7 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
             galleryElementButtonsWrapper.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT_BTNS"));
 
             generateGalleryElementDeleteBtnEvent(galleryElementDeleteButtonItem, elementId);
-            appendMoveButton(isFirstElement, galleryElementButtonsWrapper, galleryElementMoveButtonItem, elementId);
+            appendMoveButton(galleryElementButtonsWrapper, galleryElementMoveButtonItem, elementId);
             galleryElementButtonsWrapper.append(galleryElementDeleteButtonItem);
 
             return galleryElementButtonsWrapper;
@@ -160,9 +156,9 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         element.addEventListener("click", () => behaviourPlaceholder(id));
     }
 
-    function generateGalleryElement(galleryElementImg, elementId, isFirst = false) {
+    function generateGalleryElement(galleryElementImg, elementId) {
         const galleryElementWrapper = document.createElement('div');
-        const galleryElementButtons = generateGalleryElementButtons(isFirst, elementId);
+        const galleryElementButtons = generateGalleryElementButtons(elementId);
         const galleryElementEditBtn = generateGalleryElementEditBtn();
 
         generateGalleryElementEditBtnEvent(galleryElementEditBtn, elementId);
@@ -173,13 +169,24 @@ function doDrawModalGalleryContent(rootNode, element, isFirst) {
         return galleryElementWrapper;
     }
 
-    const [title, imgUrl, elementId] = [element.title, element.imageUrl, element.id];
-    const alt = title;
-    const img = generateImg(alt, imgUrl);
-    const galleryElement = generateGalleryElement(img, elementId, isFirst);
+    function generateGalleryElementMoveButtonVisibilityEvent(element) {
+        const moveBtn = element.querySelector(getSelector("MODAL_GALLERY_MOVE_BTN"));
+        element.addEventListener("mouseover", () => moveBtn.classList.add("is-active"));
+        element.addEventListener("mouseout", () => moveBtn.classList.remove("is-active"));
+    }
 
-    galleryElement.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT"));
-    rootNode.appendChild(galleryElement);
+    function process() {
+        const [title, imgUrl, elementId] = [element.title, element.imageUrl, element.id];
+        const alt = title;
+        const img = generateImg(alt, imgUrl);
+        const galleryElement = generateGalleryElement(img, elementId);
+    
+        generateGalleryElementMoveButtonVisibilityEvent(galleryElement);
+        galleryElement.classList.add(getDynamicClass("MODAL_GALLERY_ELEMENT"));
+        rootNode.appendChild(galleryElement);
+    }
+
+    process();
 }
 
 function drawModalGalleryContent(worksCollection) {
@@ -201,7 +208,6 @@ function drawModalGalleryContent(worksCollection) {
 
     function process() {
         const rootNode = document.querySelector(getSelector("MODAL_GALLERY"));
-        let firstIteration = true;
         rootNode.innerHTML = '';
 
         if (doHandleNothingToShow(rootNode, worksCollection)) {
@@ -209,11 +215,7 @@ function drawModalGalleryContent(worksCollection) {
         }
 
         rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
-
-        worksCollection.forEach(element => {
-            doDrawModalGalleryContent(rootNode, element, firstIteration);
-            firstIteration = false;
-        });
+        worksCollection.forEach(element => doDrawModalGalleryContent(rootNode, element));
     }
 
     process();
