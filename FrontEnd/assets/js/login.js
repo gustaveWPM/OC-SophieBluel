@@ -38,8 +38,8 @@ async function processLogin(payload) {
 }
 
 /*** 📐 [§ Events Generator] */
-async function generateEvents() {
-    async function generateLoginButtonEvent() {
+function generateEvents() {
+    function generateLoginButtonEvent() {
         const loginButton = loginButtonGetter();
 
         loginButton.addEventListener("submit", (event) => {
@@ -65,14 +65,14 @@ async function tryToSkipLogin() {
 }
 
 /*** 🚀 [§ Entry point] */
-async function run() {
+function run() {
     generateEvents();
 }
 
 async function main() {
     try {
+        run();
         await tryToSkipLogin();
-        await run();
     } catch (e) {
         console.error(e);
     }
