@@ -250,21 +250,6 @@ function drawModalGalleryContent(worksCollection) {
     process();
 }
 
-async function sendNewWorkForm(payload) {
-    const response = await processCreateWork(payload);
-
-    if (response.ok) {
-        resetModalAddPictureContent();
-        drawSuccessToast(getDynamicId("ADDED_WORK_SUCCESS_TOAST"), uniq=false);
-        const triggerCacheUpdateSideEffect = null;
-        await updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
-    } else {
-        response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
-        drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false) :
-        drawErrorToast(getDynamicId("FAILED_TO_ADD_WORK_TOAST"), uniq=false);
-    }
-}
-
 /* 🔄 [§ Modal -> Updates] */
 function hideModalGoBackButton() {
     const goBackBtnElement = modalGoBackBtnElementGetter();
@@ -505,20 +490,39 @@ function appendModalVisibilityEvents() {
     }
 
     function generateSubmitButtonEvent() {
-        const submitButton = document.querySelector(getSelector("SEND_IMG_FORM"));
+        async function sendNewWorkForm(payload) {
+            const response = await processCreateWork(payload);
+        
+            if (response.ok) {
+                resetModalAddPictureContent();
+                drawSuccessToast(getDynamicId("ADDED_WORK_SUCCESS_TOAST"), uniq=false);
+                const triggerCacheUpdateSideEffect = null;
+                await updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
+            } else {
+                response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
+                drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false) :
+                drawErrorToast(getDynamicId("FAILED_TO_ADD_WORK_TOAST"), uniq=false);
+            }
+        }
+
+        function process() {
+            const submitButton = document.querySelector(getSelector("SEND_IMG_FORM"));
     
-        submitButton.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const workCategory = event.target.querySelector(".select").value;
-            const workCategoryIdValueIndex = getMiscConf("SELECT_CATEGORY_ID_PREFIX").length; 
+            submitButton.addEventListener("submit", (event) => {
+                event.preventDefault();
+                const workCategory = event.target.querySelector(".select").value;
+                const workCategoryIdValueIndex = getMiscConf("SELECT_CATEGORY_ID_PREFIX").length; 
+    
+                const image = event.target.querySelector("[name=add-file-input]").files[0];
+                const title = event.target.querySelector("[name=title]").value;
+                const category = workCategory.substring(workCategoryIdValueIndex);
+    
+                const payload = {image, title, category};
+                sendNewWorkForm(payload);
+            });
+        }
 
-            const image = event.target.querySelector("[name=add-file-input]").files[0];
-            const title = event.target.querySelector("[name=title]").value;
-            const category = workCategory.substring(workCategoryIdValueIndex);
-
-            const payload = {image, title, category};
-            sendNewWorkForm(payload);
-        });
+        process();
     }
 
     function generateAddFileInputChangeEvent() {
