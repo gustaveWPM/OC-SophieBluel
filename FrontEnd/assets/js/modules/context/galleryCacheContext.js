@@ -29,6 +29,19 @@ function updateCacheValue(key, value) {
     return true;
 }
 
+/* 💉 [§ Cache -> Setters functions] */
+function setCacheValue(key, value) {
+    const currentValue = __GALLERY_CACHE[key];
+
+    if (currentValue !== undefined) {
+        console.error(`Already setted a cache value with this key: ${key}`)
+        return false;
+    }
+
+    __GALLERY_CACHE[key] = value;
+    return true;
+}
+
 /* 🎣 [§ Cache -> Getters functions] */
 function getCacheValue(key) {
     const value = __GALLERY_CACHE[key];
