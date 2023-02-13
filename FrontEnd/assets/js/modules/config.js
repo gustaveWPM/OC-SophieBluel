@@ -178,6 +178,7 @@ __GLOBALS["SELECTORS"] = {
     "FILTERS_COMPONENT": '#filter-by-category-component',
     "LOGIN_FORM": '#login-form',
     "FILTERS_BUTTONS_COMPONENT": '.filter-by-category-component>.is-btn',
+    "SEND_IMG_FORM": '.send-img.form',
     "GALLERY_FIGURE": `.${getDynamicClass("GALLERY_FIGURE")}`,
     "OPEN_EDITOR": `.${getDynamicClass("OPEN_EDITOR")}`,
     "CLOSE_EDITOR": `.${getDynamicClass("CLOSE_EDITOR")}`,

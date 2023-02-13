@@ -219,6 +219,27 @@ function drawModalGalleryContent(worksCollection) {
     process();
 }
 
+function sendNewWorkForm(payload) {
+    let formData = new FormData();
+    console.log(payload);
+
+//    formData.append("", "");
+//    formData.append("", "");
+}
+
+function generateSubmitButtonEvent() {
+    const submitButton = document.querySelector(getSelector("SEND_IMG_FORM"));
+
+    submitButton.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const workTitle = event.target.querySelector("[name=title]").value;
+        const category = event.target.querySelector(".select").value;
+
+        const payload = {workTitle, category};
+        sendNewWorkForm(payload);
+    });
+}
+
 /* 🔄 [§ Modal -> Updates] */
 function hideModalGoBackButton() {
     const goBackBtnElement = document.querySelector(getSelector("MODAL_GO_BACK_EDITOR"));
@@ -257,10 +278,10 @@ function updateModal(stateId) {
 
 /* 🎰 [§ Modal -> States] */
 function modalSetState(stateId) {
-    const stateAmounts = 2;
+    const statesAmount = 2;
     const modalStatePrefix = getDynamicClass("MODAL_STATE_PREFIX");
 
-    for (let curStateId = 0; curStateId <= stateAmounts; curStateId++) {
+    for (let curStateId = 0; curStateId <= statesAmount; curStateId++) {
         let curModalStateSelector = `.${modalStatePrefix}${curStateId}`;
         let curModalState = document.querySelector(curModalStateSelector);
         if (!curModalState) {
@@ -340,7 +361,7 @@ function closeEditorModal() {
 
 /* 📐 [§ Modal -> Events Generator] */
 function appendModalVisibilityEvents() {
-    function galleryConditionalFocus(shiftkeyPressed, modalElement) {
+    function editorConditionalFocus(shiftkeyPressed, modalElement) {
         let focusElement = null;
         const selector = getSelector("MODAL_FOCUSABLES");
         if (shiftkeyPressed) {
@@ -407,7 +428,7 @@ function appendModalVisibilityEvents() {
         bannerElement.addEventListener("transitionend", () => {
             const outOfScopeElementCurrentlyFocused = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
             if (outOfScopeElementCurrentlyFocused !== null) {
-                const focusElement = galleryConditionalFocus(shiftkeyPressed = false, modalElement);
+                const focusElement = editorConditionalFocus(shiftkeyPressed = false, modalElement);
                 if (focusElement !== null) {
                     focusElement.focus();
                 }
@@ -423,7 +444,7 @@ function appendModalVisibilityEvents() {
                 modalElement.addEventListener("transitionend", () => {
                     const outOfScopeElementCurrentlyFocused = document.querySelector(getSelector("CURRENT_FOCUSED_ELEMENT"));
                     if (outOfScopeElementCurrentlyFocused !== null) {
-                        const focusElement = galleryConditionalFocus(event.shiftKey, modalElement);
+                        const focusElement = editorConditionalFocus(event.shiftKey, modalElement);
                         if (focusElement !== null) {
                             focusElement.focus();
                         }
@@ -451,6 +472,7 @@ function appendModalVisibilityEvents() {
         generateGoBackEvent();
         generateAddWorkButtonEvent();
         generateCloseModalOnClick();
+        generateSubmitButtonEvent();
     }
 
     process();

@@ -118,16 +118,16 @@
                 <!-- Dynamic Content -->
             </div>
 
-            <div class="editor-component modal-wrapper" aria-hidden="true" aria-labelledby="modal-title">
+            <div class="editor-component modal-wrapper" aria-hidden="true">
                 <div class="modal">
                     <div class="modal-head">
-                        <button class="editor-head-gui-element modal-go-back-editor"><img src="./assets/icons/button-back.svg" alt="Bouton retour"></a>
-                        <button class="editor-head-gui-element close-editor"><img src="./assets/icons/button-close.svg" alt="Bouton fermer"></a>
+                        <button class="editor-head-gui-element modal-go-back-editor"><img src="./assets/icons/button-back.svg" alt="Bouton retour"></button>
+                        <button class="editor-head-gui-element close-editor"><img src="./assets/icons/button-close.svg" alt="Bouton fermer"></button>
                     </div>
                     <div class="modal-content">
                         <div class="modal-dynamic-content modal-state-1">
                             <div class="modal-dynamic-content-main">
-                            <h1 id="modal-title">Galerie photo</h1>
+                            <h1 id="modal-title-photo-gallery" class="modal-title">Galerie photo</h1>
                             <div class="modal-gallery">
                                 <!-- Dynamic Content -->
                             </div>
@@ -142,22 +142,22 @@
                         </div>
 
                         <div class="modal-dynamic-content modal-state-2">
-                            <h1 id="modal-title">Ajout photo</h1>
-                            <div class="add-photo-box">
-                                <div class="add-photo-box-placeholder">
-                                    <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg"
-                                        alt="Bouton ajouter une image">
-                                    <button>+ Ajouter photo</button>
-                                    <p>jpg, png : 4mo max</p>
+                            <h1 id="modal-title-add-photo" class="modal-title">Ajout photo</h1>
+                            <form class="send-img form">
+                                <div class="add-photo-box">
+                                    <div class="add-photo-box-placeholder">
+                                        <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg"
+                                            alt="Bouton ajouter une image">
+                                        <button>+ Ajouter photo</button>
+                                        <p>jpg, png : 4mo max</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <form action="#" method="post" class="send-img form">
-                                <label for="name">Titre</label>
-                                <input type="text" name="name" id="name" required>
+                                <label for="title">Titre</label>
+                                <input type="text" name="title" id="title" required>
                                 <label for="category-select">Catégorie</label>
                                 <select class="select" name="categories" id="category-select">
-                                    <option value="" selected disabled hidden></option>
-                                    <option value="category-1">Objets</option>
+                                    <option value="" label=" " selected disabled hidden></option>
+                                    <option value="category-1" id="option-categeo">Objets</option>
                                     <option value="category-2">Appartements</option>
                                     <option value="category-3">Hôtels & restaurants</option>
                                 </select>
