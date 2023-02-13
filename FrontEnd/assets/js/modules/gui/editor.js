@@ -273,8 +273,8 @@ function updateModalGalleryContent() {
 
 function resetModalAddPictureContent() {
     const rootNode = editorComponentGetter();
-    const injectedPicture = rootNode.querySelector(".injected-picture");
-    const addFileBtn = rootNode.querySelector(".add-file-btn");
+    const injectedPicture = rootNode.querySelector(getSelector("SEND_IMG_FORM_INJECTED_PICTURE"));
+    const addFileBtn = rootNode.querySelector(getSelector("SEND_IMG_FORM_ADD_FILE_BTN"));
     const isActiveClass = getDynamicClass("IS_ACTIVE_STATE");
 
     injectedPicture.src = "";
@@ -510,7 +510,7 @@ function appendModalVisibilityEvents() {
     
             submitButton.addEventListener("submit", (event) => {
                 event.preventDefault();
-                const workCategory = event.target.querySelector(".select").value;
+                const workCategory = event.target.querySelector("select").value;
                 const workCategoryIdValueIndex = getMiscConf("SELECT_CATEGORY_ID_PREFIX").length; 
     
                 const image = event.target.querySelector("[name=add-file-input]").files[0];
