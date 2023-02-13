@@ -959,6 +959,13 @@ a:hover {
     z-index: 2;
 }
 
+.modal .add-photo-box:focus-within {
+    --_thickness: 2px;
+    outline: var(--_thickness) solid var(--portfolio-modals-add-photo-button-font-color);
+    outline-offset: calc(--_thickness * -1);
+    border-radius: var(--_thickness);
+}
+
 .modal .add-file-input:hover {
     cursor: pointer;
 }
