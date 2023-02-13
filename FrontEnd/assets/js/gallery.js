@@ -103,10 +103,6 @@ function filtersComponentRootNodeGetter() {
     return document.querySelector(getSelector("FILTERS_COMPONENT"));
 }
 
-function modalAddPictureSelectRootNodeGetter() {
-    return document.querySelector(getSelector("MODAL_CATEGORY_SELECT"));
-}
-
 function galleryFiguresGetter() {
     return document.querySelectorAll(getSelector("FILTERS_COMPONENT"));
 }
@@ -298,20 +294,6 @@ function drawGalleryFilters(categoriesCollection) {
     return true;
 }
 
-function appendModalAddPictureOptions(categoriesCollection) {
-    const rootNode = modalAddPictureSelectRootNodeGetter();
-
-    categoriesCollection.forEach(element => {
-        const option = document.createElement('option');
-        const optionTxt = document.createTextNode(element.name);
-        const optionId = element.id;
-
-        option.value = `${getMiscConf("SELECT_CATEGORY_ID_PREFIX")}${optionId}`;
-        option.appendChild(optionTxt);
-        rootNode.appendChild(option);
-    });
-}
-
 /*** 🔄 [§ Update] */
 /* [§ Update -> Active Filter Button] */
 function updateActiveFilterBtn(element) {
@@ -403,7 +385,6 @@ async function appendDynamicCategories() {
     }
 
     drawGalleryFilters(categoriesCollection);
-    appendModalAddPictureOptions(categoriesCollection);
     return categoriesCollection;
 }
 
