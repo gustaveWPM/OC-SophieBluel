@@ -251,34 +251,17 @@ function drawModalGalleryContent(worksCollection) {
 }
 
 async function sendNewWorkForm(payload) {
-    const worksRoute = getRoute("WORKS");
-    const token = getLocalStorageUserToken();
+    const response = await processCreateWork(payload);
 
-    const body = new FormData();
-    body.append("image", payload["image"]);
-    body.append("title", payload["title"]);
-    body.append("category", payload["category"]);
-
-    try {
-        const response = await fetch(worksRoute, {
-            method: "POST",
-            headers: {
-                "Authorization": `hackMeIfYouCan: ${token}`
-            },
-            body
-        });
-
-        if (response.ok) {
-            resetModalAddPictureContent();
-            drawSuccessToast(getDynamicId("ADDED_WORK_SUCCESS_TOAST"), uniq=false);
-            const triggerCacheUpdateSideEffect = null;
-            await updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
-        } else {
-            drawErrorToast(getDynamicId("FAILED_TO_ADD_WORK_TOAST"), uniq=false);
-        }
-    } catch (error) {
-        console.error(error);
-        drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq=false);
+    if (response.ok) {
+        resetModalAddPictureContent();
+        drawSuccessToast(getDynamicId("ADDED_WORK_SUCCESS_TOAST"), uniq=false);
+        const triggerCacheUpdateSideEffect = null;
+        await updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
+    } else {
+        response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
+        drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false) :
+        drawErrorToast(getDynamicId("FAILED_TO_ADD_WORK_TOAST"), uniq=false);
     }
 }
 

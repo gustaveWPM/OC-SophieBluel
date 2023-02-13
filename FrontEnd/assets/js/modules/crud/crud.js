@@ -42,7 +42,12 @@ async function getCategoriesFromDatabase() {
 /*** 🆕 [§ Database create functions] */
 /* [§ Create -> work] */
 async function processCreateWork(payload) {
-    const body = JSON.stringify(payload);
+    const body = new FormData();
+
+    Object.keys(payload).forEach(key => {
+        body.append(key, payload[key]);
+    });
+
     const worksRoute = getRoute("WORKS");
     const offlineReturnValue = {"status": getMiscConf("SERVICE_UNAVAILABLE_CODE")};
     const token = getLocalStorageUserToken();
@@ -51,11 +56,11 @@ async function processCreateWork(payload) {
         const response = await fetch(worksRoute, {
             method: "POST",
             headers: {
-                "Content-Type": 'application/json',
                 "Authorization": `hackMeIfYouCan: ${token}`
             },
             body
         });
+
         return response;
     } catch {
         return offlineReturnValue;
