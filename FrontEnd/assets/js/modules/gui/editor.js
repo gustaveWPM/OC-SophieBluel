@@ -79,11 +79,11 @@ function doDrawModalGalleryContent(rootNode, element) {
                 drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = false);
             } else {
                 response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
-                    drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq = false) :
+                    drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false) :
                     drawErrorToast(getDynamicId("FAILED_TO_DELETE_TOAST", uniq = false));
             }
         } catch {
-            drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq = false);
+            drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false);
         }
     }
 
@@ -233,13 +233,36 @@ function drawModalGalleryContent(worksCollection) {
     process();
 }
 
-function sendNewWorkForm(payload) {
-    let formData = new FormData();
-    console.log(payload);
+async function sendNewWorkForm(payload) {
+    const worksRoute = getRoute("WORKS");
+    const token = getLocalStorageUserToken();
 
-    // {ToDo} Faire marcher ce truc
-//    formData.append("", "");
-//    formData.append("", "");
+    const body = new FormData();
+    body.append("image", payload["image"]);
+    body.append("title", payload["title"]);
+    body.append("category", payload["category"]);
+
+    try {
+        const response = await fetch(worksRoute, {
+            method: "POST",
+            headers: {
+                "Authorization": `hackMeIfYouCan: ${token}`
+            },
+            body
+        });
+
+        if (response.ok) {
+            resetModalAddPictureContent();
+            drawSuccessToast(getDynamicId("ADDED_WORK_SUCCESS_TOAST"), uniq=false);
+            const triggerCacheUpdateSideEffect = null;
+            await updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
+        } else {
+            drawErrorToast(getDynamicId("FAILED_TO_ADD_WORK_TOAST"), uniq=false);
+        }
+    } catch (error) {
+        console.error(error);
+        drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq=false);
+    }
 }
 
 /* 🔄 [§ Modal -> Updates] */
@@ -263,21 +286,21 @@ function updateModalGalleryContent() {
     drawModalGalleryContent(worksCollection);
 }
 
+function resetModalAddPictureContent() {
+    const rootNode = document.querySelector(getSelector("EDITOR_COMPONENT"));
+    const injectedPicture = rootNode.querySelector(".injected-picture");
+    const addFileBtn = rootNode.querySelector(".add-file-btn");
+    const isActiveClass = getDynamicClass("IS_ACTIVE_STATE");
+
+    injectedPicture.src = "";
+    injectedPicture.alt = "";
+    injectedPicture.classList.remove(isActiveClass);
+    addFileBtn.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
+
+    rootNode.querySelector('.send-img.form').reset();
+}
+
 function updateModalAddPictureContent() {
-    function resetModalAddPictureContent() {
-        const rootNode = document.querySelector(getSelector("EDITOR_COMPONENT"));
-        const injectedPicture = rootNode.querySelector(".injected-picture");
-        const addFileBtn = rootNode.querySelector(".add-file-btn");
-        const isActiveClass = getDynamicClass("IS_ACTIVE_STATE");
-
-        injectedPicture.src = "";
-        injectedPicture.alt = "";
-        injectedPicture.classList.remove(isActiveClass);
-        addFileBtn.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
-
-        rootNode.querySelector('.send-img.form').reset();
-    }
-
     resetModalAddPictureContent();
     showModalGoBackButton();
 }
@@ -486,13 +509,14 @@ function appendModalVisibilityEvents() {
     
         submitButton.addEventListener("submit", (event) => {
             event.preventDefault();
-            const workFile = event.target.querySelector("[name=add-file-input]").files[0];
-            const workTitle = event.target.querySelector("[name=title]").value;
             const workCategory = event.target.querySelector(".select").value;
             const workCategoryIdValueIndex = getMiscConf("SELECT_CATEGORY_ID_PREFIX").length; 
-            const workCategoryId = workCategory.substring(workCategoryIdValueIndex);
 
-            const payload = {workFile, workTitle, workCategoryId};
+            const image = event.target.querySelector("[name=add-file-input]").files[0];
+            const title = event.target.querySelector("[name=title]").value;
+            const category = workCategory.substring(workCategoryIdValueIndex);
+
+            const payload = {image, title, category};
             sendNewWorkForm(payload);
         });
     }
@@ -563,9 +587,13 @@ function hideModals() {
 }
 
 function setupModal() {
-    setEditorCachedValues();
-    generateModalEvents();
-    hideModals();
+    try {
+        setEditorCachedValues();
+        generateModalEvents();
+        hideModals();
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 setupModal();

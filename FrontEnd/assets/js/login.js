@@ -32,8 +32,8 @@ async function processLogin(payload) {
         } else {
             drawErrorToast(getDynamicId("FAILED_TO_LOGIN_TOAST"), uniq=false);
         }
-    } catch (error) {
-        drawErrorToast(getDynamicId("CANT_CONNECT_TOAST"), uniq=false);
+    } catch {
+        drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq=false);
     }
 }
 
@@ -74,7 +74,7 @@ async function main() {
         await tryToSkipLogin();
         await run();
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 

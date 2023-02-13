@@ -132,12 +132,14 @@ let __GLOBALS = {
 
     "DYN_IDS": {
         "LOG_USER_BTN": 'log-user-btn',
+        "FAILED_TO_ADD_WORK_TOAST": 'failed-to-add-work-toast',
         "FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST": 'failed-to-open-gallery-editor-modal-toast',
         "FAILED_TO_LOAD_GALLERY_FIGURES_TOAST": 'failed-to-load-gallery-figures-toast',
         "FAILED_TO_LOGIN_TOAST": 'failed-to-login-toast',
         "FAILED_TO_DELETE_TOAST": 'failed-to-delete-toast',
-        "CANT_CONNECT_TOAST": 'cant-connect-toast',
+        "FAILED_TO_CONNECT_TOAST": 'failed-to-connect-toast',
         "LOGGED_OUT_SUCCESS_TOAST": 'logged-out-success-toast',
+        "ADDED_WORK_SUCCESS_TOAST": 'added-work-success-toast',
         "DELETED_ELEMENT_SUCCESS_TOAST": 'deleted-element-success-toast',
         "TOASTS_COMPONENT": 'toasts-component'
     },
@@ -196,13 +198,15 @@ __GLOBALS["SELECTORS"] = {
     "ERROR_BOXES": `.${getDynamicClass("ERROR_BOX")}`,
     "LOG_USER_BTN": `#${getDynamicId("LOG_USER_BTN")}`,
     "TOASTS_COMPONENT": `#${getDynamicId("TOASTS_COMPONENT")}`,
+    [`${getDynamicId("FAILED_TO_ADD_WORK_TOAST")}`]: `#${getDynamicId("FAILED_TO_ADD_WORK_TOAST")}`,
     [`${getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST")}`]: `#${getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`,
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: `#${getDynamicId("FAILED_TO_LOGIN_TOAST")}`,
     [`${getDynamicId("FAILED_TO_DELETE_TOAST")}`]: `#${getDynamicId("FAILED_TO_DELETE_TOAST")}`,
-    [`${getDynamicId("CANT_CONNECT_TOAST")}`]: `#${getDynamicId("CANT_CONNECT_TOAST")}`,
+    [`${getDynamicId("FAILED_TO_CONNECT_TOAST")}`]: `#${getDynamicId("FAILED_TO_CONNECT_TOAST")}`,
     [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: `#${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`,
-    [`${getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST")}`]: `#${getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST")}`
+    [`${getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST")}`]: `#${getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST")}`,
+    [`${getDynamicId("ADDED_WORK_SUCCESS_TOAST")}`]: `#${getDynamicId("ADDED_WORK_SUCCESS_TOAST")}`
 }
 
 /* [§ Vocab] */
@@ -215,13 +219,15 @@ __GLOBALS["VOCAB"] = {
     "UNKNOWN_ERROR": 'Erreur inconnue',
     "RETRY_TO_LOAD_GALLERY": 'Actualiser la galerie',
     "CRASH": 'La galerie n’a pas pu être affichée. Veuillez réessayer.',
+    [`${getDynamicId("FAILED_TO_ADD_WORK_TOAST")}`]: 'Échec de l’ajout. Veuillez vérifier le poids et le format du fichier.',
     [`${getDynamicId("FAILED_TO_OPEN_GALLERY_EDITOR_MODAL_TOAST")}`]: 'Échec de connexion',
     [`${getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST")}`]: 'Échec de la connexion. Merci de réessayer plus tard.',
     [`${getDynamicId("FAILED_TO_DELETE_TOAST")}`]: 'Impossible de supprimer cet élément.',
     [`${getDynamicId("FAILED_TO_LOGIN_TOAST")}`]: 'Erreur dans l’identifiant ou le mot de passe.',
-    [`${getDynamicId("CANT_CONNECT_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.',
+    [`${getDynamicId("FAILED_TO_CONNECT_TOAST")}`]: 'Impossible de se connecter pour le moment. Veuillez réessayer plus tard.',
     [`${getDynamicId("LOGGED_OUT_SUCCESS_TOAST")}`]: 'Vous avez bien été déconnecté !',
-    [`${getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST")}`]: 'Élement supprimé avec succès !'
+    [`${getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST")}`]: 'Élement supprimé avec succès !',
+    [`${getDynamicId("ADDED_WORK_SUCCESS_TOAST")}`]: 'Élément ajouté avec succès !'
 }
 
 /* [§ Localstorage keys] */

@@ -453,7 +453,7 @@ async function main() {
         await run();
         handleContactHash();
     } catch (e) {
-        console.log(e);
+        console.error(e);
     }
 }
 
