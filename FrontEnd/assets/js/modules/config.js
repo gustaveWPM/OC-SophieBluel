@@ -181,6 +181,8 @@ __GLOBALS["SELECTORS"] = {
     "MODAL_CATEGORY_SELECT": '#category-select',
     "FILTERS_BUTTONS_COMPONENT": '.filter-by-category-component>.is-btn',
     "SEND_IMG_FORM": '.send-img.form',
+    "SEND_IMG_FORM_INJECTED_PICTURE": '.injected-picture',
+    "SEND_IMG_FORM_ADD_FILE_BTN": '.add-file-btn',
     "GALLERY_FIGURE": `.${getDynamicClass("GALLERY_FIGURE")}`,
     "OPEN_EDITOR": `.${getDynamicClass("OPEN_EDITOR")}`,
     "CLOSE_EDITOR": `.${getDynamicClass("CLOSE_EDITOR")}`,

@@ -19,11 +19,28 @@ function getMemoFocusCachedValue() {
     return getCacheValue("GALLERY_EDITOR_MODAL_MEMO_FOCUS");
 }
 
+/*** 🎣 [§ DOM getters] */
+function editorElementsGetter() {
+    return document.querySelectorAll(getSelector("EDITOR_ELEMENT"));
+}
+
+function editorHiddenElementsGetter() {
+    return document.querySelectorAll(getSelector("HIDE_WHEN_EDITOR_ENABLED"));
+}
+
+function modalGoBackBtnElementGetter() {
+    return document.querySelector(getSelector("MODAL_GO_BACK_EDITOR"));
+}
+
+function editorComponentGetter() {
+    return document.querySelector(getSelector("EDITOR_COMPONENT"));
+}
+
 /*** 🖋️ [§ Editor] */
 /* 👁️ [§ Editor -> Visibility] */
 function disableEditor() {
-    const editorElements = document.querySelectorAll(getSelector("EDITOR_ELEMENT"));
-    const hiddenElements = document.querySelectorAll(getSelector("HIDE_WHEN_EDITOR_ENABLED"));
+    const editorElements = editorElementsGetter()
+    const hiddenElements = editorHiddenElementsGetter();
 
     editorElements.forEach(element => {
         element.setAttribute("aria-hidden", "true");
@@ -37,8 +54,8 @@ function disableEditor() {
 }
 
 function enableEditor() {
-    const editorElements = document.querySelectorAll(getSelector("EDITOR_ELEMENT"));
-    const hiddenElements = document.querySelectorAll(getSelector("HIDE_WHEN_EDITOR_ENABLED"));
+    const editorElements = editorElementsGetter();
+    const hiddenElements = editorHiddenElementsGetter();
 
     editorElements.forEach(element => {
         element.removeAttribute("aria-hidden");
@@ -267,12 +284,12 @@ async function sendNewWorkForm(payload) {
 
 /* 🔄 [§ Modal -> Updates] */
 function hideModalGoBackButton() {
-    const goBackBtnElement = document.querySelector(getSelector("MODAL_GO_BACK_EDITOR"));
+    const goBackBtnElement = modalGoBackBtnElementGetter();
     goBackBtnElement.classList.add(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
 }
 
 function showModalGoBackButton() {
-    const goBackBtnElement = document.querySelector(getSelector("MODAL_GO_BACK_EDITOR"));
+    const goBackBtnElement = modalGoBackBtnElementGetter();
     goBackBtnElement.classList.remove(getDynamicClass("HIDDEN_EDITOR_ELEMENT"));
 }
 
@@ -287,7 +304,7 @@ function updateModalGalleryContent() {
 }
 
 function resetModalAddPictureContent() {
-    const rootNode = document.querySelector(getSelector("EDITOR_COMPONENT"));
+    const rootNode = editorComponentGetter();
     const injectedPicture = rootNode.querySelector(".injected-picture");
     const addFileBtn = rootNode.querySelector(".add-file-btn");
     const isActiveClass = getDynamicClass("IS_ACTIVE_STATE");
@@ -297,7 +314,7 @@ function resetModalAddPictureContent() {
     injectedPicture.classList.remove(isActiveClass);
     addFileBtn.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
 
-    rootNode.querySelector('.send-img.form').reset();
+    rootNode.querySelector(getSelector("SEND_IMG_FORM")).reset();
 }
 
 function updateModalAddPictureContent() {
@@ -355,7 +372,7 @@ function openEditorModal(modalElement) {
     }
 
     function updateAttributes() {
-        const editorModalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
+        const editorModalElement = editorComponentGetter();
         editorModalElement.removeAttribute("aria-hidden");
         editorModalElement.setAttribute("aria-modal", "true");
         editorModalElement.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));    
@@ -388,7 +405,7 @@ function openEditorModal(modalElement) {
 }
 
 function closeEditorModal() {
-    const editorModalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
+    const editorModalElement = editorComponentGetter();
     const memoFocus = getMemoFocusCachedValue();
 
     editorModalElement.setAttribute("aria-hidden", "true");
@@ -421,7 +438,7 @@ function appendModalVisibilityEvents() {
             event.stopPropagation();
         }
 
-        const modalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
+        const modalElement = editorComponentGetter();
         const modalWindowElements = document.querySelectorAll(getSelector("MODAL"));
 
         modalElement.addEventListener("click", () => {
@@ -459,7 +476,7 @@ function appendModalVisibilityEvents() {
     }
 
     function generateGoBackEvent() {
-        const goBackBtnElement = document.querySelector(getSelector("MODAL_GO_BACK_EDITOR"));
+        const goBackBtnElement = modalGoBackBtnElementGetter();
         goBackBtnElement.addEventListener("click", () => {
             modalSetState(1);
         });
@@ -522,13 +539,13 @@ function appendModalVisibilityEvents() {
     }
 
     function generateAddFileInputChangeEvent() {
-        const rootNode = document.querySelector(getSelector("EDITOR_COMPONENT"));
-        const addFileInput = rootNode.querySelector(".add-file-input"); // {ToDo} Push this into the Config module
+        const rootNode = editorComponentGetter();
+        const addFileInput = rootNode.querySelector(".add-file-input");
 
         addFileInput.addEventListener("change", () => {
             const file = addFileInput.files[0];
-            const injectedPicture = rootNode.querySelector(".injected-picture");
-            const addFileBtn = rootNode.querySelector(".add-file-btn");
+            const injectedPicture = rootNode.querySelector(getSelector("SEND_IMG_FORM_INJECTED_PICTURE"));
+            const addFileBtn = rootNode.querySelector(getSelector("SEND_IMG_FORM_ADD_FILE_BTN"));
             const isActiveClass = getDynamicClass("IS_ACTIVE_STATE");
 
             injectedPicture.src = URL.createObjectURL(file);
@@ -539,7 +556,7 @@ function appendModalVisibilityEvents() {
     }
 
     function process() {
-        const modalElement = document.querySelector(getSelector("EDITOR_COMPONENT"));
+        const modalElement = editorComponentGetter();
 
         generateEditorBannerFocusRescue(modalElement);
         generateKeyboardEvents(modalElement);
