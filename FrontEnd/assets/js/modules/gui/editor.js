@@ -91,7 +91,8 @@ function doDrawModalGalleryContent(rootNode, element) {
 
             if (response.ok) {
                 const triggerCacheUpdateSideEffect = null;
-                await updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
+                const fullRefresh = 0;
+                await updateGalleryFigures(triggerCacheUpdateSideEffect, fullRefresh, noFadeIn = true);
                 updateModalGalleryContent();
                 drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = false);
             } else {
@@ -497,7 +498,8 @@ function appendModalVisibilityEvents() {
                 resetModalAddPictureContent();
                 drawSuccessToast(getDynamicId("ADDED_WORK_SUCCESS_TOAST"), uniq=false);
                 const triggerCacheUpdateSideEffect = null;
-                await updateGalleryFigures(triggerCacheUpdateSideEffect, worksCategoryId = 0, noFadeIn = true);
+                const fullRefresh = 0;
+                await updateGalleryFigures(triggerCacheUpdateSideEffect, fullRefresh, noFadeIn = true);
             } else {
                 response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
                 drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false) :
