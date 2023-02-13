@@ -926,7 +926,6 @@ a:hover {
 }
 
 .modal .add-photo-box {
-    --_padding-bottom: 20px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -935,7 +934,7 @@ a:hover {
     width: 100%;
     min-height: 170px;
     background: var(--portfolio-modals-add-photo-box-bg-color);
-    padding-bottom: var(--_padding-bottom);
+    padding-bottom: 20px;
 }
 
 .modal .add-photo-box-placeholder {
