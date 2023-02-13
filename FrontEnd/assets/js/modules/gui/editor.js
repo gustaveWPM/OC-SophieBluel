@@ -530,15 +530,22 @@ function appendModalVisibilityEvents() {
         const addFileInput = rootNode.querySelector(".add-file-input");
 
         addFileInput.addEventListener("change", () => {
-            const file = addFileInput.files[0];
+            const file = addFileInput.files[0] ?? null;
             const injectedPicture = rootNode.querySelector(getSelector("SEND_IMG_FORM_INJECTED_PICTURE"));
             const addFileBtn = rootNode.querySelector(getSelector("SEND_IMG_FORM_ADD_FILE_BTN"));
             const isActiveClass = getDynamicClass("IS_ACTIVE_STATE");
 
-            injectedPicture.src = URL.createObjectURL(file);
-            injectedPicture.alt = file.name;
-            injectedPicture.classList.add(isActiveClass);
-            addFileBtn.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
+            if (file !== null) {
+                injectedPicture.src = URL.createObjectURL(file);
+                injectedPicture.alt = file.name;
+                injectedPicture.classList.add(isActiveClass);
+                addFileBtn.classList.add(getDynamicClass("FORCE_DISPLAY_NONE"));
+            } else {
+                injectedPicture.src = "#";
+                injectedPicture.alt = "";
+                injectedPicture.classList.remove(isActiveClass);
+                addFileBtn.classList.remove(getDynamicClass("FORCE_DISPLAY_NONE"));
+            }
         });          
     }
 
