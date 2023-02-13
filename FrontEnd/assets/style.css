@@ -890,8 +890,18 @@ a:hover {
     margin: auto;
 }
 
-.send-img label {
+.send-img label:not(.add-file-btn) {
     margin: 2em 0 .5em 0;
+}
+
+.send-img label.add-file-btn {
+    margin: 0;
+    padding: .7em 2.5em;
+    border: 0;
+    border-radius: 50px;
+    background-color: var(--portfolio-modals-add-photo-button-bg-color);
+    color: var(--portfolio-modals-add-photo-button-font-color);    
+    font-weight: var(--portfolio-fw-semibold);
 }
 
 .send-img.form input, .send-img.form select {
@@ -912,6 +922,8 @@ a:hover {
 }
 
 .modal .add-photo-box {
+    --_padding-bottom: 20px;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -919,7 +931,7 @@ a:hover {
     width: 100%;
     min-height: 170px;
     background: var(--portfolio-modals-add-photo-box-bg-color);
-    padding-bottom: 20px;
+    padding-bottom: var(--_padding-bottom);
 }
 
 .modal .add-photo-box-placeholder {
@@ -934,17 +946,21 @@ a:hover {
     font-size: .7em;
 }
 
-.modal .add-photo-box button {
-    padding: .7em 2.5em;
-    border: 0;
-    border-radius: 50px;
-    background-color: var(--portfolio-modals-add-photo-button-bg-color);
-    color: var(--portfolio-modals-add-photo-button-font-color);
+.modal .add-photo-box .add-file-input {
+    position: absolute;
+    width: 100%;
+    height: calc(100% + var(--_padding-bottom));
+    opacity: 0;
+}
+
+.modal .add-photo-box .add-file-input:hover {
+    cursor: pointer;
 }
 
 .modal .picture-placeholder {
     object-fit: cover;
-    margin: 2em 0;
+    margin: 0;
+    margin-top: 1.5em;
     margin-bottom: 1em;
 }
 
