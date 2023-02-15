@@ -94,7 +94,7 @@ function doDrawModalGalleryContent(rootNode, element) {
                 const showAllWorks = 0;
                 await updateGalleryFigures(triggerFullUpdateSideEffect, showAllWorks, noFadeIn = true);
                 updateModalGalleryContent();
-                drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = false);
+                drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = true);
             } else {
                 response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
                     drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false) :
