@@ -130,9 +130,9 @@ function getWorksCollectionToDispose(worksCollection, worksCategoryId) {
     }
 
     const activeBtn = activeBtnGetter();
-    const mutateCollection = activeBtn ? !activeBtn.classList.contains(getDynamicClass("FILTERS_BUTTONS_COMPONENT_BY_DEFAULT")) : false;
+    const sortByCategIdCollection = activeBtn ? !activeBtn.classList.contains(getDynamicClass("FILTERS_BUTTONS_COMPONENT_BY_DEFAULT")) : false;
 
-    if (mutateCollection) {
+    if (sortByCategIdCollection) {
         return getGalleryWorksCollectionSortedByCategory(worksCollection, worksCategoryId);
     }
 
