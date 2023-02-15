@@ -37,7 +37,9 @@ function cacheWorks(worksCollection) {
 async function fetchWorksCollection() {
     const worksCollection = await getWorksFromDatabase();
 
-    cacheWorks(worksCollection);
+    if (!failedToGetFromApi(worksCollection)) {
+        cacheWorks(worksCollection);
+    }
     return worksCollection;
 }
 
@@ -113,6 +115,12 @@ function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
         return false;
     }
 
+    const worksToSortAmount = worksCollection.length ?? worksCollection.size;
+    const nothingToSort = worksToSortAmount === 0;
+
+    if (nothingToSort) {
+        return worksCollection;
+    }
     return new Set(worksCollection.filter(({categoryId}) => categoryId === id));
 }
 
@@ -168,40 +176,25 @@ function doDrawGalleryFigures(node, element, noFadeIn = false) {
     node.appendChild(figure);
 }
 
-function drawGalleryFigures(worksCollection, noFadeIn = false) {
-    function drawRetryButton(rootNode) {
-        const retryButton = document.createElement('button');
-        const retryButtonTxt = document.createTextNode(getVocab("RETRY_TO_LOAD_GALLERY"));
-
-        retryButton.classList.add(getDynamicClass("BTN"));
-        retryButton.appendChild(retryButtonTxt);
-        rootNode.appendChild(retryButton);
-
-        retryButton.addEventListener("click", () => {
-            updateGalleryFigures();
-        });
-        rootNode.classList.add(getDynamicClass("FORCE_FLEX_COLUMN"));
-    }
-
+function drawGalleryFigures(worksCollectionToDispose, noFadeIn = false) {
     function drawNothingToShowBox(rootNode) {
         drawWarningBox(rootNode, `${getVocab("GALLERY_NO_FIGURES_HERE")}`);
         rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
     }
 
-    function doHandleNothingToShow(rootNode, worksCollection) {
-        const worksToDisplayAmount = worksCollection.length ?? worksCollection.size;
+    function doHandleNothingToShow(rootNode, worksCollectionToDispose) {
+        const worksToDisplayAmount = worksCollectionToDispose.length ?? worksCollectionToDispose.size;
 
         if (worksToDisplayAmount === 0) {
             drawNothingToShowBox(rootNode);
-            drawRetryButton(rootNode);
 
             return true;
         }
         return false;
     }
 
-    function doHandleFailedToGetFromApi(rootNode, worksCollection) {
-        if (failedToGetFromApi(worksCollection)) {
+    function doHandleFailedToGetFromApi(rootNode, worksCollectionToDispose) {
+        if (failedToGetFromApi(worksCollectionToDispose)) {
             drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")}`);
             rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
             drawRetryButton(rootNode);
@@ -219,26 +212,28 @@ function drawGalleryFigures(worksCollection, noFadeIn = false) {
     const rootNode = galleryComponentRootNodeGetter();
     rootNode.innerHTML = '';
 
-    if (doHandleFailedToGetFromApi(rootNode, worksCollection)) {
+    if (doHandleFailedToGetFromApi(rootNode, worksCollectionToDispose)) {
         return false;
     }
 
     freeRetryStateClasses(rootNode);
 
-    if (doHandleNothingToShow(rootNode, worksCollection)) {
+    if (doHandleNothingToShow(rootNode, worksCollectionToDispose)) {
         return true;
     }
 
-    worksCollection.forEach(element => doDrawGalleryFigures(rootNode, element, noFadeIn));
+    worksCollectionToDispose.forEach(element => doDrawGalleryFigures(rootNode, element, noFadeIn));
     return true;
 }
 
 /* [§ Drawers -> Gallery Filters] */
 function doDrawGalleryFilters(node, element, opts = undefined) {
     function generateButtonEvent(filterButtonElement, categoryId) {
+        const triggerFullUpdateSideEffect = null;
+
         filterButtonElement.addEventListener("click", () => {
             updateActiveFilterBtn(filterButtonElement);
-            updateGalleryFigures(null, categoryId);
+            updateGalleryFigures(triggerFullUpdateSideEffect, categoryId);
         });
     }
 
@@ -312,14 +307,17 @@ function updateActiveFilterBtn(element) {
 
 /* [§ Update -> Gallery Figures] */
 async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1, noFadeIn = false) {
+    const maybeAlreadyInitialized = worksCategoryId !== -1;
+    const triggerFullUpdateSideEffect = worksCollection === null;
     const rootNode = galleryComponentRootNodeGetter();
+
     rootNode.classList.add(getDynamicClass("FORCE_LOADING_ANIMATION"));
 
-    if (worksCollection === null) {
+    if (triggerFullUpdateSideEffect) {
         worksCollection = await fetchWorksCollection();
     }
 
-    if (failedToGetFromApi(worksCollection) && worksCategoryId !== -1) {
+    if (failedToGetFromApi(worksCollection) && maybeAlreadyInitialized) {
         if (cacheIsNotInitialized()) {
             drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), uniq = false);
             return false;

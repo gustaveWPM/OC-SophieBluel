@@ -90,9 +90,9 @@ function doDrawModalGalleryContent(rootNode, element) {
             const response = await deleteWorkById(id);
 
             if (response.ok) {
-                const triggerCacheUpdateSideEffect = null;
-                const fullRefresh = 0;
-                await updateGalleryFigures(triggerCacheUpdateSideEffect, fullRefresh, noFadeIn = true);
+                const triggerFullUpdateSideEffect = null;
+                const showAllWorks = 0;
+                await updateGalleryFigures(triggerFullUpdateSideEffect, showAllWorks, noFadeIn = true);
                 updateModalGalleryContent();
                 drawSuccessToast(getDynamicId("DELETED_ELEMENT_SUCCESS_TOAST"), uniq = false);
             } else {
@@ -497,9 +497,9 @@ function appendModalVisibilityEvents() {
             if (response.ok) {
                 resetModalAddPictureContent();
                 drawSuccessToast(getDynamicId("ADDED_WORK_SUCCESS_TOAST"), uniq=false);
-                const triggerCacheUpdateSideEffect = null;
-                const fullRefresh = 0;
-                await updateGalleryFigures(triggerCacheUpdateSideEffect, fullRefresh, noFadeIn = true);
+                const triggerFullUpdateSideEffect = null;
+                const showAllWorks = 0;
+                await updateGalleryFigures(triggerFullUpdateSideEffect, showAllWorks, noFadeIn = true);
             } else {
                 response.status === getMiscConf("SERVICE_UNAVAILABLE_CODE") ?
                 drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false) :
