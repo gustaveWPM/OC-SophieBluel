@@ -9,7 +9,8 @@
 /*** 📝 [§ Cache] */
 /* 📋 [§ Cache -> Context] */
 const __GALLERY_CACHE = {
-    "WORKS": null
+    "WORKS": null,
+    "FETCHED_CATEGORIES": false
 }
 
 function cacheIsNotInitialized() {

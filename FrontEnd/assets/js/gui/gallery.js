@@ -402,6 +402,7 @@ async function appendDynamicCategories() {
 
     drawGalleryFilters(categoriesCollection);
     appendModalAddPictureOptions(categoriesCollection);
+    updateCacheValue("FETCHED_CATEGORIES", true);
     return categoriesCollection;
 }
 
@@ -429,7 +430,7 @@ function crash(crashNode, retryContext = false) {
         rootNode.appendChild(retryButton);
 
         retryButton.addEventListener("click", () => {
-            run(retryContext = true);
+            initializeGallery(retryContext = true);
         });
     }
 
@@ -440,7 +441,7 @@ function crash(crashNode, retryContext = false) {
 }
 
 /*** 🚀 [§ Run] */
-async function run(retryContext = false) {
+async function initializeGallery(retryContext = false) {
     const dynamicCategories = await appendDynamicCategories();
     const filtersComponentNode = filtersComponentRootNodeGetter();
 
@@ -467,7 +468,7 @@ async function run(retryContext = false) {
 async function main() {
     try {
         handleContactHash();
-        await run();
+        await initializeGallery();
         handleContactHash();
     } catch (e) {
         console.error(e);

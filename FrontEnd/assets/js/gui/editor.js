@@ -486,7 +486,13 @@ function appendModalVisibilityEvents() {
     function generateAddWorkButtonEvent() {
         const addWorkButtonElement = document.querySelector(getSelector("MODAL_ADD_WORK_BUTTON"));
         addWorkButtonElement.addEventListener("click", () => {
-            modalSetState(2);
+            const categoriesLoaded = getCacheValue("FETCHED_CATEGORIES");
+            if (categoriesLoaded) {
+                modalSetState(2);
+            } else {
+                drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false);
+                initializeGallery(retryContext = true);
+            }
         });
     }
 
