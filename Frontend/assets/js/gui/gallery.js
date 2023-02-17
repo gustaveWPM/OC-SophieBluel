@@ -6,7 +6,7 @@
 #=================================================
 */
 
-/*** 📝 [§ Cache] */
+/*** 📝 Cache */
 function cacheWorks(worksCollection) {
     function dynamicRouteToStaticRoute(element) {
         const url = element.imageUrl;
@@ -54,7 +54,7 @@ async function fetchCategoriesCollection() {
     return categoriesSet;
 }
 
-/*** 🔒 [§ Login] */
+/*** 🔒 Login */
 function setLoginButtonCtx(isLoggedIn) {
     function setButtonToLogin(rootNode) {
         rootNode.innerHTML = getVocab("LOGIN");
@@ -82,7 +82,7 @@ function processLogOut() {
     deleteLocalStorageUserInfos();
 }
 
-/*** 🎣 [§ DOM getters] */
+/*** 🎣 DOM getters */
 function loginComponentRootNodeGetter() {
     return document.querySelector(getSelector("LOG_USER_BTN"));
 }
@@ -113,7 +113,7 @@ function galleryFiguresGetter() {
     return document.querySelectorAll(getSelector("FILTERS_COMPONENT"));
 }
 
-/*** 🧬 [§ DOM mutations functions] */
+/*** 🧬 DOM mutations functions */
 function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
     if (failedToGetFromApi(worksCollection)) {
         return false;
@@ -143,7 +143,7 @@ function getWorksCollectionToDispose(worksCollection, worksCategoryId) {
     return worksCollection;
 }
 
-/*** 🎨 [§ Drawers] */
+/*** 🎨 Drawers */
 /* [§ Drawers -> Gallery] */
 function doDrawGalleryFigures(node, element, noFadeIn = false) {
     function generateImg(alt, url) {
@@ -307,7 +307,7 @@ function appendModalAddPictureOptions(categoriesCollection) {
     });
 }
 
-/*** 🔄 [§ Update] */
+/*** 🔄 Update */
 /* [§ Update -> Active Filter Button] */
 function updateActiveFilterBtn(element) {
     const activeClass = getDynamicClass("IS_ACTIVE_STATE");
@@ -351,7 +351,7 @@ async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1
     return worksCollectionToDispose;
 }
 
-/*** ✨ [§ Side Effects] */
+/*** ✨ Side Effects */
 function snapToTop() {
     window.scrollTo(0, 0);
 }
@@ -383,7 +383,7 @@ function handleContactHash() {
     }
 }
 
-/*** ✏️ [§ Dynamic content generation] */
+/*** ✏️ Dynamic content generation */
 async function appendEditor() {
     const isLogged = await isLoggedIn();
 
@@ -413,7 +413,7 @@ async function appendDynamicWorks() {
     return worksCollection;
 }
 
-/*** 💥 [§ Crash] */
+/*** 💥 Crash */
 function crash(crashNode, retryContext = false) {
     function drawCrashErrorBox(rootNode) {
         const errorBoxes = document.querySelectorAll(getSelector("ERROR_BOXES"));
@@ -440,7 +440,7 @@ function crash(crashNode, retryContext = false) {
     }
 }
 
-/*** 🚀 [§ Run] */
+/*** 🚀 Run */
 async function initializeGallery(retryContext = false) {
     const dynamicCategories = await appendDynamicCategories();
     const filtersComponentNode = filtersComponentRootNodeGetter();
@@ -464,7 +464,7 @@ async function initializeGallery(retryContext = false) {
     await appendDynamicWorks();
 }
 
-/*** 🚪 [§ Entry point] */
+/*** 🚪 Entry point */
 async function main() {
     try {
         handleContactHash();

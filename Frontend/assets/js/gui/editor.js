@@ -6,7 +6,7 @@
 #=================================================
 */
 
-/*** 📝 [§ Cache] */
+/*** 📝 Cache */
 function setEditorCachedValues() {
     setCacheValue("GALLERY_EDITOR_MODAL_MEMO_FOCUS", null);
 }
@@ -19,7 +19,7 @@ function getMemoFocusCachedValue() {
     return getCacheValue("GALLERY_EDITOR_MODAL_MEMO_FOCUS");
 }
 
-/*** 🎣 [§ DOM getters] */
+/*** 🎣 DOM getters */
 function editorElementsGetter() {
     return document.querySelectorAll(getSelector("EDITOR_ELEMENT"));
 }
@@ -36,7 +36,7 @@ function editorComponentGetter() {
     return document.querySelector(getSelector("EDITOR_COMPONENT"));
 }
 
-/*** 🖋️ [§ Editor] */
+/*** 🖋️ Editor */
 /* 👁️ [§ Editor -> Visibility] */
 function disableEditor() {
     const editorElements = editorElementsGetter()
@@ -574,7 +574,7 @@ function appendModalVisibilityEvents() {
     process();
 }
 
-/*** ✨ [§ Side Effects] */
+/*** ✨ Side Effects */
 function disableScroll() {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
     const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;

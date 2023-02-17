@@ -6,14 +6,14 @@
 #=================================================
 */
 
-/*** 🎣 [§ DOM getters] */
+/*** 🎣 DOM getters */
 function loginButtonGetter() {
     const selector = getSelector("LOGIN_FORM");
 
     return document.querySelector(selector);
 }
 
-/*** 🌐 [§ Process login] */
+/*** 🌐 Process login */
 async function processLogin(payload) {
     const body = JSON.stringify(payload);
     const loginRoute = getRoute("LOGIN");
@@ -37,7 +37,7 @@ async function processLogin(payload) {
     }
 }
 
-/*** 📐 [§ Events Generator] */
+/*** 📐 Events Generator */
 function generateEvents() {
     function generateLoginButtonEvent() {
         const loginButton = loginButtonGetter();
@@ -55,7 +55,7 @@ function generateEvents() {
     generateLoginButtonEvent();
 }
 
-/*** ⏩ [§ SkipLogin] */
+/*** ⏩ SkipLogin */
 async function tryToSkipLogin() {
     const isLogged = await isLoggedIn();
 
@@ -64,7 +64,7 @@ async function tryToSkipLogin() {
     }
 }
 
-/*** 🚀 [§ Entry point] */
+/*** 🚀 Entry point */
 function run() {
     generateEvents();
 }

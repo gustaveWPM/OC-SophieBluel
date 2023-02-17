@@ -6,7 +6,7 @@
 #================================================================
 */
 
-/*** 🎣 [§ Database's read (getters) functions] */
+/*** 🎣 Database's read (getters) functions */
 /* [§ ... Read -> Abstract] */
 async function getCollectionFromDatabase(req) {
     async function request() {
@@ -39,7 +39,7 @@ async function getCategoriesFromDatabase() {
     return categoriesCollection;
 }
 
-/*** 🆕 [§ Database create functions] */
+/*** 🆕 Database create functions */
 /* [§ Create -> work] */
 async function processCreateWork(payload) {
     const body = new FormData();
@@ -74,7 +74,7 @@ async function createWork(image, title, category) {
     return await processCreateWork(payload);
 }
 
-/*** 🗑️ [§ Database delete functions] */
+/*** 🗑️ Database delete functions */
 /* [§ Delete -> work] */
 async function deleteWorkById(id) {
     const worksRoute = getRoute("WORKS");
@@ -96,6 +96,6 @@ async function deleteWorkById(id) {
     }
 }
 
-/*** 🔄 [§ Database update functions] */
+/*** 🔄 Database update functions */
 /* [§ Update -> ...] */
 // {ToDo: not the scope of the project's iteration}

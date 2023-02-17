@@ -6,7 +6,7 @@
 #=================================================
 */
 
-/*** 🌕 [§ Globals] */
+/*** 🌕 Globals */
 /* [§ Getters] */
 function getSelector(key) {
     const value = __GLOBALS.SELECTORS[key];

@@ -6,7 +6,7 @@
 #=================================================
 */
 
-/*** 📐 [§ Errors States Manager] */
+/*** 📐 Errors States Manager */
 function failedToLoadElement(itemSelector) {
     const failedToLoadItemSelector = `${itemSelector}.${getDynamicClass("FAILED_TO_FETCH")}`;
     const failedToLoadElement = document.querySelector(failedToLoadItemSelector);
