@@ -21,7 +21,7 @@ It could be unsafe because of the _LocalStorage_ handling of your browser.
 
 To run it properly, open this project folder in VSCode and run [index.html](./Frontend/index.html) in a [LiveServer instance](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
 
-<p align="center"><img src="./ReadmeAssets/RunWithLiveServer.png" alt="Run with Live Server example" />CAUTION: MAKE SURE YOUR FILETREE LOOKS LIKE ON THIS SCREENSHOT</p>
+<p align="center"><img src="./ReadmeAssets/RunWithLiveServer.png" alt="Run with Live Server example" height="548px" /><br><b>CAUTION: MAKE SURE YOUR FILETREE LOOKS LIKE ON THIS SCREENSHOT</b></p>
 
 You'll also need to disable the Live Server Hot Reload feature to avoid triggering it when the SQL Lite file is modified.
 Just edit your `liveServer.settings.ignoreFiles` VSCode setting like this:
