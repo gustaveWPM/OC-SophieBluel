@@ -10,7 +10,7 @@ Project made during an _OpenClassrooms_ bootcamp.
 
 No JS library allowed.
 
-### How to run this project
+## How to run this project
 
 This project's codebase is designed to be (as most as possible) runned as a static website.
 To launch the backend of this project, look at [this README](./Backend/ReadMe.md).
