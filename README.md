@@ -12,6 +12,8 @@ No JS library allowed.
 
 ## How to run this project
 
+### Staticly
+
 **This project's codebase is designed to be (as most as possible) runned as a static website.**  
 To launch the backend of this project, look at [this README](./Backend/ReadMe.md).
 
@@ -19,6 +21,8 @@ To launch the frontend of this project, you can simply open [index.html](./Front
 
 > ℹ️ **However, it could be unsafe because of the _LocalStorage_ handling of your browser.**  
 > (Nowadays, it works on Chromium based browsers, but not on Firefox ones.)
+
+### On local server
 
 **The safer way to run it is to open this project folder in VSCode and then open [index.html](./Frontend/index.html) in a [LiveServer instance](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).**
 
