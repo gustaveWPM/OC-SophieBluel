@@ -12,27 +12,27 @@ No JS library allowed.
 
 ## How to run this project
 
-This project's codebase is designed to be (as most as possible) runned as a static website.  
+**This project's codebase is designed to be (as most as possible) runned as a static website.**  
 To launch the backend of this project, look at [this README](./Backend/ReadMe.md).
 
 To launch the frontend of this project, you can simply open [index.html](./Frontend/index.html).  
 
-⚠️ However, it could be unsafe because of the _LocalStorage_ handling of your browser.  
+⚠️ **However, it could be unsafe because of the _LocalStorage_ handling of your browser.**  
 (Nowadays, it works on Chromium based browsers, but not on Firefox.)
 
-The safer way to run it is to open this project folder in VSCode and run [index.html](./Frontend/index.html) in a [LiveServer instance](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
+**The safer way to run it is to open this project folder in VSCode and run [index.html](./Frontend/index.html) in a [LiveServer instance](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).**
 
 <p align="center"><img src="./ReadmeAssets/RunWithLiveServer.png" alt="Run with Live Server example" width="595" height="548" /><br><b>⚠️ CAUTION: MAKE SURE YOUR FILETREE LOOKS LIKE ON THIS SCREENSHOT</b></p>
 
-ℹ️ You'll also need to disable the Live Server Hot Reload feature to avoid triggering it when the SQL Lite file is modified.
-Just edit your `liveServer.settings.ignoreFiles` VSCode setting like this:
+ℹ️ You'll also need to disable the Live Server Hot Reload feature to avoid triggering it when the SQL Lite file is modified.  
+**Just edit your `liveServer.settings.ignoreFiles` VSCode setting like this:**
 ```json
 "liveServer.settings.ignoreFiles": [
     "**"
 ]
 ```
 
-You're ready to go! 🚀
+**You're ready to go!** 🚀
 
 ---
 
