@@ -24,7 +24,7 @@ To launch the frontend of this project, you can simply open [index.html](./Front
 
 ### On a local server
 
-**The safer way to run it is to open this project folder in VSCode and then open [index.html](./Frontend/index.html) in a [LiveServer instance](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).**
+**The safer way to run it is to open this project folder in VSCode and then open [index.html](./Frontend/index.html) in a [Live Server instance](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).**
 
 <p align="center"><img src="./ReadmeAssets/RunWithLiveServer.png" alt="Run with Live Server example" width="595" height="548" /><br><b>⚠️ CAUTION: MAKE SURE YOUR FILETREE LOOKS LIKE ON THIS SCREENSHOT</b></p>
 
