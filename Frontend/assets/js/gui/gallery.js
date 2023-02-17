@@ -10,10 +10,10 @@
 function cacheWorks(worksCollection) {
     function dynamicRouteToStaticRoute(element) {
         const url = element.imageUrl;
-        const noodle = getCacheConf("IMAGES_FOLDER_NOODLE");
+        const needle = getCacheConf("IMAGES_FOLDER_NEEDLE");
         const newPrefix = getCacheConf("STATIC_IMAGES_ROUTE_PREFIX");
-        const noodleIndex = url.indexOf(noodle) + 1;
-        const urlWithoutHost = url.substring(noodleIndex);
+        const needleIndex = url.indexOf(needle) + 1;
+        const urlWithoutHost = url.substring(needleIndex);
         const newUrl = `${newPrefix}${urlWithoutHost}`;
 
         element.imageUrl = newUrl;

@@ -240,7 +240,7 @@ __GLOBALS["LOCALSTORAGE_KEYS"] = {
 
 /* [§ Cache] */
 __GLOBALS["CACHE_KEYS"] = {
-    "IMAGES_FOLDER_NOODLE": '/images',
+    "IMAGES_FOLDER_NEEDLE": '/images',
     "STATIC_IMAGES_ROUTE_PREFIX": '../Backend/'
 }
 
