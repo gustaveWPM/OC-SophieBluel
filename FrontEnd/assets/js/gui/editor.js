@@ -486,8 +486,7 @@ function appendModalVisibilityEvents() {
     function generateAddWorkButtonEvent() {
         const addWorkButtonElement = document.querySelector(getSelector("MODAL_ADD_WORK_BUTTON"));
         addWorkButtonElement.addEventListener("click", () => {
-            const categoriesLoaded = getCacheValue("FETCHED_CATEGORIES");
-            if (categoriesLoaded) {
+            if (categoriesHasBeenFetched()) {
                 modalSetState(2);
             } else {
                 drawErrorToast(getDynamicId("FAILED_TO_CONNECT_TOAST"), uniq = false);

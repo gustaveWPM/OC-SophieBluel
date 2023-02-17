@@ -17,6 +17,10 @@ function cacheIsNotInitialized() {
     return __GALLERY_CACHE.WORKS === null;
 }
 
+function categoriesHasBeenFetched() {
+    return __GALLERY_CACHE.FETCHED_CATEGORIES;
+}
+
 /* 🔄 [§ Cache -> Update functions] */
 function updateCacheValue(key, value) {
     const currentValue = __GALLERY_CACHE[key];
