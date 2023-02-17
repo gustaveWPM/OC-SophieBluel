@@ -9,11 +9,11 @@
 /*** 📝 Cache */
 function cacheWorks(worksCollection) {
     function dynamicRouteToStaticRoute(element) {
-        const url = element.imageUrl;
+        const haystack = element.imageUrl;
         const needle = getCacheConf("IMAGES_FOLDER_NEEDLE");
         const newPrefix = getCacheConf("STATIC_IMAGES_ROUTE_PREFIX");
-        const needleIndex = url.indexOf(needle) + 1;
-        const urlWithoutHost = url.substring(needleIndex);
+        const needleIndex = haystack.indexOf(needle) + 1;
+        const urlWithoutHost = haystack.substring(needleIndex);
         const newUrl = `${newPrefix}${urlWithoutHost}`;
 
         element.imageUrl = newUrl;
