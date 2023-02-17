@@ -12,11 +12,11 @@ No JS library allowed.
 
 ## How to run this project
 
-This project's codebase is designed to be (as most as possible) runned as a static website.
+This project's codebase is designed to be (as most as possible) runned as a static website.  
 To launch the backend of this project, look at [this README](./Backend/ReadMe.md).
 
-To launch the frontend of this project, you can simply open [index.html](./Frontend/index.html).
-It could be unsafe because of the _LocalStorage_ handling of your browser.
+To launch the frontend of this project, you can simply open [index.html](./Frontend/index.html).  
+It could be unsafe because of the _LocalStorage_ handling of your browser.  
 (Nowadays, it works on Chromium based browsers, but not on Firefox.)
 
 To run it properly, open this project folder in VSCode and run [index.html](./Frontend/index.html) in a [LiveServer instance](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
@@ -26,12 +26,14 @@ To run it properly, open this project folder in VSCode and run [index.html](./Fr
 You'll also need to disable the Live Server Hot Reload feature to avoid triggering it when the SQL Lite file is modified.
 Just edit your `liveServer.settings.ignoreFiles` VSCode setting like this:
 ```json
-    "liveServer.settings.ignoreFiles": [
-        "**"
-    ]
+"liveServer.settings.ignoreFiles": [
+    "**"
+]
 ```
 
-You're ready to go!
+You're ready to go! 🚀
+
+---
 
 ### Resources
 
