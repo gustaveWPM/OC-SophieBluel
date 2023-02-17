@@ -22,7 +22,7 @@ To launch the frontend of this project, you can simply open [index.html](./Front
 > ℹ️ **However, it could be unsafe because of the _LocalStorage_ handling of your browser.**  
 > (Nowadays, it works on Chromium based browsers, but not on Firefox ones.)
 
-### On local server
+### On a local server
 
 **The safer way to run it is to open this project folder in VSCode and then open [index.html](./Frontend/index.html) in a [LiveServer instance](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).**
 
