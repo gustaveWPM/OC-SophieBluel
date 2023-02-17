@@ -24,7 +24,10 @@ To launch the frontend of this project, you can simply open [index.html](./Front
 
 <p align="center"><img src="./ReadmeAssets/RunWithLiveServer.png" alt="Run with Live Server example" width="595" height="548" /><br><b>⚠️ CAUTION: MAKE SURE YOUR FILETREE LOOKS LIKE ON THIS SCREENSHOT</b></p>
 
-ℹ️ You'll also need to disable the Live Server Hot Reload feature to avoid triggering it when the SQL Lite file is modified.  
+```
+ℹ️ You should also disable the Live Server Hot Reload feature to avoid triggering it when the SQL Lite file is modified.
+```
+
 **Just edit your `liveServer.settings.ignoreFiles` VSCode setting like this:**
 ```json
 "liveServer.settings.ignoreFiles": [
