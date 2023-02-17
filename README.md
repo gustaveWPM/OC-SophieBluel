@@ -1,4 +1,4 @@
-# Portfolio Sophie Bluel
+# Portfolio de Sophie Bluel
 
 ## You have never done dynamic webpages?
 
