@@ -17,7 +17,7 @@ To launch the backend of this project, look at [this README](./Backend/ReadMe.md
 
 To launch the frontend of this project, you can simply open [index.html](./Frontend/index.html).  
 
-> ⚠️ **However, it could be unsafe because of the _LocalStorage_ handling of your browser.**  
+> ℹ️ **However, it could be unsafe because of the _LocalStorage_ handling of your browser.**  
 > (Nowadays, it works on Chromium based browsers, but not on Firefox.)
 
 **The safer way to run it is to open this project folder in VSCode and then open [index.html](./Frontend/index.html) in a [LiveServer instance](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).**
