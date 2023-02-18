@@ -1,5 +1,5 @@
 /*
-   [CSS] Portfolio de Sophie Bluel v1.1.4
+   [CSS] Portfolio de Sophie Bluel v1.2
    This codebase is designed for the lastest Gecko & Blink based browsers only.
    Free for non commercial and commercial use. Just beware of cheating if you're into OC... 😏
    Use CTRL+F `§` & CTRL+F `***` to navigate throughout this CSS file sections.
@@ -254,7 +254,7 @@ section {
     margin: var(--portfolio-page-margin) 0;
 }
 
-h1 {
+h1 a {
     display: flex;
     flex-direction: column;
     font-family: var(--portfolio-titles-font), serif;
@@ -262,9 +262,10 @@ h1 {
     font-weight: var(--portfolio-title-fw);
     color: var(--portfolio-title-color);
     line-height: 1em;
+    text-decoration: none;
 }
 
-h1>span {
+h1 a>span {
     position: relative;
     text-transform: uppercase;
     font-family: var(--portfolio-body-font), sans-serif;
@@ -431,6 +432,9 @@ a:hover {
 }
 
 .portfolio {
+    --_padding: 15px;
+    padding-top: var(--_padding);
+    margin-top: calc(var(--_padding) * -1);
     margin-bottom: calc(var(--portfolio-page-margin) * 1.3);
 }
 

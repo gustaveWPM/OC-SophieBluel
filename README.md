@@ -26,7 +26,7 @@ To launch the frontend of this project, you can simply open [index.html](./Front
 
 **The safer way to run it is to open this project folder in VSCode and then open [index.html](./Frontend/index.html) in a [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) instance.**
 
-<p align="center"><img src="./ReadmeAssets/RunWithLiveServer.png" alt="Run with Live Server example" width="595" height="548" /><br><b>⚠️ CAUTION: MAKE SURE YOUR FILETREE LOOKS LIKE ON THIS SCREENSHOT</b></p>
+<p align="center"><img src="./ReadmeAssets/RunWithLiveServer.png" alt="Run with Live Server example" /><br><b>⚠️ CAUTION: MAKE SURE YOUR FILETREE LOOKS LIKE ON THIS SCREENSHOT</b></p>
 
 > ℹ️ You should also disable the Live Server Hot Reload feature to avoid triggering it when the SQL Lite file is modified.
 
