@@ -13,36 +13,36 @@
 */
 
 async function tokenValidator() {
-    function noTokenFound(userInfos) {
-        const noTokenFound = userInfos === null;
-        return noTokenFound;
+  function noTokenFound(userInfos) {
+    const noTokenFound = userInfos === null;
+    return noTokenFound;
+  }
+
+  async function isValidUserIdAndTokenPair() {
+    const invalidStatusCode = [getMiscConf("UNAUTHORIZED_CODE"), getMiscConf("SERVICE_UNAVAILABLE_CODE")];
+    const response = await createWork('', '', '');
+
+    return !invalidStatusCode.includes(response.status);
+  }
+
+  async function isValidToken(userInfos) {
+    if (noTokenFound(userInfos)) {
+      return false;
     }
 
-    async function isValidUserIdAndTokenPair() {
-        const invalidStatusCode = [getMiscConf("UNAUTHORIZED_CODE"), getMiscConf("SERVICE_UNAVAILABLE_CODE")];
-        const response = await createWork('', '', '');
-
-        return !invalidStatusCode.includes(response.status);
+    const validPair = await isValidUserIdAndTokenPair();
+    if (!validPair) {
+      deleteLocalStorageUserInfos();
     }
+    return validPair;
+  }
 
-    async function isValidToken(userInfos) {
-        if (noTokenFound(userInfos)) {
-            return false;
-        }
-
-        const validPair = await isValidUserIdAndTokenPair();
-        if (!validPair) {
-            deleteLocalStorageUserInfos();
-        }
-        return validPair;
-    }
-
-    const userInfos = localStorageUserInfos();
-    return await isValidToken(userInfos);
+  const userInfos = localStorageUserInfos();
+  return await isValidToken(userInfos);
 }
 
 async function isLoggedIn() {
-    const isLogged = await tokenValidator();
+  const isLogged = await tokenValidator();
 
-    return isLogged;
+  return isLogged;
 }

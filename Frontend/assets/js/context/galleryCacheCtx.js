@@ -9,51 +9,51 @@
 /*** 📝 Cache */
 /* 📋 [§ Cache -> Context] */
 const __GALLERY_CACHE = {
-    "WORKS": null,
-    "FETCHED_CATEGORIES": false
+  "WORKS": null,
+  "FETCHED_CATEGORIES": false
 }
 
 function cacheIsNotInitialized() {
-    return __GALLERY_CACHE.WORKS === null;
+  return __GALLERY_CACHE.WORKS === null;
 }
 
 function categoriesHasBeenFetched() {
-    return __GALLERY_CACHE.FETCHED_CATEGORIES;
+  return __GALLERY_CACHE.FETCHED_CATEGORIES;
 }
 
 /* 🔄 [§ Cache -> Update functions] */
 function updateCacheValue(key, value) {
-    const currentValue = __GALLERY_CACHE[key];
+  const currentValue = __GALLERY_CACHE[key];
 
-    if (currentValue === undefined) {
-        console.error(`No configured cache value found with this key: ${key}`)
-        return false;
-    }
+  if (currentValue === undefined) {
+    console.error(`No configured cache value found with this key: ${key}`)
+    return false;
+  }
 
-    __GALLERY_CACHE[key] = value;
-    return true;
+  __GALLERY_CACHE[key] = value;
+  return true;
 }
 
 /* 💉 [§ Cache -> Setters functions] */
 function setCacheValue(key, value) {
-    const currentValue = __GALLERY_CACHE[key];
+  const currentValue = __GALLERY_CACHE[key];
 
-    if (currentValue !== undefined) {
-        console.error(`Already setted a cache value with this key: ${key}`)
-        return false;
-    }
+  if (currentValue !== undefined) {
+    console.error(`Already setted a cache value with this key: ${key}`)
+    return false;
+  }
 
-    __GALLERY_CACHE[key] = value;
-    return true;
+  __GALLERY_CACHE[key] = value;
+  return true;
 }
 
 /* 🎣 [§ Cache -> Getters functions] */
 function getCacheValue(key) {
-    const value = __GALLERY_CACHE[key];
+  const value = __GALLERY_CACHE[key];
 
-    if (value === undefined) {
-        console.error(`No configured cache value found with this key: ${key}`)
-    }
+  if (value === undefined) {
+    console.error(`No configured cache value found with this key: ${key}`)
+  }
 
-    return value;
+  return value;
 }

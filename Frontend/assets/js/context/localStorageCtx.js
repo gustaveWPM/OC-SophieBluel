@@ -9,35 +9,35 @@
 */
 
 function localStorageUserInfos(userInfos = null) {
-    if (userInfos === null) {
-        try {
-            const data = window.localStorage.getItem(getLocalStorageKey("USER_INFOS"));
-            return JSON.parse(data);
-        } catch {
-            return {};
-        }
+  if (userInfos === null) {
+    try {
+      const data = window.localStorage.getItem(getLocalStorageKey("USER_INFOS"));
+      return JSON.parse(data);
+    } catch {
+      return {};
     }
-    window.localStorage.setItem(getLocalStorageKey("USER_INFOS"), userInfos);
+  }
+  window.localStorage.setItem(getLocalStorageKey("USER_INFOS"), userInfos);
 }
 
 function getLocalStorageUserId() {
-    const userInfos = localStorageUserInfos();
+  const userInfos = localStorageUserInfos();
 
-    if (userInfos !== null && userInfos.userId) {
-        return userInfos.userId;
-    }
-    return -1;
+  if (userInfos !== null && userInfos.userId) {
+    return userInfos.userId;
+  }
+  return -1;
 }
 
 function getLocalStorageUserToken() {
-    const userInfos = localStorageUserInfos();
+  const userInfos = localStorageUserInfos();
 
-    if (userInfos !== null && userInfos.token) {
-        return userInfos.token;
-    }
-    return '';
+  if (userInfos !== null && userInfos.token) {
+    return userInfos.token;
+  }
+  return '';
 }
 
 function deleteLocalStorageUserInfos() {
-    window.localStorage.removeItem(getLocalStorageKey("USER_INFOS"));
+  window.localStorage.removeItem(getLocalStorageKey("USER_INFOS"));
 }

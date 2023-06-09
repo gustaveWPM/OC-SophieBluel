@@ -2,182 +2,181 @@
 <html lang="fr">
 
 <head>
-    <meta charset="UTF-8">
-    <title>Sophie Bluel - Architecte d'intérieur</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Work+Sans:wght@400;500;700;800&display=swap"
-        rel="stylesheet">
-    <meta name="description"
-        content="Sophie Bluel est l'architecte d'intérieur pour faire briller vos idées. Retrouvez ici ses meilleures conceptions : objets, appartements, hôtels et restaurants !">
-    <link rel="stylesheet" href="./assets/style.css">
+  <meta charset="UTF-8">
+  <title>Sophie Bluel - Architecte d'intérieur</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=Work+Sans:wght@400;500;700;800&display=swap"
+    rel="stylesheet">
+  <meta name="description"
+    content="Sophie Bluel est l'architecte d'intérieur pour faire briller vos idées. Retrouvez ici ses meilleures conceptions : objets, appartements, hôtels et restaurants !">
+  <link rel="stylesheet" href="./assets/style.css">
 
-    <script src="./assets/js/config.js" defer></script>
-    <script src="./assets/js/context/failedToLoadCtx.js" defer></script>
-    <script src="./assets/js/gui/errorBox.js" defer></script>
-    <script src="./assets/js/gui/toast.js" defer></script>
-    <script src="./assets/js/context/localStorageCtx.js" defer></script>
-    <script src="./assets/js/context/crud.js" defer></script>
-    <script src="./assets/js/context/userCtx.js" defer></script>
-    <script src="./assets/js/context/galleryCacheCtx.js" defer></script>
-    <script src="./assets/js/gui/editor.js" defer></script>
-    <script src="./assets/js/gui/gallery.js" defer></script>
+  <script src="./assets/js/config.js" defer></script>
+  <script src="./assets/js/context/failedToLoadCtx.js" defer></script>
+  <script src="./assets/js/gui/errorBox.js" defer></script>
+  <script src="./assets/js/gui/toast.js" defer></script>
+  <script src="./assets/js/context/localStorageCtx.js" defer></script>
+  <script src="./assets/js/context/crud.js" defer></script>
+  <script src="./assets/js/context/userCtx.js" defer></script>
+  <script src="./assets/js/context/galleryCacheCtx.js" defer></script>
+  <script src="./assets/js/gui/editor.js" defer></script>
+  <script src="./assets/js/gui/gallery.js" defer></script>
 </head>
 
 <body>
-    <header id="header">
-        <div class="editor-banner-wrapper is-editor-element hidden-editor-element" aria-hidden="true">
-            <div class="editor-banner prevent-select is-editor-element hidden-editor-element" aria-hidden="true">
-                <div class="editor-banner-component">
-                    <img class="edit-icon" src="./assets/icons/button-edit-white.svg" alt="Icône de l'éditeur">
-                    <span class="editor-banner-label">Mode édition</span>
-                    <button class="is-btn is-narrow confirm-changes-btn close-editor">publier les changements</button>
-                </div>
-            </div>
+  <header id="header">
+    <div class="editor-banner-wrapper is-editor-element hidden-editor-element" aria-hidden="true">
+      <div class="editor-banner prevent-select is-editor-element hidden-editor-element" aria-hidden="true">
+        <div class="editor-banner-component">
+          <img class="edit-icon" src="./assets/icons/button-edit-white.svg" alt="Icône de l'éditeur">
+          <span class="editor-banner-label">Mode édition</span>
+          <button class="is-btn is-narrow confirm-changes-btn close-editor">publier les changements</button>
         </div>
-        <section class="header">
-            <h1 class="prevent-select"><a href="#">Sophie Bluel <span>Architecte d'intérieur</span></a></h1>
-            <nav class="navbar-menu">
-                <ul class="navbar-menu-elements">
-                    <li><a href="#portfolio" class="navbar-item reset-text-decoration">projets</a></li>
-                    <li><a href="#contact" class="navbar-item reset-text-decoration"
-                            onclick="scrollToFooter()">contact</a></li>
-                    <li><a href="./login.html" class="navbar-item reset-text-decoration" id="log-user-btn">login</a>
-                    </li>
-                    <li><a href="https://instagram.com/" target="_blank" rel="nofollow"><img
-                                src="./assets/icons/button-instagram.svg" alt="Instagram" class="navbar-img"></a></li>
-                </ul>
-            </nav>
-        </section>
-    </header>
-    <div class="main-wrapper">
-        <main id="main" class="main">
-            <div id="introduction" class="introduction">
-                <figure class="introduction-figure">
-                    <img class="introduction-picture" src="./assets/images/sophie-bluel.png"
-                        alt="Photo de Sophie Bluel">
-                    <div class="prevent-select edit-component introduction-img-btn is-editor-element hidden-editor-element"
-                        aria-hidden="true"><a href="#" class="open-editor"><img class="edit-icon"
-                                src="./assets/icons/button-edit-black.svg"
-                                alt="Icône de l'éditeur"><span>modifier</span></a>
-                    </div>
-                </figure>
-                <article class="introduction-article">
-                    <div class="prevent-select edit-component description-edit-btn is-editor-element hidden-editor-element"
-                        aria-hidden="true"><a href="#" class="open-editor"><img class="edit-icon"
-                                src="./assets/icons/button-edit-black.svg"
-                                alt="Icône de l'éditeur"><span>modifier</span></a>
-                    </div>
-                    <div class="introduction-article-container">
-                        <h2>Designer d'espace</h2>
-                        <p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la
-                            livraison
-                            finale du chantier.</p>
-                        <p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et
-                            les
-                            couleurs dans le respect de l’esprit des lieux, et le choix adapté des matériaux. Le suivi
-                            du
-                            chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
-                        <p>En cas de besoin, une équipe pluridisciplinaire peut être constituée : architecte DPLG,
-                            décorateur(trice).</p>
-                    </div>
-                </article>
-            </div>
-            <section id="portfolio" class="portfolio">
-                <div class="portfolio-title-wrapper">
-                    <h2>Mes projets</h2>
-                    <div class="prevent-select edit-component gallery-edit-btn is-editor-element hidden-editor-element"
-                        aria-hidden="true"><a href="#" class="open-editor"><img class="edit-icon"
-                                src="./assets/icons/button-edit-black.svg"
-                                alt="Icône de l'éditeur"><span>modifier</span></a>
-                    </div>
-                </div>
-                <nav id="filter-by-category-component" class="filter-by-category-component hide-when-editor-enabled">
-                    <!-- Dynamic Content -->
-                </nav>
-                <div id="gallery-component" class="gallery">
-                    <!-- Dynamic Content -->
-                </div>
-            </section>
-            <section id="contact" class="contact form">
-                <h2>Contact</h2>
-                <p>Vous avez un projet ? Discutons-en !</p>
-                <form action="#" method="post">
-                    <label for="name">Nom</label>
-                    <input type="text" name="name" id="name" required>
-                    <label for="email">Email</label>
-                    <input type="email" name="email" id="email" required>
-                    <label for="message">Message</label>
-                    <textarea name="message" id="message" cols="30" rows="11" required></textarea>
-                    <input type="submit" value="Envoyer" class="is-btn is-narrow">
-                </form>
-            </section>
-            <div id="toasts-component" class="toasts-component">
-                <!-- Dynamic Content -->
-            </div>
-
-            <div class="editor-component modal-wrapper" aria-hidden="true">
-                <div class="modal">
-                    <div class="modal-head">
-                        <button class="editor-head-gui-element modal-go-back-editor"><img src="./assets/icons/button-back.svg" alt="Bouton retour"></button>
-                        <button class="editor-head-gui-element close-editor"><img src="./assets/icons/button-close.svg" alt="Bouton fermer"></button>
-                    </div>
-                    <div class="modal-content">
-                        <div class="modal-dynamic-content modal-state-1">
-                            <div class="modal-dynamic-content-main">
-                            <h1 id="modal-title-photo-gallery" class="modal-title">Galerie photo</h1>
-                            <div class="modal-gallery">
-                                <!-- Dynamic Content -->
-                            </div>
-                            </div>
-                            <div class="modal-bottom">
-                                <hr>
-                                <button class="is-btn is-narrow modal-add-work-button">Ajouter une photo</button>
-                                <div class="modal-gallery-delete-all-button-wrapper">
-                                    <a href="#" class="modal-gallery-delete-all-button">Supprimer la galerie</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="modal-dynamic-content modal-state-2">
-                            <h1 id="modal-title-add-photo" class="modal-title">Ajout photo</h1>
-                            <form class="send-img form">
-                                <div class="add-photo-box">
-                                    <div class="add-photo-box-placeholder">
-                                        <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg"
-                                            alt="Bouton ajouter une image">
-                                        <label for="add-file-input" class="add-file-btn">+ Ajouter photo</label>
-                                        <input name="add-file-input" id="add-file-input" class="add-file-input" type="file" accept="image/jpeg, image/png" required>
-                                        <p>jpg, png : 4mo max</p>
-                                        <img class="injected-picture" src="#" alt="">
-                                    </div>
-                                </div>
-                                <label for="title">Titre</label>
-                                <input type="text" name="title" id="title" required>
-                                <label for="category-select">Catégorie</label>
-                                <select class="select" name="categories" id="category-select" required>
-                                    <option value="" label=" " selected disabled hidden></option>
-                                    <!-- Dynamic Content -->
-                                </select>
-                                <hr>
-                                <button class="is-btn is-narrow">Valider</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <footer class="footer">
-            <nav>
-                <ul>
-                    <li><a href="#" class="reset-text-decoration">Mentions Légales</a></li> <!-- {ToDo: not the scope of the project's iteration} -->
-                </ul>
-            </nav>
-        </footer>
+      </div>
     </div>
+    <section class="header">
+      <h1 class="prevent-select"><a href="#">Sophie Bluel <span>Architecte d'intérieur</span></a></h1>
+      <nav class="navbar-menu">
+        <ul class="navbar-menu-elements">
+          <li><a href="#portfolio" class="navbar-item reset-text-decoration">projets</a></li>
+          <li><a href="#contact" class="navbar-item reset-text-decoration" onclick="scrollToFooter()">contact</a></li>
+          <li><a href="./login.html" class="navbar-item reset-text-decoration" id="log-user-btn">login</a>
+          </li>
+          <li><a href="https://instagram.com/" target="_blank" rel="nofollow"><img
+                src="./assets/icons/button-instagram.svg" alt="Instagram" class="navbar-img"></a></li>
+        </ul>
+      </nav>
+    </section>
+  </header>
+  <div class="main-wrapper">
+    <main id="main" class="main">
+      <div id="introduction" class="introduction">
+        <figure class="introduction-figure">
+          <img class="introduction-picture" src="./assets/images/sophie-bluel.png" alt="Photo de Sophie Bluel">
+          <div class="prevent-select edit-component introduction-img-btn is-editor-element hidden-editor-element"
+            aria-hidden="true"><a href="#" class="open-editor"><img class="edit-icon"
+                src="./assets/icons/button-edit-black.svg" alt="Icône de l'éditeur"><span>modifier</span></a>
+          </div>
+        </figure>
+        <article class="introduction-article">
+          <div class="prevent-select edit-component description-edit-btn is-editor-element hidden-editor-element"
+            aria-hidden="true"><a href="#" class="open-editor"><img class="edit-icon"
+                src="./assets/icons/button-edit-black.svg" alt="Icône de l'éditeur"><span>modifier</span></a>
+          </div>
+          <div class="introduction-article-container">
+            <h2>Designer d'espace</h2>
+            <p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la
+              livraison
+              finale du chantier.</p>
+            <p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et
+              les
+              couleurs dans le respect de l’esprit des lieux, et le choix adapté des matériaux. Le suivi
+              du
+              chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+            <p>En cas de besoin, une équipe pluridisciplinaire peut être constituée : architecte DPLG,
+              décorateur(trice).</p>
+          </div>
+        </article>
+      </div>
+      <section id="portfolio" class="portfolio">
+        <div class="portfolio-title-wrapper">
+          <h2>Mes projets</h2>
+          <div class="prevent-select edit-component gallery-edit-btn is-editor-element hidden-editor-element"
+            aria-hidden="true"><a href="#" class="open-editor"><img class="edit-icon"
+                src="./assets/icons/button-edit-black.svg" alt="Icône de l'éditeur"><span>modifier</span></a>
+          </div>
+        </div>
+        <nav id="filter-by-category-component" class="filter-by-category-component hide-when-editor-enabled">
+          <!-- Dynamic Content -->
+        </nav>
+        <div id="gallery-component" class="gallery">
+          <!-- Dynamic Content -->
+        </div>
+      </section>
+      <section id="contact" class="contact form">
+        <h2>Contact</h2>
+        <p>Vous avez un projet ? Discutons-en !</p>
+        <form action="#" method="post">
+          <label for="name">Nom</label>
+          <input type="text" name="name" id="name" required>
+          <label for="email">Email</label>
+          <input type="email" name="email" id="email" required>
+          <label for="message">Message</label>
+          <textarea name="message" id="message" cols="30" rows="11" required></textarea>
+          <input type="submit" value="Envoyer" class="is-btn is-narrow">
+        </form>
+      </section>
+      <div id="toasts-component" class="toasts-component">
+        <!-- Dynamic Content -->
+      </div>
+
+      <div class="editor-component modal-wrapper" aria-hidden="true">
+        <div class="modal">
+          <div class="modal-head">
+            <button class="editor-head-gui-element modal-go-back-editor"><img src="./assets/icons/button-back.svg"
+                alt="Bouton retour"></button>
+            <button class="editor-head-gui-element close-editor"><img src="./assets/icons/button-close.svg"
+                alt="Bouton fermer"></button>
+          </div>
+          <div class="modal-content">
+            <div class="modal-dynamic-content modal-state-1">
+              <div class="modal-dynamic-content-main">
+                <h1 id="modal-title-photo-gallery" class="modal-title">Galerie photo</h1>
+                <div class="modal-gallery">
+                  <!-- Dynamic Content -->
+                </div>
+              </div>
+              <div class="modal-bottom">
+                <hr>
+                <button class="is-btn is-narrow modal-add-work-button">Ajouter une photo</button>
+                <div class="modal-gallery-delete-all-button-wrapper">
+                  <a href="#" class="modal-gallery-delete-all-button">Supprimer la galerie</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-dynamic-content modal-state-2">
+              <h1 id="modal-title-add-photo" class="modal-title">Ajout photo</h1>
+              <form class="send-img form">
+                <div class="add-photo-box">
+                  <div class="add-photo-box-placeholder">
+                    <img class="picture-placeholder" src="./assets/icons/placeholder-picture.svg"
+                      alt="Bouton ajouter une image">
+                    <label for="add-file-input" class="add-file-btn">+ Ajouter photo</label>
+                    <input name="add-file-input" id="add-file-input" class="add-file-input" type="file"
+                      accept="image/jpeg, image/png" required>
+                    <p>jpg, png : 4mo max</p>
+                    <img class="injected-picture" src="#" alt="">
+                  </div>
+                </div>
+                <label for="title">Titre</label>
+                <input type="text" name="title" id="title" required>
+                <label for="category-select">Catégorie</label>
+                <select class="select" name="categories" id="category-select" required>
+                  <option value="" label=" " selected disabled hidden></option>
+                  <!-- Dynamic Content -->
+                </select>
+                <hr>
+                <button class="is-btn is-narrow">Valider</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <nav>
+        <ul>
+          <li><a href="#" class="reset-text-decoration">Mentions Légales</a></li>
+          <!-- {ToDo: not the scope of the project's iteration} -->
+        </ul>
+      </nav>
+    </footer>
+  </div>
 </body>
 
 </html>
