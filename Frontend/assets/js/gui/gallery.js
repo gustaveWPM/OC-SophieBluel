@@ -10,8 +10,8 @@
 function cacheWorks(worksCollection) {
   function dynamicRouteToStaticRoute(element) {
     const haystack = element.imageUrl;
-    const needle = getCacheConf("IMAGES_FOLDER_NEEDLE");
-    const newPrefix = getCacheConf("STATIC_IMAGES_ROUTE_PREFIX");
+    const needle = getCacheConf('IMAGES_FOLDER_NEEDLE');
+    const newPrefix = getCacheConf('STATIC_IMAGES_ROUTE_PREFIX');
     const needleIndex = haystack.indexOf(needle) + 1;
     const urlWithoutHost = haystack.substring(needleIndex);
     const newUrl = `${newPrefix}${urlWithoutHost}`;
@@ -21,7 +21,7 @@ function cacheWorks(worksCollection) {
   }
 
   function newWorksCollectionWithStaticRoutes(worksCollection) {
-    const newCollection = worksCollection.map(element => dynamicRouteToStaticRoute(element));
+    const newCollection = worksCollection.map((element) => dynamicRouteToStaticRoute(element));
     return newCollection;
   }
 
@@ -30,7 +30,7 @@ function cacheWorks(worksCollection) {
   }
 
   const worksCollectionConvertedToCacheData = newWorksCollectionWithStaticRoutes(worksCollection);
-  updateCacheValue("WORKS", worksCollectionConvertedToCacheData);
+  updateCacheValue('WORKS', worksCollectionConvertedToCacheData);
 }
 
 /* [§ Fetch Data] */
@@ -57,18 +57,18 @@ async function fetchCategoriesCollection() {
 /*** 🔒 Login */
 function setLoginButtonCtx(isLoggedIn) {
   function setButtonToLogin(rootNode) {
-    rootNode.innerHTML = getVocab("LOGIN");
+    rootNode.innerHTML = getVocab('LOGIN');
   }
 
   function setButtonToLogout(rootNode) {
-    rootNode.innerHTML = getVocab("LOGOUT");
+    rootNode.innerHTML = getVocab('LOGOUT');
 
-    rootNode.addEventListener("click", function doLogOut(event) {
+    rootNode.addEventListener('click', function doLogOut(event) {
       event.preventDefault();
       deleteLocalStorageUserInfos();
       isLoggedIn = false;
-      rootNode.removeEventListener("click", doLogOut);
-      drawSuccessToast(getDynamicId("LOGGED_OUT_SUCCESS_TOAST"));
+      rootNode.removeEventListener('click', doLogOut);
+      drawSuccessToast(getDynamicId('LOGGED_OUT_SUCCESS_TOAST'));
       appendEditor();
       setLoginButtonCtx(isLoggedIn);
     });
@@ -84,33 +84,33 @@ function processLogOut() {
 
 /*** 🎣 DOM getters */
 function loginComponentRootNodeGetter() {
-  return document.querySelector(getSelector("LOG_USER_BTN"));
+  return document.querySelector(getSelector('LOG_USER_BTN'));
 }
 
 function galleryFiltersButtonsGetter() {
-  return document.querySelectorAll(getSelector("FILTERS_BUTTONS_COMPONENT"));
+  return document.querySelectorAll(getSelector('FILTERS_BUTTONS_COMPONENT'));
 }
 
 function activeBtnGetter() {
-  const activeBtnSelector = `${getSelector("FILTERS_BUTTONS_COMPONENT")}.${getDynamicClass("IS_ACTIVE_STATE")}`;
+  const activeBtnSelector = `${getSelector('FILTERS_BUTTONS_COMPONENT')}.${getDynamicClass('IS_ACTIVE_STATE')}`;
 
   return document.querySelector(activeBtnSelector);
 }
 
 function galleryComponentRootNodeGetter() {
-  return document.querySelector(getSelector("GALLERY_COMPONENT"));
+  return document.querySelector(getSelector('GALLERY_COMPONENT'));
 }
 
 function filtersComponentRootNodeGetter() {
-  return document.querySelector(getSelector("FILTERS_COMPONENT"));
+  return document.querySelector(getSelector('FILTERS_COMPONENT'));
 }
 
 function modalAddPictureSelectRootNodeGetter() {
-  return document.querySelector(getSelector("MODAL_CATEGORY_SELECT"));
+  return document.querySelector(getSelector('MODAL_CATEGORY_SELECT'));
 }
 
 function galleryFiguresGetter() {
-  return document.querySelectorAll(getSelector("FILTERS_COMPONENT"));
+  return document.querySelectorAll(getSelector('FILTERS_COMPONENT'));
 }
 
 /*** 🧬 DOM mutations functions */
@@ -128,13 +128,13 @@ function getGalleryWorksCollectionSortedByCategory(worksCollection, id) {
   return new Set(worksCollection.filter(({ categoryId }) => categoryId === id));
 }
 
-function getWorksCollectionToDispose(worksCollection, worksCategoryId) {
+function getWorksCollectionToDraw(worksCollection, worksCategoryId) {
   if (failedToGetFromApi(worksCollection)) {
     return worksCollection;
   }
 
   const activeBtn = activeBtnGetter();
-  const triggeredFilterByCategBtn = !activeBtn.classList.contains(getDynamicClass("FILTERS_BUTTONS_COMPONENT_BY_DEFAULT"));
+  const triggeredFilterByCategBtn = !activeBtn.classList.contains(getDynamicClass('FILTERS_BUTTONS_COMPONENT_BY_DEFAULT'));
 
   if (triggeredFilterByCategBtn) {
     return getGalleryWorksCollectionSortedByCategory(worksCollection, worksCategoryId);
@@ -173,17 +173,17 @@ function doDrawGalleryFigures(node, element, noFadeIn = false) {
   const figure = generateFigure(img, title);
 
   if (noFadeIn) {
-    figure.classList.add(getDynamicClass("FORCE_NO_ANIMATION"));
+    figure.classList.add(getDynamicClass('FORCE_NO_ANIMATION'));
   }
 
-  figure.classList.add(getDynamicClass("GALLERY_FIGURE"));
+  figure.classList.add(getDynamicClass('GALLERY_FIGURE'));
   node.appendChild(figure);
 }
 
 function drawGalleryFigures(worksCollectionToDispose, noFadeIn = false) {
   function drawNothingToShowBox(rootNode) {
-    drawWarningBox(rootNode, `${getVocab("GALLERY_NO_FIGURES_HERE")}`);
-    rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
+    drawWarningBox(rootNode, `${getVocab('GALLERY_NO_FIGURES_HERE')}`);
+    rootNode.classList.add(getDynamicClass('FORCE_DISPLAY_FLEX'));
   }
 
   function doHandleNothingToShow(rootNode, worksCollectionToDispose) {
@@ -199,8 +199,8 @@ function drawGalleryFigures(worksCollectionToDispose, noFadeIn = false) {
 
   function doHandleFailedToGetFromApi(rootNode, worksCollectionToDispose) {
     if (failedToGetFromApi(worksCollectionToDispose)) {
-      drawErrorBox(rootNode, `${getVocab("GALLERY_FIGURES_UNAVAILABLE")}`);
-      rootNode.classList.add(getDynamicClass("FORCE_DISPLAY_FLEX"));
+      drawErrorBox(rootNode, `${getVocab('GALLERY_FIGURES_UNAVAILABLE')}`);
+      rootNode.classList.add(getDynamicClass('FORCE_DISPLAY_FLEX'));
       drawRetryButton(rootNode);
       return true;
     }
@@ -208,9 +208,9 @@ function drawGalleryFigures(worksCollectionToDispose, noFadeIn = false) {
   }
 
   function freeRetryStateClasses(rootNode) {
-    rootNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
-    rootNode.classList.remove(getDynamicClass("FORCE_DISPLAY_FLEX"));
-    rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
+    rootNode.classList.remove(getDynamicClass('FORCE_FLEX_COLUMN'));
+    rootNode.classList.remove(getDynamicClass('FORCE_DISPLAY_FLEX'));
+    rootNode.classList.remove(getDynamicClass('FAILED_TO_FETCH'));
   }
 
   const rootNode = galleryComponentRootNodeGetter();
@@ -226,7 +226,7 @@ function drawGalleryFigures(worksCollectionToDispose, noFadeIn = false) {
     return true;
   }
 
-  worksCollectionToDispose.forEach(element => doDrawGalleryFigures(rootNode, element, noFadeIn));
+  worksCollectionToDispose.forEach((element) => doDrawGalleryFigures(rootNode, element, noFadeIn));
   return true;
 }
 
@@ -235,7 +235,7 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
   function generateButtonEvent(filterButtonElement, categoryId) {
     const triggerFullUpdateSideEffect = null;
 
-    filterButtonElement.addEventListener("click", () => {
+    filterButtonElement.addEventListener('click', () => {
       updateActiveFilterBtn(filterButtonElement);
       updateGalleryFigures(triggerFullUpdateSideEffect, categoryId);
     });
@@ -246,8 +246,8 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
     const buttonTxt = document.createTextNode(element.name);
     const categoryId = element.id;
 
-    button.classList.add(getDynamicClass("BTN"));
-    button.classList.add(getDynamicClass("FILTER_BTN"));
+    button.classList.add(getDynamicClass('BTN'));
+    button.classList.add(getDynamicClass('FILTER_BTN'));
     generateButtonEvent(button, categoryId);
     if (opts && opts.classList) {
       button.classList.add(...opts.classList);
@@ -263,45 +263,46 @@ function doDrawGalleryFilters(node, element, opts = undefined) {
 
 function drawGalleryFilters(categoriesCollection) {
   function freeRetryStateClasses(rootNode) {
-    rootNode.classList.remove(getDynamicClass("FAILED_TO_FETCH"));
+    rootNode.classList.remove(getDynamicClass('FAILED_TO_FETCH'));
   }
 
   function drawDefaultFilterButton(rootNode) {
-    doDrawGalleryFilters(rootNode, {
-      "id": 0,
-      "name": 'Tous'
-    }, {
-      classList: [
-        getDynamicClass("FILTERS_BUTTONS_COMPONENT_BY_DEFAULT"),
-        getDynamicClass("IS_ACTIVE_STATE")
-      ]
-    });
+    doDrawGalleryFilters(
+      rootNode,
+      {
+        id: 0,
+        name: 'Tous'
+      },
+      {
+        classList: [getDynamicClass('FILTERS_BUTTONS_COMPONENT_BY_DEFAULT'), getDynamicClass('IS_ACTIVE_STATE')]
+      }
+    );
   }
 
   const rootNode = filtersComponentRootNodeGetter();
   rootNode.innerHTML = '';
 
   if (failedToGetFromApi(categoriesCollection)) {
-    rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
+    rootNode.classList.add(getDynamicClass('FAILED_TO_FETCH'));
     return false;
   }
 
   freeRetryStateClasses(rootNode);
   drawDefaultFilterButton(rootNode);
 
-  categoriesCollection.forEach(element => doDrawGalleryFilters(rootNode, element));
+  categoriesCollection.forEach((element) => doDrawGalleryFilters(rootNode, element));
   return true;
 }
 
 function appendModalAddPictureOptions(categoriesCollection) {
   const rootNode = modalAddPictureSelectRootNodeGetter();
 
-  categoriesCollection.forEach(element => {
+  categoriesCollection.forEach((element) => {
     const option = document.createElement('option');
     const optionTxt = document.createTextNode(element.name);
     const optionId = element.id;
 
-    option.value = `${getMiscConf("SELECT_CATEGORY_ID_PREFIX")}${optionId}`;
+    option.value = `${getMiscConf('SELECT_CATEGORY_ID_PREFIX')}${optionId}`;
     option.appendChild(optionTxt);
     rootNode.appendChild(option);
   });
@@ -310,7 +311,7 @@ function appendModalAddPictureOptions(categoriesCollection) {
 /*** 🔄 Update */
 /* [§ Update -> Active Filter Button] */
 function updateActiveFilterBtn(element) {
-  const activeClass = getDynamicClass("IS_ACTIVE_STATE");
+  const activeClass = getDynamicClass('IS_ACTIVE_STATE');
   const skipUpdate = element.classList.contains(activeClass);
 
   if (skipUpdate) {
@@ -318,7 +319,7 @@ function updateActiveFilterBtn(element) {
   }
 
   const buttons = galleryFiltersButtonsGetter();
-  buttons.forEach(element => element.classList.remove(activeClass));
+  buttons.forEach((element) => element.classList.remove(activeClass));
   element.classList.add(activeClass);
   return true;
 }
@@ -329,26 +330,23 @@ async function updateGalleryFigures(worksCollection = null, worksCategoryId = -1
   const triggerFullUpdateSideEffect = worksCollection === null;
   const rootNode = galleryComponentRootNodeGetter();
 
-  rootNode.classList.add(getDynamicClass("FORCE_LOADING_ANIMATION"));
+  rootNode.classList.add(getDynamicClass('FORCE_LOADING_ANIMATION'));
 
-  if (triggerFullUpdateSideEffect) {
-    worksCollection = await fetchWorksCollection();
-  }
+  if (triggerFullUpdateSideEffect) worksCollection = await fetchWorksCollection();
 
   if (failedToGetFromApi(worksCollection) && maybeAlreadyInitialized) {
     if (cacheIsNotInitialized()) {
-      drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"), uniq = false);
+      drawErrorToast(getDynamicId('FAILED_TO_LOAD_GALLERY_FIGURES_TOAST'), (uniq = false));
       return false;
-    } else {
-      worksCollection = getCacheValue("WORKS");
     }
+    worksCollection = getCacheValue('WORKS');
   }
 
-  const worksCollectionToDispose = getWorksCollectionToDispose(worksCollection, worksCategoryId);
+  const worksCollectionToDraw = getWorksCollectionToDraw(worksCollection, worksCategoryId);
 
-  rootNode.classList.remove(getDynamicClass("FORCE_LOADING_ANIMATION"));
-  drawGalleryFigures(worksCollectionToDispose, noFadeIn);
-  return worksCollectionToDispose;
+  rootNode.classList.remove(getDynamicClass('FORCE_LOADING_ANIMATION'));
+  drawGalleryFigures(worksCollectionToDraw, noFadeIn);
+  return worksCollectionToDraw;
 }
 
 /*** ✨ Side Effects */
@@ -358,7 +356,7 @@ function snapToTop() {
 
 function scrollToFooter() {
   function skipScrollToFooter() {
-    const skipScroll = failedToLoadElement(getSelector("FILTERS_COMPONENT")) || failedToLoadElement(getSelector("GALLERY_COMPONENT"));
+    const skipScroll = failedToLoadElement(getSelector('FILTERS_COMPONENT')) || failedToLoadElement(getSelector('GALLERY_COMPONENT'));
     return skipScroll;
   }
 
@@ -376,7 +374,7 @@ function scrollToFooter() {
 
 function handleContactHash() {
   const curHash = window.location.hash;
-  const expectedHash = getSideEffectConf("SCROLL_DOWN_TRIGGER_HASH");
+  const expectedHash = getSideEffectConf('SCROLL_DOWN_TRIGGER_HASH');
 
   if (curHash === expectedHash) {
     scrollToFooter();
@@ -396,13 +394,13 @@ async function appendDynamicCategories() {
 
   if (failedToGetFromApi(categoriesCollection)) {
     const rootNode = galleryComponentRootNodeGetter();
-    rootNode.classList.add(getDynamicClass("FAILED_TO_FETCH"));
+    rootNode.classList.add(getDynamicClass('FAILED_TO_FETCH'));
     return false;
   }
 
   drawGalleryFilters(categoriesCollection);
   appendModalAddPictureOptions(categoriesCollection);
-  updateCacheValue("FETCHED_CATEGORIES", true);
+  updateCacheValue('FETCHED_CATEGORIES', true);
   return categoriesCollection;
 }
 
@@ -416,21 +414,21 @@ async function appendDynamicWorks() {
 /*** 💥 Crash */
 function crash(crashNode, retryContext = false) {
   function drawCrashErrorBox(rootNode) {
-    const errorBoxes = document.querySelectorAll(getSelector("ERROR_BOXES"));
-    errorBoxes.forEach(element => element.remove());
-    drawErrorBox(rootNode, getVocab("CRASH"));
+    const errorBoxes = document.querySelectorAll(getSelector('ERROR_BOXES'));
+    errorBoxes.forEach((element) => element.remove());
+    drawErrorBox(rootNode, getVocab('CRASH'));
   }
 
   function drawCrashRetryButton(rootNode) {
     const retryButton = document.createElement('button');
-    const retryButtonTxt = document.createTextNode(getVocab("RETRY_TO_LOAD_GALLERY"));
+    const retryButtonTxt = document.createTextNode(getVocab('RETRY_TO_LOAD_GALLERY'));
 
-    retryButton.classList.add(getDynamicClass("BTN"));
+    retryButton.classList.add(getDynamicClass('BTN'));
     retryButton.appendChild(retryButtonTxt);
     rootNode.appendChild(retryButton);
 
-    retryButton.addEventListener("click", () => {
-      initializeGallery(retryContext = true);
+    retryButton.addEventListener('click', () => {
+      initializeGallery((retryContext = true));
     });
   }
 
@@ -450,15 +448,15 @@ async function initializeGallery(retryContext = false) {
   if (failedToGetFromApi(dynamicCategories)) {
     crash(filtersComponentNode, retryContext);
     if (!retryContext) {
-      filtersComponentNode.classList.add(getDynamicClass("FORCE_FLEX_COLUMN"));
+      filtersComponentNode.classList.add(getDynamicClass('FORCE_FLEX_COLUMN'));
     } else {
-      drawErrorToast(getDynamicId("FAILED_TO_LOAD_GALLERY_FIGURES_TOAST"));
+      drawErrorToast(getDynamicId('FAILED_TO_LOAD_GALLERY_FIGURES_TOAST'));
     }
     return;
   }
 
   if (retryContext) {
-    filtersComponentNode.classList.remove(getDynamicClass("FORCE_FLEX_COLUMN"));
+    filtersComponentNode.classList.remove(getDynamicClass('FORCE_FLEX_COLUMN'));
   }
 
   await appendDynamicWorks();
